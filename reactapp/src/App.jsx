@@ -7,6 +7,8 @@ import MovieDetail from "./components/moviedetail/moviedetail";
 
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
+import Footer from "./components/Footer/Footer";
+import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoser";
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function App() {
@@ -27,8 +29,10 @@ export default function App() {
 
                 <ChairGrid>
                 </ChairGrid>
+                    <TrailerPoster/>
                 </Col>
             </Row>
         </Container>
+        <Footer/>
     </>;
 }
