@@ -40,20 +40,32 @@ function ChairGrid() {
     'Chair 34',
     'Chair 35',
     'Chair 36',
-
   ];
 
   return (
     <Container>
-      <h1>Chair Grid</h1>
+      
       <Row>
-        {chairs.map((chair, index) => (
-          <Col key={index} xs={6} sm={4} md={3} lg={2}>
-            <Button variant="primary" className="chair-button">
-              {chair}
-            </Button>
-          </Col>
-        ))}
+        <Col md={4}>
+          {/* Detail column on the left */}
+          <div className="chair-details">
+            <h2>Detaljer</h2>
+            {/* Add chair details here */}
+          </div>
+        </Col>
+        <Col md={8}>
+          {/* Chair grid column on the right */}
+          <Row>
+          <h3>Välj Stolar</h3>
+            {chairs.map((chair, index) => (
+              <Col key={index} xs={6} sm={4} md={3} lg={2}>
+                <Button variant="primary" className="chair-button">
+                  {chair}
+                </Button>
+              </Col>
+            ))}
+          </Row>
+        </Col>
       </Row>
     </Container>
   );
