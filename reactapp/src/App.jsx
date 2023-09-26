@@ -3,6 +3,8 @@ import "./sass/main.scss";
 
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
+import Footer from "./components/Footer/Footer";
+import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoser";
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function App() {
@@ -11,10 +13,10 @@ export default function App() {
         <Container className="mt-5">
             <Row>
                 <Col>
-                    <h1>Hello!</h1>
-                    <p>There you are...</p>
+                    <TrailerPoster/>
                 </Col>
             </Row>
         </Container>
+        <Footer/>
     </>;
 }

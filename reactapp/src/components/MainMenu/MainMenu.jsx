@@ -1,10 +1,8 @@
 import {
     Button,
     Container,
-    Form,
     Nav,
-    Navbar,
-    NavDropdown
+    Navbar
 } from 'react-bootstrap';
 
 import logo from '@/images/filmvisarnaLogo.webp';
@@ -22,22 +20,7 @@ function MainMenu() {
                       navbarScroll
                   >
                       <Nav.Link href="/biljetter">Biljetter</Nav.Link>
-                      <NavDropdown title="Link" id="navbarScrollingDropdown">
-                          <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                          <NavDropdown.Item href="#action4">
-                              Another action
-                          </NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item href="#action5">
-                              Something else here
-                          </NavDropdown.Item>
-                      </NavDropdown>
-                      <Nav.Link href="#" disabled>
-                          Link
-                      </Nav.Link>
                   </Nav>
-                  
-                  
               </Navbar.Collapse>
               <Button variant="outline-primary"> Logga in</Button>
           </Container>
