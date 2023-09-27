@@ -22,6 +22,34 @@ export default function Filter()
             
            
         },
+        {
+            title: 'Film 3',
+            date: '2023-10-05',
+            ageRating: 'G',
+            
+           
+        },
+        {
+            title: 'Film 4',
+            date: '2023-10-05',
+            ageRating: 'PG',
+            
+           
+        },
+        {
+            title: 'Film 5',
+            date: '2023-10-05',
+            ageRating: 'NC-17',
+            
+           
+        },
+        {
+            title: 'Film 6',
+            date: '2023-10-05',
+            ageRating: 'PG-13',
+            
+           
+        },
        
     ];
 
@@ -74,9 +102,12 @@ export default function Filter()
                 <option value="NC-17">NC-17</option>
             </select>
             </Col>
-            <Col>
+
+            <Col md={1}>
             
-        <Button variant= "light" onClick={filterMovies}>Filtrera</Button>
+            <Button variant="light" size="sm" onClick={filterMovies}>
+             Filtrera
+            </Button>
 
         </Col>
         </Row>
