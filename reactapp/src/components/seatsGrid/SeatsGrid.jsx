@@ -25,14 +25,16 @@ function seatsGrid() {
           </div>
         </Col>
         <Col xs={12} md={9} >
-          <h3 style={{maxWidth:'60%'}}>Välj Stolar</h3>
+          <h3>Välj Stolar</h3>
           {/* Div för bioduk */}
           <div 
              className="film-screen"
               style={{
               marginBottom: '10%', 
-              maxWidth: '60%',
+              maxWidth: '50%', 
+              marginLeft:'25%', 
               maxHeight: '3px',
+              alignContent: 'center',
               backgroundColor: 'gray',
               textAlign: 'center',
               borderRadius: '3px', 
@@ -41,14 +43,14 @@ function seatsGrid() {
           >
             <p style={{color: 'white', fontSize: '15px' }}>Bioduk</p>
             </div>
-          <div className="chairs-container" style={{ maxWidth: '60%', }}>
+          <div className="chairs-container">
             
               {seatsPerRow.map((seats,i) => <Row key={i}><Col className="text-center">
                 {new Array(seats).fill(1).map((x,i) => <div className="d-inline-block"> <Button
               variant="light"
               size="sm"
               className="chair-button"
-              style={{ margin: '12px', height: '25px', width: '30px' }}
+              style={{ margin: '2px', aspectRatio: 30/25, width: '2vw'}}
             >
               
             </Button></div>)}
