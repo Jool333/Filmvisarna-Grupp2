@@ -8,3 +8,7 @@ npm install react-bootstrap bootstrap
 Måste även installera sass i react-mappen för att utveckla i projektet
 Kommandon:
 npm install sass -save-dev
+
+Kravspec 
+Bort med användarnamn, In med förnamn, efternamn och telefonnummer. 
+Epost om du är guest. 
