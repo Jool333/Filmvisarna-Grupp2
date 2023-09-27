@@ -1,12 +1,31 @@
-import { Container, Row, Col, } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function MovieDetail() {
+  const firstAndLastColStyle = {
+    backgroundColor: 'gray',
+    height: '300px', // Adjust the height as needed
+  };
+
+  const middleColStyle = {
+    backgroundColor: 'green',
+    height: '300px', // Adjust the height as needed
+  };
+
   return (
     <Container>
       <Row>
-        <Col xs={{ order: 1}}>First, but unordered</Col>
-        <Col xs={{ order: 2}}>Second, but last</Col>
-        <Col xs={{ order: 3}}>Third, but second</Col>
+        <Col xs={12} md={3} style={firstAndLastColStyle}>
+          {/* Edit the first Col */}
+          First, but unordered
+        </Col>
+        <Col xs={12} md={6} style={middleColStyle}>
+          {/* Edit the second Col */}
+          Second, but last
+        </Col>
+        <Col xs={12} md={3} style={firstAndLastColStyle}>
+          {/* Edit the third Col */}
+          Third, but second
+        </Col>
       </Row>
     </Container>
   );
