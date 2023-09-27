@@ -3,12 +3,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 function MovieDetail() {
   const firstAndLastColStyle = {
     backgroundColor: 'gray',
-    height: '300px', // Adjust the height as needed
+    height: '300px', 
   };
 
   const middleColStyle = {
     backgroundColor: 'green',
-    height: '300px', // Adjust the height as needed
+    height: '300px', 
   };
 
   return (

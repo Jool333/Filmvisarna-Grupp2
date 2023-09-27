@@ -2,7 +2,7 @@
 import "./sass/main.scss";
 import React, { useState } from 'react';
 import Filter from "./components/filter/filter";
-import ChairGrid from "./components/chairGrid/ChairGrid.Jsx";
+import SeatsGrid from "./components/seatsGrid/SeatsGrid.jsx";
 import MovieDetail from "./components/moviedetail/moviedetail";
 
 // Import some Bootstrap components
@@ -26,8 +26,8 @@ export default function App() {
 
                 </MovieDetail>
 
-                <ChairGrid>
-                </ChairGrid>
+                <SeatsGrid>
+                </SeatsGrid>
                 </Col>
             </Row>
         </Container>
