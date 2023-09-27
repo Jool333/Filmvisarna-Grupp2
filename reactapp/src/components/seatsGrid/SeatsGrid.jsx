@@ -31,7 +31,10 @@ function seatsGrid() {
              className="film-screen"
               style={{
               marginBottom: '10%', 
+              maxWidth: '50%', 
+              marginLeft:'25%', 
               maxHeight: '3px',
+              alignContent: 'center',
               backgroundColor: 'gray',
               textAlign: 'center',
               borderRadius: '3px', 
@@ -47,7 +50,7 @@ function seatsGrid() {
               variant="light"
               size="sm"
               className="chair-button"
-              style={{ margin: '2px', aspectRatio: 30/25, width: '2vw' }}
+              style={{ margin: '2px', aspectRatio: 30/25, width: '2vw'}}
             >
               
             </Button></div>)}
