@@ -37,6 +37,7 @@ function seatsGrid() {
               textAlign: 'center',
               borderRadius: '3px', 
             }}
+            s
           >
             <p style={{color: 'white', fontSize: '15px' }}>Bioduk</p>
             </div>
