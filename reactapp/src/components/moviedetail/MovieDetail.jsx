@@ -16,15 +16,15 @@ function MovieDetail() {
       <Row>
         <Col xs={12} md={3} style={firstAndLastColStyle}>
           {/* Edit the first Col */}
-          First, but unordered
+          Detaljer
         </Col>
         <Col xs={12} md={6} style={middleColStyle}>
           {/* Edit the second Col */}
-          Second, but last
+          Tid
         </Col>
         <Col xs={12} md={3} style={firstAndLastColStyle}>
           {/* Edit the third Col */}
-          Third, but second
+          Beskrivning
         </Col>
       </Row>
     </Container>
