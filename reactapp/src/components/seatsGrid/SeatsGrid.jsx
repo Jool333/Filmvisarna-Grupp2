@@ -37,7 +37,7 @@ function seatsGrid() {
               textAlign: 'center',
               borderRadius: '3px', 
             }}
-            s
+            
           >
             <p style={{color: 'white', fontSize: '15px' }}>Bioduk</p>
             </div>
@@ -48,7 +48,7 @@ function seatsGrid() {
               variant="light"
               size="sm"
               className="chair-button"
-              style={{ margin: '2px', height: '25px', width: '30px' }}
+              style={{ margin: '12px', height: '25px', width: '30px' }}
             >
               
             </Button></div>)}
