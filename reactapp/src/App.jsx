@@ -2,7 +2,7 @@
 import "./sass/main.scss";
 import React, { useState } from 'react';
 import Filter from "./components/filter/filter";
-import SeatsGrid from "./components/seatsGrid/SeatsGrid.jsx";
+import SeatsGrid from "./components/seatsGrid/SeatsGrid";
 import MovieDetail from "./components/moviedetail/moviedetail";
 
 // Import some Bootstrap components
