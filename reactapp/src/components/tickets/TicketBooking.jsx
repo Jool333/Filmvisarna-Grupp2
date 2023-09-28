@@ -1,56 +1,75 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 
-function TicketBooking({ selectedSeats }) {
-  const [ticketTypes, setTicketTypes] = React.useState([
-    { type: 'normal', quantity: 0, price: 140 },
-    { type: 'pensionär', quantity: 0, price: 120 },
-    { type: 'barn', quantity: 0, price: 80 },
-  ]);
-
-  const handleQuantityChange = (type, quantity) => {
-    const updatedTicketTypes = [...ticketTypes];
-    const index = updatedTicketTypes.findIndex((ticket) => ticket.type === type);
-
-    if (quantity >= 0 && quantity <= selectedSeats) {
-      updatedTicketTypes[index].quantity = quantity;
-      setTicketTypes(updatedTicketTypes);
-    }
-  };
-
+function TicketBooking({ selectedSeats, handleTicketChange, selectedTickets }) {
   const calculateTotalPrice = () => {
-    return ticketTypes.reduce((total, ticket) => {
-      return total + ticket.quantity * ticket.price;
-    }, 0);
+    const normalPrice = selectedTickets.normal * 140;
+    const pensionärPrice = selectedTickets.pensionär * 120;
+    const barnPrice = selectedTickets.barn * 80;
+
+    return normalPrice + pensionärPrice + barnPrice;
   };
 
   return (
-    <div>
-      {ticketTypes.map((ticket) => (
-        <div key={ticket.type}>
-          <h4 style={{ marginTop: '10%' }}>
-            {ticket.type.charAt(0).toUpperCase() + ticket.type.slice(1)} - {ticket.price} kr
-          </h4>
-          <Button
-            variant="light"
-            onClick={() => handleQuantityChange(ticket.type, ticket.quantity - 1)}
-            disabled={ticket.quantity === 0}
-          >
-            -
-          </Button>
-          <span style={{ margin: '0 10px' }}>{ticket.quantity}</span>
-          <Button
-            variant="light"
-            onClick={() => handleQuantityChange(ticket.type, ticket.quantity + 1)}
-            disabled={ticket.quantity === selectedSeats}
-          >
-            +
-          </Button>
-          <h2 style={{ borderBottom: '1px solid white', paddingBottom: '10px' }}></h2>
+    <Col xs={12} md={6}>
+      <div className='ticket-booking'>
+        <div>
+          <h5>Välj biljetter</h5>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Normal - 140 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+                <Button
+                  variant='light'
+                  onClick={() => handleTicketChange('normal', selectedTickets.normal - 1)}
+                  disabled={selectedTickets.normal === 0}
+                >
+                  -
+                </Button>
+                <span style={{ margin: '0 10px' }}>{selectedTickets.normal}</span>
+                <Button variant='light' onClick={() => handleTicketChange('normal', selectedTickets.normal + 1)}>+</Button>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Pensionär - 120 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+                <Button
+                  variant='light'
+                  onClick={() => handleTicketChange('pensionär', selectedTickets.pensionär - 1)}
+                  disabled={selectedTickets.pensionär === 0}
+                >
+                  -
+                </Button>
+                <span style={{ margin: '0 10px' }}>{selectedTickets.pensionär}</span>
+                <Button variant='light' onClick={() => handleTicketChange('pensionär', selectedTickets.pensionär + 1)}>+</Button>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Barn - 80 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+                <Button
+                  variant='light'
+                  onClick={() => handleTicketChange('barn', selectedTickets.barn - 1)}
+                  disabled={selectedTickets.barn === 0}
+                >
+                  -
+                </Button>
+                <span style={{ margin: '0 10px' }}>{selectedTickets.barn}</span>
+                <Button variant='light' onClick={() => handleTicketChange('barn', selectedTickets.barn + 1)}>+</Button>
+              </div>
+            </div>
+          </div>
         </div>
-      ))}
-      <h6>Totalt pris: {calculateTotalPrice()} kr</h6>
-    </div>
+        <hr />
+        <h6>Totalt pris: {calculateTotalPrice()} kr</h6>
+      </div>
+    </Col>
   );
 }
 
