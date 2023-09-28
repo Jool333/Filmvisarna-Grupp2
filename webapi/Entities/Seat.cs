@@ -11,5 +11,6 @@ namespace webapi.Entities
         public int TheaterId { get; set; }
         [ForeignKey("TheaterId")]
         public Theater Theater { get; set; }
+        public ICollection<BookingXSeat> BookingXSeats { get; set; }
     }
 }    
