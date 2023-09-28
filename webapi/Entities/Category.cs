@@ -4,5 +4,6 @@ namespace webapi.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<MovieXCategory> MovieXCategories { get; set; }
     }
 }

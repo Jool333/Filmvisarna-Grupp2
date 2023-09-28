@@ -30,6 +30,8 @@ try
     await SeedData.LoadScreeningData(context);    
     await SeedData.LoadSeatData(context);    
     await SeedData.LoadTheaterData(context);
+    await SeedData.LoadBookingXSeatData(context);
+    await SeedData.LoadMovieXCategoryData(context);
 
 
 }

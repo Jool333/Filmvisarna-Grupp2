@@ -10,5 +10,6 @@ namespace webapi.Entities
         public string AgeLimit { get; set; } //kanske enum
         public string ImgUrl { get; set; }
         public string TrailerUrl { get; set; } 
+        public ICollection<MovieXCategory> MovieXCategories { get; set; }
     }
 }

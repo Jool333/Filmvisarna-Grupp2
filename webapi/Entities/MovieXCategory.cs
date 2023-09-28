@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace webapi.Entities
 {
-    public class MoviesXCategories
+    public class MovieXCategory
     {
         public int MovieId { get; set; }
         [ForeignKey("MovieId")]
