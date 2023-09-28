@@ -1,3 +1,4 @@
+// SeatsGrid.js
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,20 +25,22 @@ function SeatsGrid() {
   ];
 
   const handleSeatsClick = (row, seat) => {
-    const isSeatSelected = selectedSeats.some((selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat);
+    const isSeatSelected = selectedSeats.some(
+      (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
+    );
 
-    if (!isSeatSelected && selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn > selectedSeats.length) {
-      setSelectedSeats([...selectedSeats, { row, seat }]);
+    if (selectedSeats.length < selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn) {
+      // Användaren har inte valt tillräckligt många platser än, så de kan fortsätta välja och byta platser
+      if (isSeatSelected) {
+        // Om stolen redan är vald, ta bort den från listan
+        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
+      } else {
+        // Om stolen inte är vald, lägg till den i listan
+        setSelectedSeats([...selectedSeats, { row, seat }]);
+      }
     } else if (isSeatSelected) {
+      // Användaren har valt tillräckligt många platser men kan fortfarande avvälja platser
       setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
-    }
-  };
-
-  const handleTicketChange = (type, quantity) => {
-    setSelectedTickets({ ...selectedTickets, [type]: quantity });
-    // Återställ platser om biljetterna minskas så att de inte överstiger det valda antalet platser
-    if (selectedSeats.length > quantity) {
-      setSelectedSeats(selectedSeats.slice(0, quantity));
     }
   };
 
@@ -48,13 +51,13 @@ function SeatsGrid() {
           <TicketBooking
             selectedSeats={selectedSeats}
             selectedTickets={selectedTickets}
-            handleTicketChange={handleTicketChange}
+            setSelectedTickets={setSelectedTickets}
+            setSelectedSeats={setSelectedSeats}
           />
-          
         </Col>
         <Col md={6} xs={12}>
           <div>
-            <h5 className='justify-content' >Välj Stolar ({selectedSeats.length} valda)</h5>
+            <h5 className='justify-content'>Välj Stolar ({selectedSeats.length} valda)</h5>
             <div
               className='film-screen'
               style={{
@@ -81,7 +84,6 @@ function SeatsGrid() {
                           size='sm'
                           className='chair-button'
                           style={{
-                          
                             backgroundColor: selectedSeats.some(
                               (seat) => seat.row === i && seat.seat === j
                             )
@@ -90,16 +92,12 @@ function SeatsGrid() {
                             color: 'white',
                             border: 'none',
                             transform: 'rotate(180deg)',
-                            padding:'0',
-                            width:'1.5rem',
-                            height:'1.5rem'
+                            padding: '0',
+                            width: '1.5rem',
+                            height: '1.5rem',
                           }}
                           onClick={() => handleSeatsClick(i, j)}
                           disabled={
-                            selectedSeats.length >=
-                              selectedTickets.normal +
-                                selectedTickets.pensionär +
-                                selectedTickets.barn ||
                             selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn === 0
                           }
                         >
