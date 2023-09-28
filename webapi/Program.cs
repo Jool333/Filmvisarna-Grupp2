@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<MoviesContext>(options =>
+builder.Services.AddDbContext<FilmvisarnaContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"));
 });
@@ -21,10 +21,17 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
-    var context = services.GetRequiredService<MoviesContext>();
+    var context = services.GetRequiredService<FilmvisarnaContext>();
     await context.Database.MigrateAsync();
     
-    await SeedData.LoadMovieData(context);
+    await SeedData.LoadMovieData(context);    
+    await SeedData.LoadUserData(context);    
+    await SeedData.LoadBookingData(context);    
+    await SeedData.LoadScreeningData(context);    
+    await SeedData.LoadSeatData(context);    
+    await SeedData.LoadTheaterData(context);
+
+
 }
 catch (Exception ex)
 {

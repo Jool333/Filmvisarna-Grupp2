@@ -10,10 +10,10 @@ namespace webapi.Controllers
     [Route("api/movies")]
     public class MoviesController : ControllerBase
     {
-        private readonly MoviesContext _context;
+        private readonly FilmvisarnaContext _context;
         private readonly string _imgBaseUrl;
 
-        public MoviesController(MoviesContext context, IConfiguration config)
+        public MoviesController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
             _imgBaseUrl = config.GetSection("apiImageUrl").Value;
