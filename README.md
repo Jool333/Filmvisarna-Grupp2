@@ -9,7 +9,12 @@ Måste även installera sass i react-mappen för att utveckla i projektet
 Kommandon:
 npm install sass -save-dev
 
-npm install --save font-awesome för olika ikoner
+
+Installera detta för icons. 
+npm install --save @fortawesome/fontawesome-svg-core
+npm install --save @fortawesome/free-solid-svg-icons
+npm install --save @fortawesome/react-fontawesome
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+G3OXz5gHOXMx4r+OGHfXe7f5R5vM5j6bqYjBxiWw2vI1ezj" crossorigin="anonymous"> finns i index.html
 
 
