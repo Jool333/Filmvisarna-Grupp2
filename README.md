@@ -21,3 +21,7 @@ npm install --save @fortawesome/react-fontawesome
 Kravspec 
 Bort med användarnamn, In med förnamn, efternamn och telefonnummer. 
 Epost om du är guest. 
+
+When you have cloned this repo go to the db folder and copy Filmvisarna.db-template and rename it Filmvisarna.db before you start backend server
+The backend will connect to Filmvisarna.db
+If you make changes to the db you want commit, stop the server and copy Filmvisarna.db as a db-template and commit. 
