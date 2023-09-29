@@ -5,6 +5,7 @@ export default function Filter() {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedAgeRating, setSelectedAgeRating] = useState('');
     const [filteredMovies, setFilteredMovies] = useState([]);
+    
 
     const moviesData = [
         {

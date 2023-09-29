@@ -92,5 +92,33 @@ namespace webapi.Data
                 await context.SaveChangesAsync();
             }
         }
+        public static async Task LoadBookingXSeatData(FilmvisarnaContext context){
+            var options = new JsonSerializerOptions{
+                PropertyNameCaseInsensitive = true
+            };
+            if (context.BookingsXSeats.Any()) return;
+            var json = System.IO.File.ReadAllText("Data/json/bookingsxseats.json");
+
+            var bookingsXseats = JsonSerializer.Deserialize<List<BookingXSeat>>(json,options);
+
+            if( bookingsXseats is not null && bookingsXseats.Count > 0 ){
+                await context.BookingsXSeats.AddRangeAsync(bookingsXseats);
+                await context.SaveChangesAsync();
+            }
+        }
+        public static async Task LoadMovieXCategoryData(FilmvisarnaContext context){
+            var options = new JsonSerializerOptions{
+                PropertyNameCaseInsensitive = true
+            };
+            if (context.MoviesXCategories.Any()) return;
+            var json = System.IO.File.ReadAllText("Data/json/moviesxcategories.json");
+
+            var moviesXcategories = JsonSerializer.Deserialize<List<MovieXCategory>>(json,options);
+
+            if( moviesXcategories is not null && moviesXcategories.Count > 0 ){
+                await context.MoviesXCategories.AddRangeAsync(moviesXcategories);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

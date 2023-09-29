@@ -1,7 +1,31 @@
+// TicketBooking.js
 import React from 'react';
 import { Col, Button } from 'react-bootstrap';
 
-function TicketBooking({ selectedSeats, handleTicketChange, selectedTickets }) {
+function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
+  const maxTotalTickets = 81; // Det maximala antalet biljetter
+
+  const getTotalTickets = () => {
+    return selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
+  };
+
+  const handleTicketChange = (type, quantity) => {
+    const totalTickets = getTotalTickets();
+
+    if (totalTickets + quantity <= maxTotalTickets) {
+      const updatedTickets = { ...selectedTickets };
+      updatedTickets[type] = quantity;
+      setSelectedTickets(updatedTickets);
+    }
+  };
+
+  const handleTicketDecrease = (type) => {
+    if (selectedTickets[type] > 0) {
+      handleTicketChange(type, selectedTickets[type] - 1);
+      setSelectedSeats([]); // Återställ stolarna när antalet biljetter minskar
+    }
+  };
+
   const calculateTotalPrice = () => {
     const normalPrice = selectedTickets.normal * 140;
     const pensionärPrice = selectedTickets.pensionär * 120;
@@ -17,11 +41,11 @@ function TicketBooking({ selectedSeats, handleTicketChange, selectedTickets }) {
           <h5>Välj biljetter</h5>
           <div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Normal - 140 kr</h4>
-              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+              <h4 style={{ fontSize: '10px', flex: '1' }}>Normal - 140 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button
                   variant='light'
-                  onClick={() => handleTicketChange('normal', selectedTickets.normal - 1)}
+                  onClick={() => handleTicketDecrease('normal')}
                   disabled={selectedTickets.normal === 0}
                 >
                   -
@@ -34,11 +58,11 @@ function TicketBooking({ selectedSeats, handleTicketChange, selectedTickets }) {
           <hr />
           <div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Pensionär - 120 kr</h4>
-              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+              <h4 style={{ fontSize: '10px', flex: '1' }}>Pensionär - 120 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button
                   variant='light'
-                  onClick={() => handleTicketChange('pensionär', selectedTickets.pensionär - 1)}
+                  onClick={() => handleTicketDecrease('pensionär')}
                   disabled={selectedTickets.pensionär === 0}
                 >
                   -
@@ -51,11 +75,11 @@ function TicketBooking({ selectedSeats, handleTicketChange, selectedTickets }) {
           <hr />
           <div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h4 style={{ margin: '0', fontSize: '11px', flex: '1' }}>Barn - 80 kr</h4>
-              <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
+              <h4 style={{ fontSize: '10px', flex: '1' }}>Barn - 80 kr</h4>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button
                   variant='light'
-                  onClick={() => handleTicketChange('barn', selectedTickets.barn - 1)}
+                  onClick={() => handleTicketDecrease('barn')}
                   disabled={selectedTickets.barn === 0}
                 >
                   -
