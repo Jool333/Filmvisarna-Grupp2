@@ -80,15 +80,17 @@ function SeatsGrid() {
                     {new Array(seats).fill(1).map((x, j) => (
                       <div className='d-inline-block' key={j}>
                         <Button
-                          variant='light'
+                          variant='black'
                           size='sm'
-                          className='chair-button'
-                          style={{
-                            backgroundColor: selectedSeats.some(
+                          className={`chair-button ${
+                            selectedSeats.some(
                               (seat) => seat.row === i && seat.seat === j
                             )
-                              ? 'green'
-                              : 'black',
+                              ? 'text-success'
+                              : ''
+                          }`}
+                             
+                          style={{
                             color: 'white',
                             border: 'none',
                             transform: 'rotate(180deg)',
@@ -101,7 +103,7 @@ function SeatsGrid() {
                             selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn === 0
                           }
                         >
-                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.1rem' }} />
+                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.25rem' }} />
                         </Button>
                       </div>
                     ))}
