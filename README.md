@@ -18,8 +18,10 @@ npm install --save @fortawesome/react-fontawesome
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+G3OXz5gHOXMx4r+OGHfXe7f5R5vM5j6bqYjBxiWw2vI1ezj" crossorigin="anonymous"> finns i index.html
 
 
+Kravspec 
+Bort med användarnamn, In med förnamn, efternamn och telefonnummer. 
+Epost om du är guest. 
 
-When you have comed this repo to the db folder and copy db-template.sqlite3 and rename it -dbrunning.sqlite before you start the backend server
-
-The backend will connect to db-runing.sqlite
-
+When you have cloned this repo go to the db folder and copy Filmvisarna.db-template and rename it Filmvisarna.db before you start backend server
+The backend will connect to Filmvisarna.db
+If you make changes to the db you want commit, stop the server and copy Filmvisarna.db as a db-template and commit. 
