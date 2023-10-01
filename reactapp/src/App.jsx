@@ -5,6 +5,10 @@ import Filter from "./components/filter/filter";
 import SeatsGrid from "./components/seatsGrid/SeatsGrid";
 import MovieDetail from "./components/moviedetail/moviedetail";
 
+
+
+import BookningViewPage from "./components/pages/BookingViewPage";
+
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
 import Footer from "./components/Footer/Footer";
@@ -14,23 +18,41 @@ export default function App() {
 
 
     return <>
+
+
         <MainMenu />
         <Container className="mt-5">
             <Row>
                 <Col>
-               
-               <Filter>
+
+                    <Filter>
+
+                    </Filter>
+                    <MovieDetail>
+
+                    </MovieDetail>
+
+                    <SeatsGrid>
+                    </SeatsGrid>
+
+                    < BookningViewPage />
             
-               </Filter>
-                <MovieDetail>
-
-                </MovieDetail>
-
-                <SeatsGrid>
-                </SeatsGrid>
                 </Col>
             </Row>
+
+
         </Container>
-        <Footer/>
+
+
+
+        <Footer />
+
+
+     
+
     </>;
 }
+
+
+/* 
+*/
