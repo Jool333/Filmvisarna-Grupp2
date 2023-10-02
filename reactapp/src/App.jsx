@@ -1,38 +1,53 @@
 // Only import your sass in App (not every component)
 import "./sass/main.scss";
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import Filter from "./components/filter/filter";
+import SeatsGrid from "./components/seatsGrid/SeatsGrid";
+import MovieDetail from "./components/moviedetail/moviedetail";
+
+
+
+import BookningViewPage from "./pages/BookingViewPage";
 
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
 import Footer from "./components/Footer/Footer";
-
-const [movies, setMovies] = useState({
-    movies: []
-  });
-
-  // fetch things we want in globals (for now just products)
-  useEffect(() => {
-    (async () => {
-      setMovies({
-        ...movies,
-        movies: await get('products.json')
-      });
-    })();
-  }, []);
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function App() {
 
-    return( <>
-        <header>
-            <MainMenu/>
-        </header>
-        <main className="container mt-5">
-            <Outlet context={movies}/>
-        </main>
-        <footer>
-            <Footer/>
-        </footer>
-    </>
-    );
+
+    return <>
+
+
+        <MainMenu />
+        <Container className="mt-5">
+            <Row>
+                <Col>
+
+                    <Filter>
+
+                    </Filter>
+                    <MovieDetail>
+
+                    </MovieDetail>
+
+                    <SeatsGrid>
+                    </SeatsGrid>
+
+                    < BookningViewPage />
+            
+                </Col>
+            </Row>
+
+
+        </Container>
+
+
+
+        <Footer />
+
+
+     
+
+    </>;
 }
