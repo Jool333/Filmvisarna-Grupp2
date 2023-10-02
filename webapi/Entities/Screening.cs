@@ -5,8 +5,7 @@ namespace webapi.Entities
     public class Screening
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
-
+        public DateTime ScreeningDate { get; set; }
         public int MovieId { get; set; }
         [ForeignKey("MovieId")]
         public Movie Movie { get; set; }
