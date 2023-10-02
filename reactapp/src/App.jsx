@@ -7,7 +7,9 @@ import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoster";
 
 
 
+
 import BookningViewPage from "./components/pages/BookingViewPage";
+
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
 import Footer from "./components/Footer/Footer";
