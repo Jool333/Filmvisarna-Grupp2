@@ -3,6 +3,7 @@ import "./sass/main.scss";
 import Filter from "./components/filter/filter";
 import SeatsGrid from "./components/seatsGrid/SeatsGrid";
 import MovieDetail from "./components/moviedetail/moviedetail";
+import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoster";
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
                     <Filter>
 
                     </Filter>
+                    <TrailerPoster/>
                     <MovieDetail>
 
                     </MovieDetail>
