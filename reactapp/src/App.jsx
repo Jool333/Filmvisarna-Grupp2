@@ -2,7 +2,7 @@
 import "./sass/main.scss";
 import Filter from "./components/filter/filter";
 import SeatsGrid from "./components/seatsGrid/SeatsGrid";
-import MovieDetail from "./components/moviedetail/moviedetail";
+import MovieDetail from "./components/moviedetail/Moviedetail";
 import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoster";
 
 
