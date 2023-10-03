@@ -1,11 +1,9 @@
 // Only import your sass in App (not every component)
 import "./sass/main.scss";
+import React, { useState } from 'react';
 import Filter from "./components/filter/filter";
 import SeatsGrid from "./components/seatsGrid/SeatsGrid";
 import MovieDetail from "./components/moviedetail/Moviedetail";
-import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoster";
-
-
 
 
 import BookningViewPage from "./components/pages/BookingViewPage";
@@ -32,7 +30,6 @@ export default function App() {
                     <Filter>
 
                     </Filter>
-                    <TrailerPoster/>
                     <MovieDetail>
 
                     </MovieDetail>
@@ -57,3 +54,7 @@ export default function App() {
 
     </>;
 }
+
+
+/* 
+*/
