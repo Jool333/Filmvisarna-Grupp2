@@ -79,7 +79,7 @@
     { "id": 78, "rowNumber": 8, "seatNumber": 78, "auditoriumId": 1 },
     { "id": 79, "rowNumber": 8, "seatNumber": 79, "auditoriumId": 1 },
     { "id": 80, "rowNumber": 8, "seatNumber": 80, "auditoriumId": 1 },
-    { "id": 81, "rowNumber": 8, "seatNumber": 81, "auditoriumId": 1 }
+    { "id": 81, "rowNumber": 8, "seatNumber": 81, "auditoriumId": 1 },
     { "id": 82, "rowNumber": 1, "seatNumber": 1, "auditoriumId": 2 },
     { "id": 83, "rowNumber": 1, "seatNumber": 2, "auditoriumId": 2 },
     { "id": 84, "rowNumber": 1, "seatNumber": 3, "auditoriumId": 2 },

@@ -19,26 +19,27 @@ export default function App() {
 
 
     return <>
-
-<MainMenu />
-<Router>
-      <Routes>
-        {/* Define your routes */}
-      
-        <Route path="/" element={<MainPage />} />
-        <Route path="/LoginViewPage" element={<LoginViewPage />} />
-        <Route path="/MovieDetailPage" element={< MovieDetailPage/>} />
-        <Route path="/CreateAccountPage" element={< CreateAccountPage/>} />
-        <Route path="/ConfirmationPage" element={< ConfirmationPage/>} />
-        <Route path="/BookingViewPage" element={< BookingViewPage/>} />
-        <Route path="/GuestBookingPage" element={< GuestBookingPage/>} />
-        <Route path="/TicketViewPage" element={< TicketViewPage/>} />
-        <Route path="/LoggedInView" element={< LoggedInView/>} />
+<body>
+    <MainMenu />
+    <main>
+        <Router>
+              <Routes>
+                {/* Define your routes */}
+                <Route path="/" element={<MainPage />} />
+                <Route path="/LoginViewPage" element={<LoginViewPage />} />
+                <Route path="/MovieDetailPage" element={< MovieDetailPage/>} />
+                <Route path="/CreateAccountPage" element={< CreateAccountPage/>} />
+                <Route path="/ConfirmationPage" element={< ConfirmationPage/>} />
+                <Route path="/BookingViewPage" element={< BookingViewPage/>} />
+                <Route path="/GuestBookingPage" element={< GuestBookingPage/>} />
+                <Route path="/TicketViewPage" element={< TicketViewPage/>} />
+                <Route path="/LoggedInView" element={< LoggedInView/>} />
     
-        {/* Add more routes as needed */}
-      </Routes>
-    </Router>
-<StickyFooter/>
-
+                {/* Add more routes as needed */}
+            </Routes>
+        </Router>
+    </main>
+    <StickyFooter/>
+</body>
     </>;
 }
