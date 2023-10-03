@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
-function Footer() {
+function StickyFooter() {
     return (
             <Container >
                 <Row className='justify-content-md-between'>
@@ -37,4 +37,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default StickyFooter;
