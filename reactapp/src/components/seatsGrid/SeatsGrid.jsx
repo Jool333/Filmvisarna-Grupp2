@@ -1,10 +1,9 @@
 // SeatsGrid.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
-
 
 function SeatsGrid() {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -13,6 +12,7 @@ function SeatsGrid() {
     pensionär: 0,
     barn: 0,
   });
+  const [canContinue, setCanContinue] = useState(false);
 
   const seatsPerRow = [
     8,
@@ -25,24 +25,36 @@ function SeatsGrid() {
     12,
   ];
 
+  useEffect(() => {
+    // Kolla om användaren har valt rätt antal biljetter och platser
+    const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
+    setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
+  }, [selectedSeats, selectedTickets]);
+
   const handleSeatsClick = (row, seat) => {
     const isSeatSelected = selectedSeats.some(
       (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
     );
 
-    if (selectedSeats.length < selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn) {
-      // Användaren har inte valt tillräckligt många platser än, så de kan fortsätta välja och byta platser
+    // Kolla om användaren har valt maximalt antal biljetter
+    const maxTicketsSelected =
+      selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn ===
+      selectedSeats.length;
+
+    if (!maxTicketsSelected || isSeatSelected) {
+      // Om användaren inte har valt maximalt antal biljetter eller om stolen är redan vald,
+      // tillåt dem att fortsätta välja och byta platser
       if (isSeatSelected) {
         // Om stolen redan är vald, ta bort den från listan
         setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
       } else {
         // Om stolen inte är vald, lägg till den i listan
-        setSelectedSeats([...selectedSeats, { row, seat, }]);
+        setSelectedSeats([...selectedSeats, { row, seat }]);
       }
-    } else if (isSeatSelected) {
-      // Användaren har valt tillräckligt många platser men kan fortfarande avvälja platser
-      setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
     }
+
+    // Uppdatera state för valda biljetter och platser
+    setSelectedTickets(newSelectedTickets);
   };
 
   return (
@@ -90,7 +102,6 @@ function SeatsGrid() {
                               ? 'text-success'
                               : ''
                           }`}
-                             
                           style={{
                             color: 'white',
                             border: 'none',
@@ -100,9 +111,6 @@ function SeatsGrid() {
                             height: '1.5rem',
                           }}
                           onClick={() => handleSeatsClick(i, j)}
-                          disabled={
-                            selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn === 0
-                          }
                         >
                           <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.25rem' }} />
                         </Button>
