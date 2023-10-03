@@ -1,52 +1,44 @@
 // Only import your sass in App (not every component)
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./sass/main.scss";
-import Filter from "./components/filter/filter";
-import SeatsGrid from "./components/seatsGrid/SeatsGrid";
-import MovieDetail from "./components/moviedetail/Moviedetail";
-import TrailerPoster from "./components/DetailTrailerPoster/TrailerPoster";
-
-import BookningViewPage from "./pages/BookingViewPage";
+import React from 'react';
+import LoginViewPage from './pages/LoginViewPage';
+import StickyFooter from './components/StickyFooter/StickyFooter';
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
-import Footer from "./components/Footer/Footer";
-import { Container, Row, Col } from 'react-bootstrap';
+import MainPage from './pages/MainPage';
+import MovieDetailPage from './pages/MovieDetailPage'
+import CreateAccountPage from './pages/CreateAccountPage';
+import ConfirmationPage from './pages/ConfirmationPage';
+import GuestBookingPage from './pages/GuestBookingPage';
+import BookingViewPage from './pages/BookingViewPage';
+import TicketViewPage from './pages/TicketViewPage';
+import LoggedInView from './pages/LoggedInView';
 
 export default function App() {
 
 
     return <>
 
-
-        <MainMenu />
-        <Container className="mt-5">
-            <Row>
-                <Col>
-
-                    <Filter>
-
-                    </Filter>
-                    <TrailerPoster/>
-                    <MovieDetail>
-
-                    </MovieDetail>
-
-                    <SeatsGrid>
-                    </SeatsGrid>
-
-                    < BookningViewPage />
-            
-                </Col>
-            </Row>
-
-
-        </Container>
-
-
-
-        <Footer />
-
-
-     
+<MainMenu />
+<Router>
+      <Routes>
+        {/* Define your routes */}
+      
+        <Route path="/" element={<MainPage />} />
+        <Route path="/LoginViewPage" element={<LoginViewPage />} />
+        <Route path="/MovieDetailPage" element={< MovieDetailPage/>} />
+        <Route path="/CreateAccountPage" element={< CreateAccountPage/>} />
+        <Route path="/ConfirmationPage" element={< ConfirmationPage/>} />
+        <Route path="/BookingViewPage" element={< BookingViewPage/>} />
+        <Route path="/GuestBookingPage" element={< GuestBookingPage/>} />
+        <Route path="/TicketViewPage" element={< TicketViewPage/>} />
+        <Route path="/LoggedInView" element={< LoggedInView/>} />
+    
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
+<StickyFooter/>
 
     </>;
 }

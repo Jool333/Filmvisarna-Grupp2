@@ -1,5 +1,5 @@
 import {
-    Button,
+    
     Container,
     Nav,
     Navbar
@@ -22,7 +22,7 @@ function MainMenu() {
                       <Nav.Link href="/biljetter">Biljetter</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
-              <Button variant="outline-primary"> Logga in</Button>
+              <Nav.Link className="d-inline p-0 m-0" style={{color:'black'}} href="/CreateAccountPage">Logga in</Nav.Link>
           </Container>
       </Navbar>
   );

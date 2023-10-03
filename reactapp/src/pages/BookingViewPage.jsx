@@ -1,27 +1,15 @@
-import React from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import BookingDetail from '@/components/BookingDetail/BookingDetail'
+import React from 'react';
+import SeatsGrid from '../components/seatsGrid/SeatsGrid';
 
 
-function BookningViewPage() {
+function BookingViewPage() {
     return (
 
-        <Container className="mt-5" style={{background:'#CDB991'}}>
-            <Row>
-                <div>
-                    <h2> Aktiva Bokningar</h2>
-                </div>
-                <BookingDetail />
-            </Row>
-            <Row>
-                <div>
-                    <h2> Tidigare Bokningar</h2>
-                    <BookingDetail />
-                    <BookingDetail />                    
-                </div>
-            </Row>
-        </Container >
+     <div>
+        <SeatsGrid/>
+      </div>
+      
     );
 }
 
-export default BookningViewPage;
+export default BookingViewPage;
