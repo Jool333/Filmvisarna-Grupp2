@@ -6,13 +6,12 @@ import SeatsGrid from "./components/seatsGrid/SeatsGrid";
 import MovieDetail from "./components/moviedetail/Moviedetail";
 
 
+
 import BookningViewPage from "./components/pages/BookingViewPage";
 
 // Import some Bootstrap components
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function App() {
@@ -20,7 +19,6 @@ export default function App() {
 
     return <>
 
-        <Header />
 
         <MainMenu />
         <Container className="mt-5">
@@ -38,7 +36,7 @@ export default function App() {
                     </SeatsGrid>
 
                     < BookningViewPage />
-
+            
                 </Col>
             </Row>
 
@@ -50,7 +48,7 @@ export default function App() {
         <Footer />
 
 
-
+     
 
     </>;
 }
