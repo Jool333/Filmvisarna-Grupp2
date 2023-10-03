@@ -88,12 +88,12 @@ namespace webapi.Controllers
                     return CreatedAtAction(nameof(GetById), new { id = userToAdd.Id },
                     new
                     {
-                        Email = reg.Email,
+                        Email = userToAdd.Email,
                         //lägger till hash funktion när den implementerats
-                        Password = reg.Password,
-                        FirstName = reg.FirstName,
-                        LastName = reg.LastName,
-                        PhoneNumber = reg.PhoneNumber
+                        Password = userToAdd.Password,
+                        FirstName = userToAdd.FirstName,
+                        LastName = userToAdd.LastName,
+                        PhoneNumber = userToAdd.PhoneNumber
                     });
                 }
 
@@ -105,9 +105,6 @@ namespace webapi.Controllers
                 Console.WriteLine(ex.Message);
                 return StatusCode(500, "Internal Server Error");
             }
-
-
-            return Ok("Resistered Successfully");
         }
 
     }
