@@ -7,9 +7,7 @@ const movie = {
 };
 
 function TrailerPoster() {
-
-    
-    const [height, setHeight] = useState('500vh');
+    const [height, setHeight] = useState('500px');
     const iframeRef = useRef(null);
 
     useEffect(() => {
@@ -19,23 +17,18 @@ function TrailerPoster() {
         onLoad();
     }, []);
 
-
-const iframeContainerRef = useRef(null);
     return (
         <Container>
-            <Row className='justify-content-md-center'height={height}>
+            <Row className='justify-content-md-center'>
                 <Col >
                     <iframe className="embed-responsive-item"
                         src={"https://www.youtube.com/embed/" + `${movie.embedUrl}`}
-                        height="100%"
-
+                        height={height}
                         width="100%"
                         ref={iframeRef}
                     />
                 </Col>
-
-                <Col md="auto" className="d-flex justify-content-center align-items-center">
-
+                <Col md="auto">
                     <Image src={movie.imgUrl} 
                     alt="imgNotFound"
                     height={height} />
