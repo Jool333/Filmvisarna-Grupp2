@@ -43,12 +43,12 @@ const GuestBookingPage = () => {
           <Row>
               <Col>
               <div className="guestbooking-page d-flex justify-content-center align-items-center">
-                <Card>
+              <Card style={{ backgroundColor: 'white', border: '1px solid #ccc', width: '450px' }}>
                   <Card.Body>
-                    <Card.Title className="text-center">Logga in som gäst</Card.Title>
+                    <Card.Title className="text-center text-dark">Logga in som gäst</Card.Title>
                     <Form onSubmit={handleSubmit}>
                       <Form.Group>
-                        <Form.Label>Förstanamn :</Form.Label>
+                        <Form.Label className="text-dark">Förstanamn:</Form.Label>
                         <Form.Control
                           type="text"
                           id="firstName"
@@ -59,7 +59,7 @@ const GuestBookingPage = () => {
                         />
                       </Form.Group>
                       <Form.Group>
-                        <Form.Label>Efternamn :</Form.Label>
+                        <Form.Label className="text-dark">Efternamn:</Form.Label>
                         <Form.Control
                           type="text"
                           id="lastName"
@@ -70,7 +70,7 @@ const GuestBookingPage = () => {
                         />
                       </Form.Group>
                       <Form.Group>
-                        <Form.Label>E-post:</Form.Label>
+                        <Form.Label className="text-dark">E-post:</Form.Label>
                         <Form.Control
                           type="email"
                           id="email"
@@ -81,7 +81,7 @@ const GuestBookingPage = () => {
                         />
                       </Form.Group>
                       <Form.Group>
-                        <Form.Label>Bekräfta E-post:</Form.Label>
+                        <Form.Label className="text-dark">Bekräfta E-post:</Form.Label>
                         <Form.Control
                           type="email"
                           id="confirmEmail"
@@ -91,8 +91,8 @@ const GuestBookingPage = () => {
                           required
                         />
                       </Form.Group>
-                      <Form.Group>
-                        <Form.Label>Telefonnummer:</Form.Label>
+                      <Form.Group style={{ marginBottom: '20px' }}>
+                        <Form.Label className="text-dark">Telefonnummer:</Form.Label>
                         <Form.Control
                           type="tel"
                           id="phoneNumber"
@@ -102,7 +102,10 @@ const GuestBookingPage = () => {
                           required
                         />
                       </Form.Group>
-                      <Button variant="primary" type="submit" block>Fortsätt</Button>
+                      <div className="d-flex justify-content-between">
+                        <Button variant="secondary">Skappa konto</Button>
+                        <Button variant="primary" type="submit">Fortsätt</Button>
+                      </div>
                     </Form>
                   </Card.Body>
                 </Card>
