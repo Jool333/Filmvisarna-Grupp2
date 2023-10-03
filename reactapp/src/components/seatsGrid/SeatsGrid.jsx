@@ -4,6 +4,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
+import ReservationNumber from '../pages/ReservationNumber';
+import { generateReservationNumber } from '../pages/ReservationNumber';
 
 function SeatsGrid() {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -35,8 +37,10 @@ function SeatsGrid() {
         // Om stolen redan är vald, ta bort den från listan
         setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
       } else {
+        
+        const reservationNumber = generateReservationNumber();
         // Om stolen inte är vald, lägg till den i listan
-        setSelectedSeats([...selectedSeats, { row, seat }]);
+        setSelectedSeats([...selectedSeats, { row, seat, reservationNumber }]);
       }
     } else if (isSeatSelected) {
       // Användaren har valt tillräckligt många platser men kan fortfarande avvälja platser
@@ -113,6 +117,13 @@ function SeatsGrid() {
             </div>
           </div>
         </Col>
+        {/* Visa alla bokningsnummer för valda platser */}
+        <h4>bokningsnummer: </h4>
+            <div className="reservation-numbers">
+              {selectedSeats.map((seat, index) => (
+              <ReservationNumber key={index} seat={seat} />
+              ))}
+            </div>
       </Row>
     </Container>
   );
