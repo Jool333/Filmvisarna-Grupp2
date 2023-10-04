@@ -38,17 +38,24 @@ const GuestBookingPage = () => {
     setPhoneNumber('');
   };
 
+  const handleCreateAccountClick = (e) => {
+    e.preventDefault();
+
+    alert('Skapa konto');
+  };
+
   return (
     <Container className="mt-5">
           <Row>
               <Col>
               <div className="guestbooking-page d-flex justify-content-center align-items-center">
-              <Card style={{ backgroundColor: 'white', border: '1px solid #ccc', width: '450px' }}>
+              <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
                   <Card.Body>
-                    <Card.Title className="text-center text-dark">Logga in som gäst</Card.Title>
+                    <Card.Title className="text-center text-dark"><h3>Logga in som gäst</h3></Card.Title>
                     <Form onSubmit={handleSubmit}>
-                      <Form.Group>
-                        <Form.Label className="text-dark">Förstanamn:</Form.Label>
+                    <div className="d-flex justify-content-between">
+                      <Form.Group style={{ marginRight: '10px' }}>
+                        <Form.Label className="text-dark">Förnamn:</Form.Label>
                         <Form.Control
                           type="text"
                           id="firstName"
@@ -69,6 +76,7 @@ const GuestBookingPage = () => {
                           required
                         />
                       </Form.Group>
+                      </div>
                       <Form.Group>
                         <Form.Label className="text-dark">E-post:</Form.Label>
                         <Form.Control
@@ -102,8 +110,11 @@ const GuestBookingPage = () => {
                           required
                         />
                       </Form.Group>
-                      <div className="d-flex justify-content-between">
-                        <Button variant="secondary">Skappa konto</Button>
+
+                      <div className="d-flex justify-content-between align-items-center">
+                        <a href="#" className="btn btn-link text-decoration-underline" onClick={handleCreateAccountClick}>
+                          Skappa konto
+                        </a>
                         <Button variant="primary" type="submit">Fortsätt</Button>
                       </div>
                     </Form>
