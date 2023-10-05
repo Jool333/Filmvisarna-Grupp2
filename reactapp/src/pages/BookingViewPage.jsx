@@ -27,7 +27,7 @@ function BookingViewPage() {
       <Col>
         <Button
           variant="outline-warning"
-          href="/LoginViewPage"
+          href="/ConfirmationPage"
         >
           Fortsätt
         </Button>
