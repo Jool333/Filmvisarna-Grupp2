@@ -2,8 +2,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function StickyFooter() {
     return (
-            <Container>
-                <Row className='justify-content-md-center'>
+            <Container className='footer-main'>
+                <Row className='justify-content-md-around'>
                     <Col md="auto">
                       <h3>Kontakta oss</h3>
                     </Col>
@@ -21,7 +21,7 @@ function StickyFooter() {
                     <p>&copy; Copyright 2023 - Grupp 2 Jensen</p>
                     </Col>
                 </Row>
-            </Container>
+          </Container>
     );
 }
 
