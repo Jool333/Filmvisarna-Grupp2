@@ -1,10 +1,7 @@
 import {
-    Button,
     Container,
     Nav,
     Navbar,
-    Row,
-    Col,
     Dropdown
 } from 'react-bootstrap';
 

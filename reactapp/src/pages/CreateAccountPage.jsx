@@ -52,7 +52,7 @@ function CreateAccountPage(){
           <div className="create-account-page d-flex justify-content-center align-items-center">
             <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
               <Card.Body>
-                <Card.Title className="text-center text-dark"><h3>Bli medlim</h3></Card.Title>
+                <Card.Title className="text-center text-dark"><h3>Bli medlem</h3></Card.Title>
                   <Form onSubmit={handleSubmit}>
                     <Row>
                       <Col md={6}>
@@ -129,7 +129,7 @@ function CreateAccountPage(){
                     <Row>
                       <Col md={12} className="text-center">
                         <div className="d-grid gap-2 mb-3">
-                          <Button variant="primary" type="submit">
+                          <Button variant="outline-dark" type="submit">
                              Skapa konto
                           </Button>
                         </div>
