@@ -99,7 +99,7 @@ function SeatsGrid() {
                             selectedSeats.some(
                               (seat) => seat.row === i && seat.seat === j
                             )
-                              ? 'text-success'
+                              ? 'text-warning'
                               : ''
                           }`}
                           style={{

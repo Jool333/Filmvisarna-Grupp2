@@ -11,7 +11,7 @@ function LoginViewPage(){
 
     return (
     <div>
-      <h2 style={{fontSize:'100px'}}>Vad gör du bror? DU ska kunna logga in här</h2>
+      <h2 style={{fontSize:'100px'}}>Login View</h2>
       <p>SHEEESSSH!</p>
       {/* Visa eventuell annan relevant information här */}
     </div>
