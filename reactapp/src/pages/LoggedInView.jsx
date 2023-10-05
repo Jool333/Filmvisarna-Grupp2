@@ -8,15 +8,16 @@ import BookingDetail from '../components/BookingDetail/BookingDetail'
 function BookningViewPage() {
     return (
 
-        <Container className="mt-5" style={{ background: '#CDB991' }}>
-            <Row>
+        <Container className="mt-5 container-loggedInView">
+            <Row  >
 
-                <div>
+                <div  >
                     <h2> Aktiva Bokningar</h2>
 
+                    <BookingDetail />
                 </div>
 
-                <BookingDetail />
+             
 
             </Row>
             <Row>
