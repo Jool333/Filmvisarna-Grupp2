@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import ConfirmationPage from './ConfirmationPage';
 
 const GuestBookingPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -37,13 +39,6 @@ const GuestBookingPage = () => {
     setConfirmEmail('');
     setPhoneNumber('');
   };
-
-  const handleCreateAccountClick = (e) => {
-    e.preventDefault();
-
-    alert('Skapa konto');
-  };
-
   return (
     <Container className="mt-5">
           <Row>
@@ -112,10 +107,12 @@ const GuestBookingPage = () => {
                       </Form.Group>
 
                       <div className="d-flex justify-content-between align-items-center">
-                        <a href="#" className="btn btn-link text-decoration-underline" onClick={handleCreateAccountClick}>
+                        <a href="./CreateAccountPage" className="btn btn-link text-decoration-underline">
                           Skappa konto
                         </a>
-                        <Button variant="primary" type="submit">Fortsätt</Button>
+                        <Link to="/ConfirmationPage"> {ConfirmationPage}
+                          <Button variant="primary" type="submit">Fortsätt</Button>
+                        </Link>
                       </div>
                     </Form>
                   </Card.Body>
