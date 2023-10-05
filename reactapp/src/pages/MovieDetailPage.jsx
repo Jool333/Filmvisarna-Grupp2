@@ -1,8 +1,22 @@
 import React from "react";
-import MovieDetail from "@/components/moviedetail/moviedetail";
+import { Container, Row, Col } from "react-bootstrap";
 
-function MovieDetailPage(){
+// Import your custom components here
+import TrailerPoster from "../components/DetailTrailerPoster/TrailerPoster";// Replace with the correct import path
+import MovieDetail from "../components/moviedetail/MovieDetail"; // Replace with the correct import path
 
-    <MovieDetail/>
+
+function MainPage() {
+  return (
+    <Container className="mt-5">
+      <Row>
+        <Col>
+          <TrailerPoster />
+          <MovieDetail /> 
+        </Col>
+      </Row>
+    </Container>
+  );
 }
-export default MovieDetailPage;
+
+export default MainPage;
