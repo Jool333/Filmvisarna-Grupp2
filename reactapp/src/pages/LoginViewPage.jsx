@@ -28,7 +28,7 @@ const LoginPage = () => {
                     <div className="login-page d-flex justify-content-center align-items-center">
                     <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
                         <Card.Body>
-                        <Card.Title className="text-center text-dark"><h3>Logga in som användare</h3></Card.Title>
+                        <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3">
                             <Form.Label className="text-dark">E-mail:</Form.Label>
@@ -54,7 +54,7 @@ const LoginPage = () => {
                             </Form.Group>
                             <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
                                 <a href="/CreateAccountPage" className="btn btn-link text-decoration-underline">
-                                Skappa konto
+                                Skapa konto
                                 </a>
                                 <Link to="/LoggedInView"> {LoggedInView}
                                     <Button variant="primary" type="submit">Logga in</Button>
