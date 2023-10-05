@@ -18,23 +18,21 @@ function BookingDetail() {
 
 
                     <div className='bookingDetail-loggedInView-container-text-container'>
-                        <h2>
+                        <h4>
                             De Ostyriga
-                        </h2>
-                        <h3>
+                        </h4>
+                        <h5>
                             Filmvisarna Malmö, salong
-                        </h3>
-                        <h3>
-                            Imorgon,Fredag , 23:00 </h3>
-                        <h2>
-                            estse stestestsefdsfg
-                        </h2>
-                        <h3>
-                            Ordinari Beljtter
-                        </h3>
-                        <h3>
+                        </h5>
+                        <h5>
+                            Imorgon,Fredag , 23:00 </h5>
+                    
+                        <h6>
+                            Ordinari Biljtter
+                        </h6>
+                        <h6>
                             Bookningsnr:
-                        </h3>
+                        </h6>
                     </div>
 
                     <button> Avboka </button>
