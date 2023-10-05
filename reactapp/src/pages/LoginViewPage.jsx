@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import LoggedInView from './LoggedInView';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -19,12 +21,6 @@ const LoginPage = () => {
     setEmail('');
     setPassword('');
   };
-  const handleCreateAccountClick = (e) => {
-    e.preventDefault();
-
-    alert('Skapa konto');
-  };
-
   return (
     <Container className="mt-5">
           <Row>
@@ -57,10 +53,13 @@ const LoginPage = () => {
                             />
                             </Form.Group>
                             <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
-                                <a href="#" className="btn btn-link text-decoration-underline" onClick={handleCreateAccountClick}>
+                                <a href="/CreateAccountPage" className="btn btn-link text-decoration-underline">
                                 Skappa konto
                                 </a>
-                                <Button variant="primary" type="submit">Fortsätt</Button>
+                                <Link to="/LoggedInView"> {LoggedInView}
+                                    <Button variant="primary" type="submit">Logga in</Button>
+                                </Link>
+                    
                             </div>
                         </Form>
                         </Card.Body>
