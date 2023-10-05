@@ -2,8 +2,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function StickyFooter() {
     return (
-            <Container >
-                <Row className='justify-content-md-between'>
+            <Container className='footer-main'>
+                <Row className='justify-content-md-around'>
                     <Col md="auto">
                       <h3>Kontakta oss</h3>
                       <ul className="list-unstyled">
