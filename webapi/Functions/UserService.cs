@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace webapi.Entities
+namespace webapi.Functions
 {
     public class UserService
     {
