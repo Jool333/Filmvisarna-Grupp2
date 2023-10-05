@@ -15,10 +15,6 @@ import img10 from "@/assets/poster/10.jpeg"
 import img11 from "@/assets/poster/11.jpeg"
 import img12 from "@/assets/poster/12.jpeg"
 
-
-// Import your custom components here
-import BookingViewPage from "./BookingViewPage"; // Replace with the correct import path
-
 function MainPage() {
 
   const [selectedDate, setSelectedDate] = useState('');

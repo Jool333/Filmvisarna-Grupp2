@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Row, Col, Button, Navbar } from 'react-bootstrap';
-import postar from '@/images/poster.jpg'
+import { Container, Row } from 'react-bootstrap';
+import poster from '@/images/poster.jpg'
 
 
 
@@ -9,14 +9,9 @@ function BookingDetail() {
 
         <Container className="mt-4 , bookingDetail-loggedInView"  >
             <Row>
-
-
                 <div className='bookingDetail-loggedInView-container'>
-
                     <img  className='bookingDetail-loggedInView-container-img'
-                     src={postar} height="100" />
-
-
+                     src={poster} height="100" />
                     <div className='bookingDetail-loggedInView-container-text-container'>
                         <h2>
                             De Ostyriga
@@ -36,12 +31,9 @@ function BookingDetail() {
                             Bookningsnr:
                         </h3>
                     </div>
-
                     <button> Avboka </button>
                 </div>
-
             </Row>
-
         </Container>
     );
 }

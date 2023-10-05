@@ -1,9 +1,8 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-// Import your custom components here
-import TrailerPoster from "../components/DetailTrailerPoster/TrailerPoster";// Replace with the correct import path
-import MovieDetail from "../components/moviedetail/MovieDetail"; // Replace with the correct import path
+import TrailerPoster from "../components/DetailTrailerPoster/TrailerPoster";
+import MovieDetail from "../components/moviedetail/MovieDetail"; 
 
 
 function MainPage() {
