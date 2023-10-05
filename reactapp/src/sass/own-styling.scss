@@ -7,8 +7,14 @@ body {
 main {
     flex: 1;
 }
-
-
+//ta inte bort andras styling
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    text-decoration: underline;
+}
 
 .film-list {
 
