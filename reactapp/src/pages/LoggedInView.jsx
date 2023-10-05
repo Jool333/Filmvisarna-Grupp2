@@ -1,11 +1,15 @@
-import React from "react";
+import React from 'react'
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import BookingDetail from '../components/BookingDetail/BookingDetail'
 
 
-function LoggedInView(){
+
+
+function LoggedInView() {
     return (
 
         <Container className="mt-5 container-loggedInView">
-            <Row  >
+            <Row className="container-loggedInView-aktiva-bokningar" >
 
                 <div  >
                     <h2> Aktiva Bokningar</h2>
@@ -16,7 +20,7 @@ function LoggedInView(){
              
 
             </Row>
-            <Row>
+            <Row  className="container-loggedInView-tidigare-bokningar">
 
                 <div>
                     <h2> Tidigare Bokningar</h2>
@@ -30,6 +34,6 @@ function LoggedInView(){
 
         </Container >
     );
-
 }
+
 export default LoggedInView;
