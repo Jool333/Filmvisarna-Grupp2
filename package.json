@@ -1,0 +1,19 @@
+{
+  "name": "filmvisarna-grupp2",
+  "version": "1.0.0",
+  "description": "Måste installera npm och react bootstrap i react-mappen för att kunna köra projektet Kommandon:  npm install npm install react-bootstrap bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "react-bootstrap": "^2.9.0"
+  },
+  "devDependencies": {
+    "sass": "^1.68.0"
+  }
+}

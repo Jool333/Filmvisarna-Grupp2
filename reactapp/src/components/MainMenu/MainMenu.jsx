@@ -1,45 +1,32 @@
 import {
-    Button,
     Container,
-    Form,
     Nav,
     Navbar,
-    NavDropdown
+    Dropdown
 } from 'react-bootstrap';
 
-import logo from '@/images/filmvisarnaLogo.webp';
+import logo from '@/images/LogoFilmvisarna.webp';
+
+const NavbarStyle = {
+    backgroundColor: '#CDB991',
+    color: 'black'
+  };
 
 function MainMenu() {
   return (
-      <Navbar expand="lg" className="bg-body-tertiary" >
-          <Container fluid>
-              <Navbar.Brand href="#"><img src={logo} height="100" /></Navbar.Brand>
-              <Navbar.Toggle aria-controls="navbarScroll" />
-              <Navbar.Collapse id="navbarScroll">
-                  <Nav
-                      className="me-auto my-2 my-lg-0"
-                      style={{ maxHeight: '100px' }}
-                      navbarScroll
-                  >
-                      <Nav.Link href="/biljetter">Biljetter</Nav.Link>
-                      <NavDropdown title="Link" id="navbarScrollingDropdown">
-                          <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                          <NavDropdown.Item href="#action4">
-                              Another action
-                          </NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item href="#action5">
-                              Something else here
-                          </NavDropdown.Item>
-                      </NavDropdown>
-                      <Nav.Link href="#" disabled>
-                          Link
-                      </Nav.Link>
-                  </Nav>
-                  
-                  
-              </Navbar.Collapse>
-              <Button variant="outline-primary"> Logga in</Button>
+      <Navbar expand="lg"  style={NavbarStyle}>
+          <Container fluid >
+                <Nav.Link href="/TicketViewPage" style={{color:"black"}}>Biljetter</Nav.Link>
+                <Navbar.Brand  href="/"><img src={logo} height="80rem" /></Navbar.Brand>
+                <Dropdown>
+                <Dropdown.Toggle variant="outline-dark" id="login-dropdown" style={{border:"none"}}>
+                  Logga in
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/LoginViewPage">Logga in</Dropdown.Item>
+                  <Dropdown.Item href="/CreateAccountPage">Registrera</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
           </Container>
       </Navbar>
   );
