@@ -26,9 +26,8 @@ function BookingViewPage() {
       </Col>
       <Col>
         <Button
-          variant="outline-primary"
+          variant="outline-warning"
           href="/LoginViewPage"
-          disabled={!isContinueEnabled} // Inaktivera om inga platser är valda
         >
           Fortsätt
         </Button>
