@@ -79,7 +79,7 @@ export default function Filter() {
             <Row>
                 <Col>
                     <div>
-                        
+                        <h2>Filtrera filmer</h2>
                         <Container>
                             <Row>
                                 <Col>

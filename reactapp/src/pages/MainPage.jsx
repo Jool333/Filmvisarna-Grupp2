@@ -16,7 +16,8 @@ import img11 from "@/assets/poster/11.jpeg"
 import img12 from "@/assets/poster/12.jpeg"
 
 
-
+// Import your custom components here
+import BookingViewPage from "./BookingViewPage"; // Replace with the correct import path
 
 function MainPage() {
 
@@ -140,47 +141,8 @@ function MainPage() {
 
    },[]);
 
-
-
   return (
-    <Container className="mt-5">
-      <Row>
-        <Col>
-          <label htmlFor="dateSelect">Välj datum:</label>
-          <select
-            id="dateSelect"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          >
-            <option value="">Välj dag</option>
-            {days.map((day, index) => (
-              <option key={index} value={day}>
-                {day}
-              </option>
-            ))}
-          </select>
-        </Col>
-        <Col>
-          <label htmlFor="ageRatingSelect">Välj åldersgräns:</label>
-          <select
-            id="ageRatingSelect"
-            value={selectedAgeRating}
-            onChange={(e) => setSelectedAgeRating(e.target.value)}
-          >
-            <option value="">Alla åldersgränser</option>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG-13">PG-13</option>
-            <option value="R">R</option>
-            <option value="NC-17">NC-17</option>
-          </select>
-        </Col>
-        <Col className='text-center'>
-          <Button variant="light" size="sm" onClick={filterMovies}>
-            Filtrera
-          </Button>
-        </Col>
-      </Row>
+    <Container>
       <Row>
         <Col>
           <div>
@@ -200,6 +162,7 @@ function MainPage() {
         </Col>
       </Row>
     </Container >
+
   );
 }
 

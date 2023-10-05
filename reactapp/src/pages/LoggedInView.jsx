@@ -1,11 +1,7 @@
-import React from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import BookingDetail from '../components/BookingDetail/BookingDetail'
+import React from "react";
 
 
-
-
-function BookningViewPage() {
+function LoggedInView(){
     return (
 
         <Container className="mt-5 container-loggedInView">
@@ -34,6 +30,6 @@ function BookningViewPage() {
 
         </Container >
     );
-}
 
-export default BookningViewPage;
+}
+export default LoggedInView;
