@@ -10,10 +10,13 @@ main {
 //ta inte bort andras styling
 a{
     text-decoration: none;
-    color: white;
-}
+    color:white
+}   
 a:hover{
     text-decoration: underline;
+}
+.dropdown-item:hover{
+    color: black;
 }
 
 .film-list {
