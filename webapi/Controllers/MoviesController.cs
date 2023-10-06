@@ -65,6 +65,7 @@ namespace webapi.Controllers
             {
                 Title = movie.Title,
                 Description = movie.Description,
+                AgeLimit = movie.AgeLimit,
                 ImgUrl = movie.ImgUrl,
                 TrailerUrl = movie.TrailerUrl
             };
@@ -82,6 +83,7 @@ namespace webapi.Controllers
                         Id = movieToAdd.Id,
                         Title = movieToAdd.Title,
                         Description = movieToAdd.Description,
+                        AgeLimit = movieToAdd.AgeLimit,
                         ImgUrl = movieToAdd.ImgUrl,
                         TrailerUrl = movieToAdd.TrailerUrl
                     });

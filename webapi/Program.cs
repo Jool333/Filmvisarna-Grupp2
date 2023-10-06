@@ -24,14 +24,15 @@ try
     var context = services.GetRequiredService<FilmvisarnaContext>();
     await context.Database.MigrateAsync();
     
+    //ta bort kommentarer när resp json fil är klar
     await SeedData.LoadMovieData(context);    
     await SeedData.LoadUserData(context);    
-    await SeedData.LoadBookingData(context);    
-    await SeedData.LoadScreeningData(context);    
-    await SeedData.LoadSeatData(context);    
+    //await SeedData.LoadBookingData(context);    
+    //await SeedData.LoadScreeningData(context);    
+    //await SeedData.LoadSeatData(context);    
     await SeedData.LoadTheaterData(context);
-    await SeedData.LoadBookingXSeatData(context);
-    await SeedData.LoadMovieXCategoryData(context);
+    //await SeedData.LoadBookingXSeatData(context);
+    //await SeedData.LoadMovieXCategoryData(context);
 
 
 }

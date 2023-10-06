@@ -55,7 +55,7 @@ namespace webapi.Controllers
             {
                 return Unauthorized($"Ogiltigt lösenord");
             }
-            return Ok("Login Successfull");
+            return Ok("Login Successful");
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationPostViewModel reg)
