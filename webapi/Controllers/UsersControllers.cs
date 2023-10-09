@@ -29,7 +29,8 @@ namespace webapi.Controllers
                     Password = u.Password,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
-                    PhoneNumber = u.PhoneNumber
+                    PhoneNumber = u.PhoneNumber,
+                    UserRole = u.UserRole
                 })
                 .SingleOrDefaultAsync(c => c.Id == id);
 
