@@ -1,28 +1,24 @@
 import {
     Container,
-    Nav,
     Navbar,
-    Dropdown
+    Dropdown,
+    ButtonGroup,
+    Button
 } from 'react-bootstrap';
 
 import logo from '@/images/LogoFilmvisarna.webp';
 
-const NavbarStyle = {
-    backgroundColor: '#CDB991',
-    color: 'black'
-  };
 
 function MainMenu() {
   return (
-      <Navbar expand="lg"  style={NavbarStyle}>
-          <Container fluid >
-                <Nav.Link href="/TicketViewPage" style={{color:"black"}}>Biljetter</Nav.Link>
-                <Navbar.Brand  href="/"><img src={logo} height="80rem" /></Navbar.Brand>
-                <Dropdown>
-                <Dropdown.Toggle variant="outline-dark" id="login-dropdown" style={{border:"none"}}>
-                  Logga in
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
+      <Navbar className='custom-background'>
+          <Container className='d-flex justify-content-between align-items-center p-0'>
+                <Button href="/TicketViewPage" variant='outline-dark' className=' border-0 h-100' >Biljetter</Button>
+                <Navbar.Brand  href="/" className=' m-0'><img src={logo} className='mw-100 img-max-height-5rem' alt='Filmvisarna' /></Navbar.Brand>
+                <Dropdown as={ButtonGroup} align="end">
+                  <Button variant='outline-dark' href='/loginviewpage' className='border-0 text-nowrap' >Logga in</Button>
+                <Dropdown.Toggle split variant="outline-dark" id="login-dropdown" className='border-0'/>
+                <Dropdown.Menu >
                   <Dropdown.Item href="/LoginViewPage">Logga in</Dropdown.Item>
                   <Dropdown.Item href="/CreateAccountPage">Bli Medlem</Dropdown.Item>
                 </Dropdown.Menu>
