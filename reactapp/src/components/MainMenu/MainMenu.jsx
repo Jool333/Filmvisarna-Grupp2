@@ -24,7 +24,7 @@ function MainMenu() {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item href="/LoginViewPage">Logga in</Dropdown.Item>
-                  <Dropdown.Item href="/CreateAccountPage">Registrera</Dropdown.Item>
+                  <Dropdown.Item href="/CreateAccountPage">Bli Medlem</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
           </Container>
