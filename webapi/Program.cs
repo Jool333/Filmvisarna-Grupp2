@@ -25,7 +25,8 @@ try
     await context.Database.MigrateAsync();
     
     //ta bort kommentarer när resp json fil är klar
-    await SeedData.LoadMovieData(context);    
+    await SeedData.LoadMovieData(context);
+    await SeedData.LoadUserRoleData(context);    
     await SeedData.LoadUserData(context);    
     //await SeedData.LoadBookingData(context);    
     //await SeedData.LoadScreeningData(context);    
