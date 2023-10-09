@@ -29,7 +29,8 @@ namespace webapi.Controllers
                     Password = u.Password,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
-                    PhoneNumber = u.PhoneNumber
+                    PhoneNumber = u.PhoneNumber,
+                    UserRole = u.UserRole
                 })
                 .SingleOrDefaultAsync(c => c.Id == id);
 
@@ -55,7 +56,7 @@ namespace webapi.Controllers
             {
                 return Unauthorized($"Ogiltigt lösenord");
             }
-            return Ok("Login Successfull");
+            return Ok("Login Successful");
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationPostViewModel reg)

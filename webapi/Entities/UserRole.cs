@@ -1,6 +1,6 @@
 namespace webapi.Entities
 {
-    public class Genre
+    public class UserRole
     {
         public int Id { get; set; }
         public string Name { get; set; }

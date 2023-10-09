@@ -5,6 +5,7 @@
         "password": "tobeHashedPassword",
         "firstname": "Johan",
         "lastname": "Olsson",
-        "phonenumber": "0738441377"
+        "phonenumber": "0738441377",
+        "userroleid": 1 
     }
 ]
