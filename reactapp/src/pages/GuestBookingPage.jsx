@@ -107,11 +107,11 @@ const GuestBookingPage = () => {
                       </Form.Group>
 
                       <div className="d-flex justify-content-between align-items-center">
-                        <a href="./CreateAccountPage" className="btn btn-link text-decoration-underline">
-                          Skappa konto
+                        <a href="./CreateAccountPage" style={{color:'black'}}>
+                          Skapa konto
                         </a>
                         <Link to="/ConfirmationPage"> {ConfirmationPage}
-                          <Button variant="primary" type="submit">Fortsätt</Button>
+                          <Button variant="outline-dark" type="submit">Fortsätt</Button>
                         </Link>
                       </div>
                     </Form>

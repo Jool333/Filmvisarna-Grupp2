@@ -1,42 +1,20 @@
-using System.Text;
-
 namespace webapi.Functions
 {
     public class UserService
     {
-    public string HashPassword(string password)
-    {
-        string salt = "";
-
-        // Hash the password with the salt
-        string hashedPassword = "";
-
-    return hashedPassword;
-    }
-
-    public bool VerifyPassword(string enteredPassword, string hashedPasswordFromDatabase)
-    {
-        return (enteredPassword==hashedPasswordFromDatabase);
-    }
-
-    // Funktion för att skapa uniqt bokingsnummer. 
-    public class ReservationSystem
-    {
-    private Random random = new Random();
-
-    public string GenerateReservationNumber(int length = 6)
-    {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        StringBuilder reservationNumber = new StringBuilder();
-
-        for (int i = 0; i < length; i++)
+        public string HashPassword(string password)
         {
-            int index = random.Next(chars.Length);
-            reservationNumber.Append(chars[index]);
+            string salt = "";
+
+            // Hash the password with the salt
+            string hashedPassword = "";
+
+        return hashedPassword;
         }
 
-        return reservationNumber.ToString();
-    }
-    }
+        public bool VerifyPassword(string enteredPassword, string hashedPasswordFromDatabase)
+        {
+            return (enteredPassword==hashedPasswordFromDatabase);
+        }
     }
 }

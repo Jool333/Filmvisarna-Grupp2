@@ -92,6 +92,20 @@ namespace webapi.Data
                 await context.SaveChangesAsync();
             }
         }
+        public static async Task LoadUserRoleData(FilmvisarnaContext context){
+            var options = new JsonSerializerOptions{
+                PropertyNameCaseInsensitive = true
+            };
+            if (context.UserRoles.Any()) return;
+            var json = System.IO.File.ReadAllText("Data/json/userroles.json");
+
+            var roles = JsonSerializer.Deserialize<List<UserRole>>(json,options);
+
+            if( roles is not null && roles.Count > 0 ){
+                await context.UserRoles.AddRangeAsync(roles);
+                await context.SaveChangesAsync();
+            }
+        }
         public static async Task LoadBookingXSeatData(FilmvisarnaContext context){
             var options = new JsonSerializerOptions{
                 PropertyNameCaseInsensitive = true

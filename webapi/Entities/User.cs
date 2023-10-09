@@ -1,5 +1,10 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 namespace webapi.Entities
 {
+    [Index(nameof(Email), IsUnique = true)]
     public class User
     {
         public int Id { get; set; }
@@ -8,7 +13,10 @@ namespace webapi.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-    }
+        public int UserRoleId { get; set; } 
+        [ForeignKey("UserRoleId")]
+        public UserRole UserRole { get; set; }
 
-    
+        public ICollection<Booking> Bookings { get; set; }
+    }
 }

@@ -7,33 +7,32 @@ import postar from '@/images/poster.jpg'
 function BookingDetail() {
     return (
 
-        <Container className="mt-5"  style={{background:'black'}}>
+        <Container className="mt-4 , bookingDetail-loggedInView"  >
             <Row>
 
 
-                <div >
+                <div className='bookingDetail-loggedInView-container'>
 
-                    <img src={postar} height="100" />
+                    <img  className='bookingDetail-loggedInView-container-img'
+                     src={postar} height="100" />
 
 
-                    <div>
-                        <h2>
+                    <div className='bookingDetail-loggedInView-container-text-container'>
+                        <h4>
                             De Ostyriga
-                        </h2>
-                        <h3>
-                            Filmvisarna Malmö, salong 3
-                        </h3>
-                        <h3>
-                            Imorgon,Fredag , 23:00 </h3>
-                        <h2>
-                            estse stestestsefdsfg
-                        </h2>
-                        <h3>
-                            Ordinari Beljtter
-                        </h3>
-                        <h3>
+                        </h4>
+                        <h5>
+                            Filmvisarna Malmö, salong
+                        </h5>
+                        <h5>
+                            Imorgon,Fredag , 23:00 </h5>
+                    
+                        <h6>
+                            Ordinari Biljtter
+                        </h6>
+                        <h6>
                             Bookningsnr:
-                        </h3>
+                        </h6>
                     </div>
 
                     <button> Avboka </button>

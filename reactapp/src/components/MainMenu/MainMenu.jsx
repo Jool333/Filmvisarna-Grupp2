@@ -1,10 +1,7 @@
 import {
-    Button,
     Container,
     Nav,
     Navbar,
-    Row,
-    Col,
     Dropdown
 } from 'react-bootstrap';
 
@@ -22,7 +19,7 @@ function MainMenu() {
                 <Nav.Link href="/TicketViewPage" style={{color:"black"}}>Biljetter</Nav.Link>
                 <Navbar.Brand  href="/"><img src={logo} height="80rem" /></Navbar.Brand>
                 <Dropdown>
-                <Dropdown.Toggle variant="outline-dark" id="login-dropdown">
+                <Dropdown.Toggle variant="outline-dark" id="login-dropdown" style={{border:"none"}}>
                   Logga in
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
