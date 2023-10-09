@@ -48,7 +48,7 @@ function CreateAccountPage(){
   return (
     <Container className="mt-5">
       <Row>
-        <Col>
+        <Col xs={12} md={6} lg={4} className="mx-auto">
           <div className="create-account-page d-flex justify-content-center align-items-center">
             <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
               <Card.Body>
