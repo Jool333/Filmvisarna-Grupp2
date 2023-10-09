@@ -130,7 +130,7 @@ function CreateAccountPage(){
                       <Col md={12} className="text-center">
                         <div className="d-grid gap-2 mb-3">
                           <Button variant="outline-dark" type="submit">
-                             Skapa konto
+                            Bli Medlem
                           </Button>
                         </div>
                       </Col>

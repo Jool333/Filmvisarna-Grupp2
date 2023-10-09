@@ -108,7 +108,7 @@ const GuestBookingPage = () => {
 
                       <div className="d-flex justify-content-between align-items-center">
                         <a href="./CreateAccountPage" style={{color:'black'}}>
-                          Skapa konto
+                          Bli Medlem
                         </a>
                         <Link to="/ConfirmationPage"> {ConfirmationPage}
                           <Button variant="outline-dark" type="submit">Fortsätt</Button>
