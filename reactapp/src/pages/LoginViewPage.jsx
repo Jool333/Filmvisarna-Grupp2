@@ -54,7 +54,7 @@ const LoginPage = () => {
                             </Form.Group>
                             <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
                                 <a href="/CreateAccountPage" style={{color:'black'}}>
-                                Skapa konto
+                                Bli Medlem
                                 </a>
                                 <Link to="/LoggedInView"> {LoggedInView}
                                     <Button variant="outline-dark" type="submit">Logga in</Button>

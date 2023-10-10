@@ -12,6 +12,7 @@ namespace webapi.Data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Theater> Theaters { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<MovieXCategory> MoviesXCategories { get; set; }
         public DbSet<BookingXSeat> BookingsXSeats { get; set; }
         

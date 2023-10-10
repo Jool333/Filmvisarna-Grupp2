@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
+using webapi.Entities;
+using webapi.Functions;
+using webapi.ViewModel;
 
 namespace webapi.Controllers
 {
@@ -9,7 +12,6 @@ namespace webapi.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly FilmvisarnaContext _context;
-        //private readonly BookingNbrGenerator generator;
 
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
@@ -46,28 +48,37 @@ namespace webapi.Controllers
 
             return Ok(result);
         }
-        /*        
+               
         [HttpPost("bookedGuest")]
-        public async Task<IActionResult> Create(BookedPostViewModel res , BookedGuestPostViewModel resGuest)
+        public async Task<IActionResult> Create(BookedPostViewModel res)
         {
+            //check if all data is pre
             if (!ModelState.IsValid)
             {
                 return BadRequest("All nödvändig information är inte med i anropet");
             }
-            
-            User userWhoBooked;
-            if (resGuest is not null)
-            {
-                if (await _context.Users.SingleOrDefaultAsync(c => c.Email == resGuest.Email) is not null)
+
+            if (await _context.Users.SingleOrDefaultAsync(c => c.Email == res.Email) is not null)
                 {
                     return BadRequest("Eposten är redan registrerad");
                 }
+            //generate a unique booking nbr
+            var bookingNbr ="";
+            do
+            {
+                bookingNbr = BookingNbrGenerator.GenerateReservationNbr();
+            } while (await _context.Bookings.SingleOrDefaultAsync(b => b.BookingNbr == bookingNbr) is not null);
+
+            //check if user/email already used
+            User userWhoBooked;
+            if (res.UserId is null)
+            {
                 userWhoBooked = new User{
-                Email = resGuest.Email,
-                FirstName = resGuest.FirstName,
-                LastName = resGuest.LastName,
-                PhoneNumber = resGuest.PhoneNumber
+                    Email = res.Email
                 };
+                _context.Users.Add(userWhoBooked);
+                await _context.SaveChangesAsync();
+
             }else{
                 userWhoBooked = await _context.Users.SingleOrDefaultAsync(u => u.Id == res.UserId);
                 if (userWhoBooked == null)
@@ -77,23 +88,38 @@ namespace webapi.Controllers
             }
             
             var bookingToAdd = new Booking{
-                BookingNbr = generator.GenerateBookingNbr(),
+                BookingNbr = bookingNbr,
                 BookingTime = DateTime.Now,
-                
-
+                UserId = userWhoBooked.Id,
+                ScreeningId = res.ScreeningId   
             };
-
+            
             try
             {
                 await _context.Bookings.AddAsync(bookingToAdd);
 
                 if (await _context.SaveChangesAsync() > 0)
                 {
+                    foreach (var bookingXSeat in res.BookingXSeats)
+                    {
+                        var bookedSeats = new BookingXSeat{
+                            BookingId = bookingToAdd.Id,
+                            SeatId = bookingXSeat.SeatId,
+                            TicketTypeId = bookingXSeat.TicketTypeId
+                        };
+                        _context.BookingsXSeats.Add(bookedSeats);
+                    }
+                    await _context.SaveChangesAsync();
+
                     // return StatusCode(201);
                     return CreatedAtAction(nameof(GetById), new { id = bookingToAdd.Id },
                     new
                     {
                         Id =bookingToAdd.Id,
+                        BookingNbr = bookingToAdd.BookingNbr,
+                        BookingTime = bookingToAdd.BookingTime,
+                        UserId = bookingToAdd.UserId,
+                        ScreeningId = bookingToAdd.ScreeningId
                     });
                 }
 
@@ -106,6 +132,5 @@ namespace webapi.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        */        
     }
 }
