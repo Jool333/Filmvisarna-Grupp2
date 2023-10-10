@@ -54,7 +54,7 @@ const BookingView = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container>
       <div className='text-center'>
         <h1>
           Bokningsbekräftelse

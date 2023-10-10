@@ -3,34 +3,32 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 //import './index.css'
-
+/*
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
 );
+*/
 
-/*
 import MainPage from '@/pages/MainPage.jsx'
 import MovieDetailPage from './pages/MovieDetailPage.jsx'
 import TicketViewPage from './pages/TicketViewPage.jsx'
 import LoginViewPage from './pages/LoginViewPage.jsx'
-import GuestBookingPage from './pages/GuestBookingPage.jsx'
 import CreateAccountPage from './pages/CreateAccountPage.jsx'
 import ConfirmationPage from './pages/ConfirmationPage.jsx'
 import BookingViewPage from './pages/BookingViewPage.jsx'
-import BookingConfirmPage from './pages/BookingConfirmPage.jsx'
+import LoggedInView from './pages/LoggedInView.jsx';
 
 export const pages = [
   { path: '/', label: 'Startsida', element: <MainPage /> },
   { path: '/movie/:id', label: 'Movie Detail', element: <MovieDetailPage /> },
-  { path: '/ticket', label: 'Ticket View', element: <TicketViewPage /> },
+  { path: '/tickets', label: 'Ticket View', element: <TicketViewPage /> },
   { path: '/login', label: 'Login', element: <LoginViewPage /> },
-  { path: '/guest-booking', label: 'Guest Booking', element: <GuestBookingPage /> },
   { path: '/create-account', label: 'Create Account', element: <CreateAccountPage /> },
   { path: '/confirmation', label: 'Confirmation', element: <ConfirmationPage /> },
-  { path: '/booking/:id', label: 'Booking View', element: <BookingViewPage /> },
-  { path: '/booking/:id/confirm', label: 'Booking Confirm', element: <BookingConfirmPage /> }
+  { path: '/booking'/* ska lägga till screening id när implementerat*/ , label: 'Booking View', element: <BookingViewPage /> },
+  { path: '/loggedin', label: 'Bokningar', element: <LoggedInView/>}
 ];
 
 const router = createBrowserRouter([
@@ -46,4 +44,3 @@ ReactDOM.createRoot(document.querySelector('#root')).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-*/
