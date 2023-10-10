@@ -6,7 +6,9 @@ body {
 
 main {
     flex: 1;
+    margin-top: 3rem;
 }
+
 //ta inte bort andras styling
 a{
     text-decoration: none;
@@ -17,6 +19,14 @@ a:hover{
 }
 .dropdown-item:hover{
     color: black;
+}
+
+.custom-background{
+    background-color: #CDB991;
+}
+
+.img-max-height-5rem{
+    max-height: 5rem;
 }
 
 .film-list {

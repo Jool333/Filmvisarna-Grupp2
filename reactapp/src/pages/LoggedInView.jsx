@@ -8,7 +8,7 @@ import BookingDetail from '../components/BookingDetail/BookingDetail'
 function LoggedInView() {
     return (
 
-        <Container className="mt-5 container-loggedInView">
+        <Container className="container-loggedInView">
             <Row className="container-loggedInView-aktiva-bokningar" >
 
                 <div  >

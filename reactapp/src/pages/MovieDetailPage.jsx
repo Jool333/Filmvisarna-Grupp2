@@ -5,7 +5,7 @@ import TrailerPoster from "../components/DetailTrailerPoster/TrailerPoster";
 import MovieDetail from "../components/moviedetail/MovieDetail"; 
 
 
-function MainPage() {
+function MovieDetails() {
   return (
     <Container className="mt-5">
       <Row>
@@ -18,4 +18,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default MovieDetails;

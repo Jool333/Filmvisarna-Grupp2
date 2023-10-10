@@ -22,7 +22,7 @@ const LoginPage = () => {
     setPassword('');
   };
   return (
-    <Container className="mt-5">
+    <Container >
           <Row>
               <Col xs={12} md={6} lg={4} className="mx-auto">
                     <div className="login-page d-flex justify-content-center align-items-center">
@@ -53,10 +53,10 @@ const LoginPage = () => {
                             />
                             </Form.Group>
                             <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
-                                <a href="/CreateAccountPage" style={{color:'black'}}>
+                                <a href="/create-account" className=' text-dark'>
                                 Bli Medlem
                                 </a>
-                                <Link to="/LoggedInView"> {LoggedInView}
+                                <Link to="/loggedin"> {LoggedInView}
                                     <Button variant="outline-dark" type="submit">Logga in</Button>
                                 </Link>
                     
