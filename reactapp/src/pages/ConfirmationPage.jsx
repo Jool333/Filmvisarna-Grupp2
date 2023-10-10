@@ -49,12 +49,13 @@ const BookingView = () => {
   };
 
   return (
+
     <Container className="mt-1">
-         <div className='text-center pt-3 pb-2'>
-      <h1>
-       Bokningsbekräftelse
-       <hr/>
-      </h1>
+      <div className='text-center pt-3 pb-2'>
+        <h1>
+          Bokningsbekräftelse
+        <hr/>
+        </h1>
       </div>
       <Row>
         <Col xs={12} md={5} className='d-flex align-items-center justify-content-center'>

@@ -27,7 +27,7 @@ function BookingViewPage() {
        <Col className='pt-3' style={{ paddingLeft: '9.3%' }}>
    <Button
        variant="outline-warning"
-        href="/ConfirmationPage"
+        href="/Confirmation"
       >
         Fortsätt
        </Button>
