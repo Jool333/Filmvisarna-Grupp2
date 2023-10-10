@@ -4,7 +4,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function MovieDetail() {
   const firstAndLastColStyle = {
-    backgroundColor: '#CDB991',
     height: '15rem',
     color: 'black', 
     borderRadius:'10px',
@@ -14,7 +13,6 @@ function MovieDetail() {
   };
 
   const middleColStyle = {
-    backgroundColor: '#CDB991',
     height: '15rem',
     color: 'black',
     fontSize: '12px',
@@ -56,7 +54,7 @@ function MovieDetail() {
     for (let i = 0; i < 4; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() + i);
-      const options = { weekday: 'short', month: 'long', day: 'numeric', locale: 'sv-SE' };
+      const options = { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
       days.push(date.toLocaleDateString('sv-SE', options));
     }
 
@@ -92,15 +90,15 @@ function MovieDetail() {
   return (
     <Container className='mt-1'>
     <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
-        <Col className= 'p-3'xs={12} md={2} style={firstAndLastColStyle}> 
+        <Col className= 'p-3 custom-background'xs={12} md={2} style={firstAndLastColStyle}> 
        <div>Transformers</div>
        <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
        <div style={{ marginTop: '40px' }}>Kategori: Action</div>
         </Col>
-        <Col xs={12} md={6} style={middleColStyle}>
+        <Col xs={12} md={6} style={middleColStyle} className='pt-3 custom-background'>
           <Row className="flex">
             {datesForWeek.map((date, index) => (
-              <Col key={index} className="text-center">
+              <Col key={index} className="text-nowrap">
                 <div style={weekdayBoxStyle}>{date.split(',')[0]}</div>
                 <div style={dateBoxStyle}>{date.split(',')[1]}</div>
                 {showtimes[date].map((time, timeIndex) => (
@@ -116,7 +114,7 @@ function MovieDetail() {
             ))}
           </Row>
         </Col>
-        <Col className= 'p-3' xs={12} md={2} style={firstAndLastColStyle}>
+        <Col className= 'p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
           <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons. 
            De kommer från planeten Cybertron och leds av den onde Megatron.
            </div>

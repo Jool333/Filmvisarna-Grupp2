@@ -23,7 +23,7 @@ function BookingViewPage() {
   };
 
   useEffect(()=>{
-    const isLoggedIn = get("loggedIn");
+    const isLoggedIn = false /*get("loggedIn");*/
     setIsGuest(!isLoggedIn);
   }, []);
   
