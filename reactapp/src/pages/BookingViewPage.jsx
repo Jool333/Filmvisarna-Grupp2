@@ -24,11 +24,12 @@ function BookingViewPage() {
        <Col style={{paddingTop:'15%', }}>
         <SeatsGrid onSeatsSelected={handleSeatsSelected} />
       </Col>
-      <Col>
+      <Col style={{paddingTop:'20px'}}>
         <Button
           variant="outline-warning"
           href="/ConfirmationPage"
         >
+
           Fortsätt
         </Button>
       </Col>
