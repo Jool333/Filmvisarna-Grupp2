@@ -59,8 +59,8 @@ function SeatsGrid() {
 
   return (
     <Container>
-      <Row>
-        <Col xs={12} md={4}>
+      <Row className='d-flex align-items-center justify-content-center'>
+        <Col xs={12} md={6}>
           <TicketBooking
             selectedSeats={selectedSeats}
             selectedTickets={selectedTickets}
