@@ -8,10 +8,9 @@ function MovieDisplay(){
             <Container className='allmovies'>
                 {movies.map((movie) => (
                     <Container className={movie.Title}>
-                        <Image src={movie.imgUrl} alt='movie not found'></Image>
+                        <Image src={movie.imgUrl} alt='movieImg not found'></Image>
                     </Container>
                 ))}
-                
             </Container>
     );
 }
