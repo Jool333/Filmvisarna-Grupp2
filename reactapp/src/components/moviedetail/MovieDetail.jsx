@@ -8,8 +8,8 @@ function MovieDetail() {
     height: '15rem',
     color: 'black', 
     borderRadius:'10px',
-    marginBottom:'1rem',
-    marginTop:'1rem'
+    marginBottom:'0.3rem',
+    marginTop:'0.3rem'
     
   };
 
@@ -19,7 +19,10 @@ function MovieDetail() {
     color: 'black',
     fontSize: '12px',
     borderRadius:'10px',
-    margin:'1rem'
+    marginTop:'0.3rem',
+    marginBottom:'0.3rem',
+
+
   };
 
   const weekdayBoxStyle = {
@@ -88,7 +91,7 @@ function MovieDetail() {
 
   return (
     <Container className='mt-1'>
-    <Row style={{ marginTop: '5%', marginBottom: '5%', }} className="d-flex justify-content-between">
+    <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
         <Col className= 'p-3'xs={12} md={2} style={firstAndLastColStyle}> 
        <div>Transformers</div>
        <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
