@@ -5,18 +5,21 @@ import { Container, Row, Col } from 'react-bootstrap';
 function MovieDetail() {
   const firstAndLastColStyle = {
     backgroundColor: '#CDB991',
-    height: '300px',
+    height: '15rem',
     color: 'black', 
-    borderRadius:'10px'
+    borderRadius:'10px',
+    marginBottom:'1rem',
+    marginTop:'1rem'
     
   };
 
   const middleColStyle = {
     backgroundColor: '#CDB991',
-    height: '300px',
+    height: '15rem',
     color: 'black',
     fontSize: '12px',
-    borderRadius:'10px'
+    borderRadius:'10px',
+    margin:'1rem'
   };
 
   const weekdayBoxStyle = {
@@ -84,9 +87,9 @@ function MovieDetail() {
   };
 
   return (
-    <Container>
+    <Container className='mt-1'>
     <Row style={{ marginTop: '5%', marginBottom: '5%', }} className="d-flex justify-content-between">
-        <Col xs={12} md={2} style={firstAndLastColStyle}> 
+        <Col className= 'p-3'xs={12} md={2} style={firstAndLastColStyle}> 
        <div>Transformers</div>
        <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
        <div style={{ marginTop: '40px' }}>Kategori: Action</div>
@@ -100,7 +103,7 @@ function MovieDetail() {
                 {showtimes[date].map((time, timeIndex) => (
                   <div
                     key={timeIndex}
-                    style={timeStyle} // Använd den uppdaterade stilen här
+                    style={timeStyle} 
                     onClick={() => handleTimeClick(date, time)}
                   >
                     {time}
@@ -110,7 +113,7 @@ function MovieDetail() {
             ))}
           </Row>
         </Col>
-        <Col xs={12} md={2} style={firstAndLastColStyle}>
+        <Col className= 'p-3' xs={12} md={2} style={firstAndLastColStyle}>
           <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons. 
            De kommer från planeten Cybertron och leds av den onde Megatron.
            </div>

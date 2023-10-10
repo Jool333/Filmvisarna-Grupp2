@@ -14,27 +14,25 @@ function BookingViewPage() {
 
   return (
     <Container>
-        <Col>
-          <div className="d-flex justify-content-between">
-            <span>Transformers</span>
-            <span>Salong, Tid</span>
-          </div>
-          <hr />
-        </Col>
-        <Col style={{paddingTop:'15%', }}>
-          <SeatsGrid onSeatsSelected={handleSeatsSelected} />
-        </Col>
-        <Col style={{paddingTop:'20px'}}>
-        <Button
-          variant="outline-warning"
-          href="/confirmation"
-        >
-
-          Fortsätt
-        </Button>
+    <Col>
+      <div className="d-flex justify-content-between">
+        <span>Transformers</span>
+        <span>Salong, Tid</span>
+        </div>
+        <hr/>
       </Col>
-
-    </Container>
+    <Col className='d-flex align-items-center justify-content-center pt-5'>
+      <SeatsGrid onSeatsSelected={handleSeatsSelected} />
+      </Col>
+       <Col className='pt-3' style={{ paddingLeft: '9.3%' }}>
+   <Button
+       variant="outline-warning"
+        href="/Confirmation"
+      >
+        Fortsätt
+       </Button>
+     </Col>
+  </Container>
   );
 }
 
