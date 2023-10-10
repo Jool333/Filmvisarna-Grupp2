@@ -1,32 +1,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 const BookingView = () => {
   const customStyle1 = {
     backgroundColor: 'rgb(205, 185, 145)',
     border: '1px solid #ccc',
-    padding: '20px',
+    paddingTop: '15px',
     marginBottom: '10px',
-    height: '100px',
-    width: '100%',
-    borderRadius: '6px',
-    color: 'black',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'left',
-    justifyContent: 'left',
-    textAlign: 'left',
-  };
-
-  const customStyle2 = {
-    backgroundColor: 'rgb(205, 185, 145)',
-    border: '1px solid #ccc',
-    padding: '20px',
-    marginBottom: '10px',
-    height: '200px',
-    width: '100%',
     borderRadius: '6px',
     color: 'black',
     display: 'flex',
@@ -36,11 +17,25 @@ const BookingView = () => {
     textAlign: 'center',
   };
 
-  const imagessource = "src\\images\\";
+  const customStyle2 = {
+    backgroundColor: 'rgb(205, 185, 145)',
+    border: '1px solid #ccc',
+    paddingTop: '15px',
+    marginBottom: '10px',
+    borderRadius: '6px',
+    color: 'black',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  };
+
+  const imagessource = "src/images/";
 
   const imageStyle = {
     maxWidth: '100%',
-    maxHeight: '450px',
+    maxHeight: '25rem', 
     paddingTop: '10%',
   };
 
@@ -54,55 +49,51 @@ const BookingView = () => {
   };
 
   return (
-    <Container>
-      <div className='text-center'>
+
+    <Container className="mt-1">
+      <div className='text-center pt-3 pb-2'>
         <h1>
           Bokningsbekräftelse
-          <hr>
-          </hr>
+        <hr/>
         </h1>
       </div>
       <Row>
-        <Col md={6}>
+        <Col xs={12} md={5} className='d-flex align-items-center justify-content-center'>
           <img src={imagessource + "deostyriga.jpeg"} alt="Bokningsbild" style={imageStyle} />
         </Col>
-        <Col style={{ paddingTop: '' }} md={6}>
-          <div className="guestbooking-page d-flex align-items-left">
-            <h2>
+        <Col xs={12} md={5}>
+          <div className="guestbooking-page d-flex align-items-center justify-content-center">
+            <h3>
               De Ostyriga
-            </h2>
+            </h3>
           </div>
-          <div style= {{paddingTop:'10%'}}>
-          <div className="guestbooking-page d-flex align-items-left">
-            <h4>
-              Beställning
-            </h4>
-          </div>
-          <div className="custom-card" style={customStyle1}>
-            <p style={textStyle}>
-              
-              <FontAwesomeIcon icon={faCircle} style={iconStyle} />
-              2 st Ordinarie biljetter<br />
-              <FontAwesomeIcon icon={faCircle} style={iconStyle} />
-              120 kr/st<br />
-              
-              Totalt att betala: 240 kr
-            </p>
-          </div>
-
-          <div className="custom-card" style={customStyle2}>
-            <p style={textStyle}>
-              Originaltitel: Ustyrlig<br />
-              Land: Danmark<br />
-              Produktionsår: 2022<br />
-              Premiär: 15 sept 2023<br />
-              Längd: 135 min<br />
-              Genre: Drama<br />
-              Distributör: Folkets Bio<br />
-              Språk: Danska<br />
-              Textning: Svenska
-            </p>
-          </div>
+          <div style={{ paddingTop: '10%' }}>
+            <div className="guestbooking-page d-flex align-items-center justify-content-center">
+              <h4>
+                Beställning
+              </h4>
+            </div>
+            <div className="custom-card" style={customStyle1}>
+              <p style={textStyle}>
+                <h3>Bokningsnummer: CR2LWF</h3>   
+                2 st Normala biljetter<br />
+                120 kr/st<br />
+                Totalt att betala: 240 kr
+              </p>
+            </div>
+            <div className="custom-card" style={customStyle2}>
+              <p style={textStyle}>
+                Originaltitel: Ustyrlig<br />
+                Land: Danmark<br />
+                Produktionsår: 2022<br />
+                Premiär: 15 sept 2023<br />
+                Längd: 2h 15min<br />
+                Genre: Drama<br />
+                Distributör: Folkets Bio<br />
+                Språk: Danska<br />
+                Textning: Svenska
+              </p>
+            </div>
           </div>
         </Col>
       </Row>
