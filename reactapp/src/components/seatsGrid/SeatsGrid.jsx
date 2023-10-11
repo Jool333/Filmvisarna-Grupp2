@@ -77,7 +77,7 @@ function SeatsGrid() {
             >
               <p className='text-light' >Bioduk</p>
             </div>
-            <div className='chairs-container'>
+            <div className='chairs-container mt-10'>
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
                   <Col className='d-flex align-items-center justify-content-center p-0'>
