@@ -22,6 +22,7 @@ const LoginPage = () => {
     setPassword('');
   };
   return (
+
     <Container className='d-flex justify-content-center align-content-center '>
           <Row className='d-flex justify-content-center align-content-center '>
               <Col className='w-50'>
