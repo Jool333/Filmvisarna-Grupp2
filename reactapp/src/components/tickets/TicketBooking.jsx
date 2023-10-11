@@ -3,7 +3,7 @@ import React from 'react';
 import { Col, Button } from 'react-bootstrap';
 
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
-  const maxTotalTickets = 81; // Det maximala antalet biljetter
+  const maxTotalTickets = 81;
 
   const getTotalTickets = () => {
     return selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
@@ -22,7 +22,7 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
   const handleTicketDecrease = (type) => {
     if (selectedTickets[type] > 0) {
       handleTicketChange(type, selectedTickets[type] - 1);
-      setSelectedSeats([]); // Återställ stolarna när antalet biljetter minskar
+      setSelectedSeats([]);
     }
   };
 
