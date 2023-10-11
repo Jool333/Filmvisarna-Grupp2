@@ -7,7 +7,7 @@ import postar from '@/images/poster.jpg'
 function BookingDetail() {
     return (
 
-        <Container className="mt-4 , bookingDetail-loggedInView"  >
+        <Container className="mt-4 , bookingDetail-loggedInView text-light"  >
             <Row>
 
 

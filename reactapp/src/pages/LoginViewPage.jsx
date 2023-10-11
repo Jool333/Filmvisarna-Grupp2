@@ -50,14 +50,15 @@ const LoginPage = () => {
   }
   
   return (
-    <Container >
-      <Row>
-        <Col xs={12} md={6} lg={4} className="mx-auto">
-          <div className="login-page d-flex justify-content-center align-items-center">
-            <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
-              <Card.Body>
-                <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
-                <Form onSubmit={handleSubmit}>
+
+    <Container className='d-flex justify-content-center align-content-center '>
+          <Row className='d-flex justify-content-center align-content-center '>
+              <Col className='w-50'>
+                    <div className="login-page d-flex justify-content-center align-items-center">
+                    <Card className='custom-background w-100'>
+                        <Card.Body>
+                        <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
+                          <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-3">
                     <Form.Label className="text-dark">E-mail:</Form.Label>
                     <Form.Control
@@ -90,15 +91,16 @@ const LoginPage = () => {
 
                   </div>
                 </Form>
-                <Alert variant="warning" style={{ background: "#CDB991", border: 0 }}>
+      <Alert variant="warning" style={{ background: "#CDB991", border: 0 }}>
                   {message}
                 </Alert>
-              </Card.Body>
-            </Card>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+                        </Card.Body>
+                    </Card>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+
   );
 };
 

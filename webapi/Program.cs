@@ -20,8 +20,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder.WithOrigins("*") // frontend URL
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials());
+                        .AllowAnyMethod());
 });
 
 var app = builder.Build();
