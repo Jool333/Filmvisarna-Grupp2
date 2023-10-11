@@ -151,8 +151,8 @@ function MainPage() {
    },[]);
 
   return (
-    <Container>
-      <Row>
+    <Container >
+      <Row className='custom-background p-2'>
         <Col>
           <label htmlFor="dateSelect">Välj datum:</label>
           <select
@@ -195,7 +195,7 @@ function MainPage() {
             <ul className='film-list'>
               {filteredMovies.map((movie, index) => (
                 <li key={index}  className='film-list-item' >
-                  <Nav.Link href={movie.link} style={{color:"black"}}>
+                  <Nav.Link href={movie.link}>
 
                   <img src={movie.img}  width="200px" className='poster-img' />
                   
