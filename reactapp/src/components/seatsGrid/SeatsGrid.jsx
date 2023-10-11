@@ -62,13 +62,12 @@ function SeatsGrid() {
         </Col>
         <Col md={4} xs={12}>
           <div>
-            <h5 className='justify-content'>Välj Stolar ({selectedSeats.length} valda)</h5>
+            <h5 className='d-flex align-items-center justify-content-center'>Välj Stolar ({selectedSeats.length} valda)</h5>
             <div
-              className='film-screen'
+              className='film-screen mb-5'
               style={{
-                marginBottom: '10%',
-                maxWidth: '50%',
-                marginLeft: '25%',
+                maxWidth: '80%',
+                marginLeft: '10%',
                 maxHeight: '3px',
                 alignContent: 'center',
                 backgroundColor: 'gray',
@@ -76,34 +75,26 @@ function SeatsGrid() {
                 borderRadius: '3px',
               }}
             >
-              <p className='text-light' style={{ fontSize: '15px' }}>Bioduk</p>
+              <p className='text-light' >Bioduk</p>
             </div>
             <div className='chairs-container'>
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
-                  <Col className='text-center'>
+                  <Col className='d-flex align-items-center justify-content-center p-0'>
                     {new Array(seats).fill(1).map((x, j) => (
                       <div className='d-inline-block' key={j}>
                         <Button
                           variant='black'
                           size='sm'
-                          className={`chair-button ${selectedSeats.some(
+                          className={`chair-button border-0 p-0 ${selectedSeats.some(
                             (seat) => seat.row === i && seat.seat === j
                           )
                             ? 'text-warning'
                             : ''
                             }`}
-                          style={{
-                            color: 'white',
-                            border: 'none',
-                            transform: 'rotate(180deg)',
-                            padding: '0',
-                            width: '1.5rem',
-                            height: '1.5rem',
-                          }}
                           onClick={() => handleSeatsClick(i, j)}
                         >
-                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.4rem' }} />
+                          <FontAwesomeIcon icon={faCouch} className="couch-font" />
                         </Button>
                       </div>
                     ))}
