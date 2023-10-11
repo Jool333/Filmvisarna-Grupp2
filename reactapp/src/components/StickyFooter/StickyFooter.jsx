@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function StickyFooter() {
     return (
-        <Container className='footer-main mt-5'>
+        <Container className='mt-5 pt-3 custom-background mw-100 w-100 text-dark'>
             <Row >
                 <Col className='d-flex justify-content-center'>
                     <h5>Kontakta oss</h5>
