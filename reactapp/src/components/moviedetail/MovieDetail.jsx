@@ -4,34 +4,33 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function MovieDetail() {
   const firstAndLastColStyle = {
-    backgroundColor: '#CDB991',
-    height: '300px',
+    height: '15rem',
     color: 'black', 
-    borderRadius:'10px'
-    
+    borderRadius:'10px',
+    marginBottom:'0.3rem',
+    marginTop:'0.3rem',
+    minheight: "15rem"
   };
 
   const middleColStyle = {
-    backgroundColor: '#CDB991',
-    height: '300px',
     color: 'black',
     fontSize: '12px',
-    borderRadius:'10px'
+    borderRadius:'10px',
+    marginTop:'0.3rem',
+    marginBottom:'0.3rem',
+
+
   };
 
   const weekdayBoxStyle = {
-    
-    width: '50px',
-    fontSize: '11px',
+    fontSize: '0.9rem'
   };
 
-  const dateBoxStyle = {
-    marginTop: '10px',
-  };
+  
 
   const timeStyle = {
     cursor: 'pointer',
-    margin: '5px',
+    margin: '0.5rem',
     backgroundColor: 'black',
     borderRadius: '6px',
     borderColor: 'black',
@@ -45,12 +44,12 @@ function MovieDetail() {
     const today = new Date();
     const days = [];
 
-    today.setDate(today.getDate() - (today.getDay() - 1));
+    today.setDate(today.getDate());
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 7; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() + i);
-      const options = { weekday: 'short', month: 'long', day: 'numeric', locale: 'sv-SE' };
+      const options = { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
       days.push(date.toLocaleDateString('sv-SE', options));
     }
 
@@ -84,23 +83,23 @@ function MovieDetail() {
   };
 
   return (
-    <Container>
-    <Row style={{ marginTop: '5%', marginBottom: '5%', }} className="d-flex justify-content-between">
-        <Col xs={12} md={2} style={firstAndLastColStyle}> 
+    <Container className='mt-1'>
+    <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
+        <Col className= 'p-3 custom-background'xs={12} md={2} style={firstAndLastColStyle}> 
        <div>Transformers</div>
        <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
        <div style={{ marginTop: '40px' }}>Kategori: Action</div>
         </Col>
-        <Col xs={12} md={6} style={middleColStyle}>
-          <Row className="flex">
+        <Col xs={12} md={7} style={middleColStyle} className='custom-background'>
+          <Row className="flex p-3">
             {datesForWeek.map((date, index) => (
-              <Col key={index} className="text-center">
-                <div style={weekdayBoxStyle}>{date.split(',')[0]}</div>
-                <div style={dateBoxStyle}>{date.split(',')[1]}</div>
+              <Col key={index} className=' flex p-1'>
+                <div className='w-100 text-center' style={weekdayBoxStyle}>{date.split(',')[0]}</div>
+                <div>{date.split(',')[1]}</div>
                 {showtimes[date].map((time, timeIndex) => (
                   <div
                     key={timeIndex}
-                    style={timeStyle} // Använd den uppdaterade stilen här
+                    style={timeStyle} 
                     onClick={() => handleTimeClick(date, time)}
                   >
                     {time}
@@ -110,7 +109,7 @@ function MovieDetail() {
             ))}
           </Row>
         </Col>
-        <Col xs={12} md={2} style={firstAndLastColStyle}>
+        <Col className= 'p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
           <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons. 
            De kommer från planeten Cybertron och leds av den onde Megatron.
            </div>

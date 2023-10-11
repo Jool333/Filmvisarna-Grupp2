@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AgeFilter from "../components/AgeFilter/AgeFilter";
 import MovieSchedule from "../components/MovieSchedule/MovieSchedule";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 
 

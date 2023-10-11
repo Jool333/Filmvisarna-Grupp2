@@ -18,7 +18,7 @@ function MovieSchedule({ movies }) {
                   <h4>{visning.dag}</h4>
                   <ul>
                     {visning.tider.map((tid, tidIndex) => (
-                      <li key={tidIndex}>{tid}</li>
+                      <li key={tidIndex}><a href="/booking">{tid}</a></li>
                     ))}
                   </ul>
                 </div>

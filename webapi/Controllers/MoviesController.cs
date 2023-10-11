@@ -48,7 +48,7 @@ namespace webapi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("create")]
+        [HttpPost()]
         public async Task<IActionResult> Add(MoviePostViewModel movie)
         {
             if (!ModelState.IsValid)
@@ -58,13 +58,14 @@ namespace webapi.Controllers
 
             if (await _context.Movies.SingleOrDefaultAsync(c => c.Title == movie.Title) is not null)
             {
-                return BadRequest($"Arten {movie.Title} finns redan i systemet");
+                return Conflict($"Filmen {movie.Title} finns redan i systemet");
             }
 
             var movieToAdd = new Movie
             {
                 Title = movie.Title,
                 Description = movie.Description,
+                AgeLimit = movie.AgeLimit,
                 ImgUrl = movie.ImgUrl,
                 TrailerUrl = movie.TrailerUrl
             };
@@ -82,6 +83,7 @@ namespace webapi.Controllers
                         Id = movieToAdd.Id,
                         Title = movieToAdd.Title,
                         Description = movieToAdd.Description,
+                        AgeLimit = movieToAdd.AgeLimit,
                         ImgUrl = movieToAdd.ImgUrl,
                         TrailerUrl = movieToAdd.TrailerUrl
                     });
