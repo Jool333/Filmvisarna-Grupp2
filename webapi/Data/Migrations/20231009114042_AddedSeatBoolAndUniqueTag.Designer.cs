@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Data;
 
@@ -10,9 +11,11 @@ using webapi.Data;
 namespace webapi.Data.Migrations
 {
     [DbContext(typeof(FilmvisarnaContext))]
-    partial class FilmvisarnaContextModelSnapshot : ModelSnapshot
+    [Migration("20231009114042_AddedSeatBoolAndUniqueTag")]
+    partial class AddedSeatBoolAndUniqueTag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -244,31 +247,12 @@ namespace webapi.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserRoleId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("UserRoleId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("webapi.Entities.UserRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("webapi.Entities.Booking", b =>
@@ -364,17 +348,6 @@ namespace webapi.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Theater");
-                });
-
-            modelBuilder.Entity("webapi.Entities.User", b =>
-                {
-                    b.HasOne("webapi.Entities.UserRole", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("webapi.Entities.Booking", b =>

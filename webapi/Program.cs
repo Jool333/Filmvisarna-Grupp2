@@ -15,6 +15,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("*") // frontend URL
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
@@ -24,14 +32,16 @@ try
     var context = services.GetRequiredService<FilmvisarnaContext>();
     await context.Database.MigrateAsync();
     
-    await SeedData.LoadMovieData(context);    
+    //ta bort kommentarer när resp json fil är klar
+    await SeedData.LoadMovieData(context);
+    await SeedData.LoadUserRoleData(context);    
     await SeedData.LoadUserData(context);    
-    await SeedData.LoadBookingData(context);    
-    await SeedData.LoadScreeningData(context);    
-    await SeedData.LoadSeatData(context);    
+    //await SeedData.LoadBookingData(context);    
+    //await SeedData.LoadScreeningData(context);    
+    //await SeedData.LoadSeatData(context);    
     await SeedData.LoadTheaterData(context);
-    await SeedData.LoadBookingXSeatData(context);
-    await SeedData.LoadMovieXCategoryData(context);
+    //await SeedData.LoadBookingXSeatData(context);
+    //await SeedData.LoadMovieXCategoryData(context);
 
 
 }
@@ -53,6 +63,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllers();
 

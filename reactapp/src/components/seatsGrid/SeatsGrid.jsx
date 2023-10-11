@@ -58,9 +58,9 @@ function SeatsGrid() {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col xs={12} md={4}>
+    <Container className='text-light'> 
+      <Row className='d-flex align-items-center justify-content-center'>
+        <Col xs={12} md={6}>
           <TicketBooking
             selectedSeats={selectedSeats}
             selectedTickets={selectedTickets}
@@ -68,7 +68,7 @@ function SeatsGrid() {
             setSelectedSeats={setSelectedSeats}
           />
         </Col>
-        <Col md={6} xs={12}>
+        <Col md={4} xs={12}>
           <div>
             <h5 className='justify-content'>Välj Stolar ({selectedSeats.length} valda)</h5>
             <div
@@ -84,7 +84,7 @@ function SeatsGrid() {
                 borderRadius: '3px',
               }}
             >
-              <p style={{ color: 'white', fontSize: '15px' }}>Bioduk</p>
+              <p className='text-light' style={{ fontSize: '15px' }}>Bioduk</p>
             </div>
             <div className='chairs-container'>
               {seatsPerRow.map((seats, i) => (
@@ -112,7 +112,7 @@ function SeatsGrid() {
                           }}
                           onClick={() => handleSeatsClick(i, j)}
                         >
-                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.25rem' }} />
+                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.4rem' }} />
                         </Button>
                       </div>
                     ))}

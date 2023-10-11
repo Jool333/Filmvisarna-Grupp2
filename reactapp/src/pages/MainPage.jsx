@@ -1,5 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import { Container, Row, Col, Button ,Nav} from 'react-bootstrap';
+import { useOutletContext } from 'react-router-dom';
 
 import img1 from "@/assets/poster/1.jpeg"
 import img2 from "@/assets/poster/2.jpeg"
@@ -15,93 +16,105 @@ import img10 from "@/assets/poster/10.jpeg"
 import img11 from "@/assets/poster/11.jpeg"
 import img12 from "@/assets/poster/12.jpeg"
 
-function MainPage() {
 
+function MainPage() {
+  
+  const {moviesImport} = useOutletContext();
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedAgeRating, setSelectedAgeRating] = useState('');
   const [filteredMovies, setFilteredMovies] = useState([]);
   
 
-
-
-  const FilmsData = [
+  const movies = [
     {
       title: 'Film 1',
       date: '2023-09-30',
       ageRating: 'PG',
-      img: img1
+      img: img1, 
+      link:"/movie/1"
 
     },
     {
       title: 'Film 2',
       date: '2023-10-05',
       ageRating: 'NC-17',
-      img: img2
+      img: img2, 
+      link:"/movie/1"
     },
     {
       title: 'Film 3',
       date: '2023-10-05',
       ageRating: 'G',
-      img: img3
+      img: img3, 
+      link:"/movie/1"
     },
     {
       title: 'Film 4',
       date: '2023-10-05',
       ageRating: 'PG-13',
-      img: img4
+      img: img4, 
+      link:"/movie/1"
     },
     {
       title: 'Film 5',
       date: '2023-10-05',
       ageRating: 'NC-17',
-      img:img5
+      img:img5, 
+      link:"/movie/1"
     },
     {
       title: 'Film 6',
       date: '2023-10-05',
       ageRating: 'R',
-      img:img6
+      img:img6, 
+      link:"/movie/1"
     },
     {
       title: 'Film 1',
       date: '2023-09-30',
       ageRating: 'NC-17',
-      img: img7
+      img: img7, 
+      link:"/movie/1"
 
     },
     {
       title: 'Film 2',
       date: '2023-10-05',
       ageRating: 'R',
-      img: img8
+      img: img8, 
+      link:"/movie/1"
     },
     {
       title: 'Film 3',
       date: '2023-10-05',
       ageRating: 'G',
-      img: img9
+      img: img9, 
+      link:"/movie/1"
     },
     {
       title: 'Film 4',
       date: '2023-10-05',
       ageRating: 'PG',
-      img: img10
+      img: img10, 
+      link:"/movie/1"
     },
     {
       title: 'Film 5',
       date: '2023-10-05',
       ageRating: 'PG-13',
-      img:img11
+      img:img11, 
+      link:"/movie/1"
     },
     {
       title: 'Film 6',
       date: '2023-10-05',
       ageRating: 'PG-13',
       img:img12, 
-      link:"/MovieDetailPage"
+      link:"/movie/1"
     }
 
   ];
+  
 
   const days = [
     '2023-09-30',
@@ -113,7 +126,7 @@ function MainPage() {
     console.log('filtered')
 
     // setFilterMode(true)
-    const filtered = FilmsData.filter(movie => {
+    const filtered = movies.filter(movie => {
       if (selectedDate && movie.date !== selectedDate) {
         return false;
       }
@@ -138,8 +151,8 @@ function MainPage() {
    },[]);
 
   return (
-    <Container className="mt-5">
-      <Row>
+    <Container >
+      <Row className='custom-background p-2'>
         <Col>
           <label htmlFor="dateSelect">Välj datum:</label>
           <select
@@ -182,7 +195,7 @@ function MainPage() {
             <ul className='film-list'>
               {filteredMovies.map((movie, index) => (
                 <li key={index}  className='film-list-item' >
-                  <Nav.Link href={movie.link} style={{color:"black"}}>
+                  <Nav.Link href={movie.link}>
 
                   <img src={movie.img}  width="200px" className='poster-img' />
                   

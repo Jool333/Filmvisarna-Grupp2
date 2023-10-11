@@ -46,9 +46,9 @@ function CreateAccountPage(){
   };
 
   return (
-    <Container className="mt-5">
+    <Container >
       <Row>
-        <Col>
+        <Col xs={12} md={6} lg={4} className="mx-auto">
           <div className="create-account-page d-flex justify-content-center align-items-center">
             <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
               <Card.Body>
@@ -129,8 +129,8 @@ function CreateAccountPage(){
                     <Row>
                       <Col md={12} className="text-center">
                         <div className="d-grid gap-2 mb-3">
-                          <Button variant="outline-dark" type="submit">
-                             Skapa konto
+                          <Button variant="outline-dark" type="submit" href="/login">
+                            Bli Medlem
                           </Button>
                         </div>
                       </Col>

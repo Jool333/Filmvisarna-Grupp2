@@ -22,11 +22,12 @@ const LoginPage = () => {
     setPassword('');
   };
   return (
-    <Container className="mt-5">
-          <Row>
-              <Col>
+
+    <Container className='d-flex justify-content-center align-content-center '>
+          <Row className='d-flex justify-content-center align-content-center '>
+              <Col className='w-50'>
                     <div className="login-page d-flex justify-content-center align-items-center">
-                    <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
+                    <Card className='custom-background w-100'>
                         <Card.Body>
                         <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
                         <Form onSubmit={handleSubmit}>
@@ -53,11 +54,11 @@ const LoginPage = () => {
                             />
                             </Form.Group>
                             <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
-                                <a href="/CreateAccountPage" className="btn btn-link text-decoration-underline">
-                                Skapa konto
+                                <a href="/create-account" className=' text-dark'>
+                                Bli Medlem
                                 </a>
-                                <Link to="/LoggedInView"> {LoggedInView}
-                                    <Button variant="primary" type="submit">Logga in</Button>
+                                <Link to="/loggedin"> {LoggedInView}
+                                    <Button variant="outline-dark" type="submit">Logga in</Button>
                                 </Link>
                     
                             </div>

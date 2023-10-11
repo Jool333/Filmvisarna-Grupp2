@@ -2,24 +2,37 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    color: black;
 }
 
 main {
     flex: 1;
 }
+
 //ta inte bort andras styling
 a{
     text-decoration: none;
-    color: white;
-}
+    color:white
+}   
 a:hover{
     text-decoration: underline;
+}
+.dropdown-item:hover{
+    color: black;
+}
+
+.custom-background{
+    background-color: #CDB991;
+}
+
+.img-max-height-5rem{
+    max-height: 5rem;
 }
 
 .film-list {
 
-    margin-top: 150px;
-    margin-bottom: 150px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 
     // background-color: red;
     display: flex;
