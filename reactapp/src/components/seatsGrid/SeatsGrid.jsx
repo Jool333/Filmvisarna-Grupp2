@@ -26,7 +26,6 @@ function SeatsGrid() {
   ];
 
   useEffect(() => {
-    // Kolla om användaren har valt rätt antal biljetter och platser
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
@@ -36,29 +35,22 @@ function SeatsGrid() {
       (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
     );
 
-    // Kolla om användaren har valt maximalt antal biljetter
     const maxTicketsSelected =
       selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn ===
       selectedSeats.length;
 
     if (!maxTicketsSelected || isSeatSelected) {
-      // Om användaren inte har valt maximalt antal biljetter eller om stolen är redan vald,
-      // tillåt dem att fortsätta välja och byta platser
       if (isSeatSelected) {
-        // Om stolen redan är vald, ta bort den från listan
         setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
       } else {
-        // Om stolen inte är vald, lägg till den i listan
         setSelectedSeats([...selectedSeats, { row, seat }]);
       }
     }
-
-    // Uppdatera state för valda biljetter och platser
     setSelectedTickets(newSelectedTickets);
   };
 
   return (
-    <Container className='text-light'> 
+    <Container className='text-light'>
       <Row className='d-flex align-items-center justify-content-center'>
         <Col xs={12} md={6}>
           <TicketBooking
@@ -70,13 +62,12 @@ function SeatsGrid() {
         </Col>
         <Col md={4} xs={12}>
           <div>
-            <h5 className='justify-content'>Välj Stolar ({selectedSeats.length} valda)</h5>
+            <h5 className='d-flex align-items-center justify-content-center'>Välj Stolar ({selectedSeats.length} valda)</h5>
             <div
-              className='film-screen'
+              className='film-screen mb-5'
               style={{
-                marginBottom: '10%',
-                maxWidth: '50%',
-                marginLeft: '25%',
+                maxWidth: '80%',
+                marginLeft: '10%',
                 maxHeight: '3px',
                 alignContent: 'center',
                 backgroundColor: 'gray',
@@ -84,35 +75,26 @@ function SeatsGrid() {
                 borderRadius: '3px',
               }}
             >
-              <p className='text-light' style={{ fontSize: '15px' }}>Bioduk</p>
+              <p className='text-light' >Bioduk</p>
             </div>
-            <div className='chairs-container'>
+            <div className='chairs-container mt-10'>
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
-                  <Col className='text-center'>
+                  <Col className='d-flex align-items-center justify-content-center p-0'>
                     {new Array(seats).fill(1).map((x, j) => (
                       <div className='d-inline-block' key={j}>
                         <Button
                           variant='black'
                           size='sm'
-                          className={`chair-button ${
-                            selectedSeats.some(
-                              (seat) => seat.row === i && seat.seat === j
-                            )
-                              ? 'text-warning'
-                              : ''
-                          }`}
-                          style={{
-                            color: 'white',
-                            border: 'none',
-                            transform: 'rotate(180deg)',
-                            padding: '0',
-                            width: '1.5rem',
-                            height: '1.5rem',
-                          }}
+                          className={`chair-button border-0 p-0 ${selectedSeats.some(
+                            (seat) => seat.row === i && seat.seat === j
+                          )
+                            ? 'text-warning'
+                            : ''
+                            }`}
                           onClick={() => handleSeatsClick(i, j)}
                         >
-                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.4rem' }} />
+                          <FontAwesomeIcon icon={faCouch} className="couch-font" />
                         </Button>
                       </div>
                     ))}
