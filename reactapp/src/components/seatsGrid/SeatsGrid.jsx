@@ -58,7 +58,7 @@ function SeatsGrid() {
   };
 
   return (
-    <Container>
+    <Container className='text-light'> 
       <Row className='d-flex align-items-center justify-content-center'>
         <Col xs={12} md={6}>
           <TicketBooking
@@ -84,7 +84,7 @@ function SeatsGrid() {
                 borderRadius: '3px',
               }}
             >
-              <p style={{ color: 'white', fontSize: '15px' }}>Bioduk</p>
+              <p className='text-light' style={{ fontSize: '15px' }}>Bioduk</p>
             </div>
             <div className='chairs-container'>
               {seatsPerRow.map((seats, i) => (

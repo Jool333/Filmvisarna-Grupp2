@@ -22,11 +22,11 @@ const LoginPage = () => {
     setPassword('');
   };
   return (
-    <Container >
-          <Row>
-              <Col>
+    <Container className='d-flex justify-content-center align-content-center '>
+          <Row className='d-flex justify-content-center align-content-center '>
+              <Col className='w-50'>
                     <div className="login-page d-flex justify-content-center align-items-center">
-                    <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
+                    <Card className='custom-background w-100'>
                         <Card.Body>
                         <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
                         <Form onSubmit={handleSubmit}>

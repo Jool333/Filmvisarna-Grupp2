@@ -37,7 +37,7 @@ function BookingViewPage() {
         </div>
         <hr/>
       </Col>
-      <Col className='d-flex align-items-center justify-content-center pt-5' > 
+      <Col className='d-flex align-items-center justify-content-center pt-3' > 
         <SeatsGrid onSeatsSelected={handleSeatsSelected} />
       </Col>
       <Col className='pt-3 pl-9' xs={12} md={6} lg={4} >

@@ -8,12 +8,11 @@ function MovieDetail() {
     color: 'black', 
     borderRadius:'10px',
     marginBottom:'0.3rem',
-    marginTop:'0.3rem'
-    
+    marginTop:'0.3rem',
+    minheight: "15rem"
   };
 
   const middleColStyle = {
-    height: '15rem',
     color: 'black',
     fontSize: '12px',
     borderRadius:'10px',
@@ -24,18 +23,14 @@ function MovieDetail() {
   };
 
   const weekdayBoxStyle = {
-    
-    width: '50px',
-    fontSize: '11px',
+    fontSize: '0.9rem'
   };
 
-  const dateBoxStyle = {
-    marginTop: '10px',
-  };
+  
 
   const timeStyle = {
     cursor: 'pointer',
-    margin: '5px',
+    margin: '0.5rem',
     backgroundColor: 'black',
     borderRadius: '6px',
     borderColor: 'black',
@@ -49,9 +44,9 @@ function MovieDetail() {
     const today = new Date();
     const days = [];
 
-    today.setDate(today.getDate() - (today.getDay() - 1));
+    today.setDate(today.getDate());
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 7; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() + i);
       const options = { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
@@ -95,12 +90,12 @@ function MovieDetail() {
        <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
        <div style={{ marginTop: '40px' }}>Kategori: Action</div>
         </Col>
-        <Col xs={12} md={6} style={middleColStyle} className='pt-3 custom-background'>
-          <Row className="flex">
+        <Col xs={12} md={7} style={middleColStyle} className='custom-background'>
+          <Row className="flex p-3">
             {datesForWeek.map((date, index) => (
-              <Col key={index} className="text-nowrap">
-                <div style={weekdayBoxStyle}>{date.split(',')[0]}</div>
-                <div style={dateBoxStyle}>{date.split(',')[1]}</div>
+              <Col key={index} className=' flex p-1'>
+                <div className='w-100 text-center' style={weekdayBoxStyle}>{date.split(',')[0]}</div>
+                <div>{date.split(',')[1]}</div>
                 {showtimes[date].map((time, timeIndex) => (
                   <div
                     key={timeIndex}
