@@ -9,19 +9,17 @@ const movie = {
 function TrailerPoster() {
 
     return (
-        <Container>
+        <Container className='h-300'>
             <Row className='justify-content-md-center' >
                 <Col >
-                    <iframe className="embed-responsive-item"
+                    <iframe className="trailer p-2"
                         src={"https://www.youtube.com/embed/" + `${movie.embedUrl}`}
-                        height="100%"
-                        width="100%"
                     />
                 </Col>
-                <Col md="auto"  className="d-flex justify-content-center align-items-center">
-                    <Image src={movie.imgUrl} 
-                    alt="imgNotFound"
-                    height="500rem" />
+                <Col md="auto" className="d-flex justify-content-center align-items-center">
+                    <img className='img-max-height-20rem' src={movie.imgUrl}
+                        alt="imgNotFound"
+                    />
                 </Col>
             </Row>
         </Container>

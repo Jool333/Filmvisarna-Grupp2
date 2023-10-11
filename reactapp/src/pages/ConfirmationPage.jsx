@@ -3,27 +3,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 
 const BookingView = () => {
+  // gör till css class
   const customStyle1 = {
-    backgroundColor: 'rgb(205, 185, 145)',
-    border: '1px solid #ccc',
-    paddingTop: '15px',
-    marginBottom: '10px',
     borderRadius: '6px',
-    color: 'black',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-  };
-
-  const customStyle2 = {
-    backgroundColor: 'rgb(205, 185, 145)',
-    border: '1px solid #ccc',
-    paddingTop: '15px',
-    marginBottom: '10px',
-    borderRadius: '6px',
-    color: 'black',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -32,48 +14,41 @@ const BookingView = () => {
   };
 
   const imagessource = "src/images/";
-
+//gör till css class
   const imageStyle = {
-    maxWidth: '100%',
-    maxHeight: '25rem', 
-    paddingTop: '10%',
+    maxHeight: '20rem'
   };
 
   const textStyle = {
     fontSize: '14px',
   };
 
-  const iconStyle = {
-    fontSize: '12px',
-    marginRight: '5px',
-  };
-
   return (
 
     <Container className="mt-1">
       <div className='text-center pt-3 pb-2'>
-        <h1>
+        <h1 className='text-light'>
           Bokningsbekräftelse
         <hr/>
         </h1>
       </div>
       <Row>
         <Col xs={12} md={5} className='d-flex align-items-center justify-content-center'>
-          <img src={imagessource + "deostyriga.jpeg"} alt="Bokningsbild" style={imageStyle} />
+          <img src={imagessource + "deostyriga.jpeg"} alt="Bokningsbild" style={imageStyle} className='mw-100 mb-3'/>
         </Col>
         <Col xs={12} md={5}>
-          <div className="guestbooking-page d-flex align-items-center justify-content-center">
+          <div className="guestbooking-page d-flex align-items-center justify-content-center text-light">
             <h3>
               De Ostyriga
             </h3>
           </div>
-          <div style={{ paddingTop: '10%' }}>
-            <div className="guestbooking-page d-flex align-items-center justify-content-center">
+          <div className='pt-3' >
+            <div className="guestbooking-page d-flex align-items-center justify-content-center text-light">
               <h4>
                 Beställning
               </h4>
             </div>
-            <div className="custom-card" style={customStyle1}>
+            <div className="custom-card custom-background pt-1 mb-3" style={customStyle1}>
               <p style={textStyle}>
                 <h3>Bokningsnummer: CR2LWF</h3>   
                 2 st Normala biljetter<br />
@@ -81,7 +56,7 @@ const BookingView = () => {
                 Totalt att betala: 240 kr
               </p>
             </div>
-            <div className="custom-card" style={customStyle2}>
+            <div className="custom-card custom-background pt-1 mb-3" style={customStyle1}>
               <p style={textStyle}>
                 Originaltitel: Ustyrlig<br />
                 Land: Danmark<br />

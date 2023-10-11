@@ -33,16 +33,16 @@ export default function App() {
         })()
     }, []);
 
-    return <>
+    return <body>
         <header>
             <MainMenu/>
         </header>
-        <main>
+        <main className="h-100 d-flex justify-content-center align-content-center mt-3">
             <Outlet context={globals}/>
         </main>
         <StickyFooter/>
         
-    </>;
+    </body>;
     /*
     return <>
 
