@@ -26,7 +26,6 @@ function SeatsGrid() {
   ];
 
   useEffect(() => {
-    // Kolla om användaren har valt rätt antal biljetter och platser
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
@@ -36,29 +35,22 @@ function SeatsGrid() {
       (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
     );
 
-    // Kolla om användaren har valt maximalt antal biljetter
     const maxTicketsSelected =
       selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn ===
       selectedSeats.length;
 
     if (!maxTicketsSelected || isSeatSelected) {
-      // Om användaren inte har valt maximalt antal biljetter eller om stolen är redan vald,
-      // tillåt dem att fortsätta välja och byta platser
       if (isSeatSelected) {
-        // Om stolen redan är vald, ta bort den från listan
         setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
       } else {
-        // Om stolen inte är vald, lägg till den i listan
         setSelectedSeats([...selectedSeats, { row, seat }]);
       }
     }
-
-    // Uppdatera state för valda biljetter och platser
     setSelectedTickets(newSelectedTickets);
   };
 
   return (
-    <Container className='text-light'> 
+    <Container className='text-light'>
       <Row className='d-flex align-items-center justify-content-center'>
         <Col xs={12} md={6}>
           <TicketBooking
@@ -95,13 +87,12 @@ function SeatsGrid() {
                         <Button
                           variant='black'
                           size='sm'
-                          className={`chair-button ${
-                            selectedSeats.some(
-                              (seat) => seat.row === i && seat.seat === j
-                            )
-                              ? 'text-warning'
-                              : ''
-                          }`}
+                          className={`chair-button ${selectedSeats.some(
+                            (seat) => seat.row === i && seat.seat === j
+                          )
+                            ? 'text-warning'
+                            : ''
+                            }`}
                           style={{
                             color: 'white',
                             border: 'none',

@@ -14,7 +14,7 @@ const BookingView = () => {
   };
 
   const imagessource = "src/images/";
-//gör till css class
+  //gör till css class
   const imageStyle = {
     maxHeight: '20rem'
   };
@@ -29,18 +29,18 @@ const BookingView = () => {
       <div className='text-center pt-3 pb-2'>
         <h1 className='text-light'>
           Bokningsbekräftelse
-        <hr/>
+          <hr />
         </h1>
       </div>
       <Row>
         <Col xs={12} md={5} className='d-flex align-items-center justify-content-center'>
-          <img src={imagessource + "deostyriga.jpeg"} alt="Bokningsbild" style={imageStyle} className='mw-100 mb-3'/>
+          <img src={imagessource + "deostyriga.jpeg"} alt="Bokningsbild" style={imageStyle} className='mw-100 mb-3' />
         </Col>
         <Col xs={12} md={5}>
           <div className="guestbooking-page d-flex align-items-center justify-content-center text-light">
-            <h3>
+            <h2>
               De Ostyriga
-            </h3>
+            </h2>
           </div>
           <div className='pt-3' >
             <div className="guestbooking-page d-flex align-items-center justify-content-center text-light">
@@ -48,15 +48,16 @@ const BookingView = () => {
                 Beställning
               </h4>
             </div>
-            <div className="custom-card custom-background pt-1 mb-3" style={customStyle1}>
+            <div className="custom-card custom-background pt-2 mb-3" style={customStyle1}>
               <p style={textStyle}>
-                <h3>Bokningsnummer: CR2LWF</h3>   
+                <h3>Bokningsnummer: CR2LWF</h3>
+                <hr></hr>
                 2 st Normala biljetter<br />
                 120 kr/st<br />
                 Totalt att betala: 240 kr
               </p>
             </div>
-            <div className="custom-card custom-background pt-1 mb-3" style={customStyle1}>
+            <div className="custom-card custom-background pt-2 mb-3" style={customStyle1}>
               <p style={textStyle}>
                 Originaltitel: Ustyrlig<br />
                 Land: Danmark<br />
