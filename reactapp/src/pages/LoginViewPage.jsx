@@ -23,11 +23,11 @@ const LoginPage = () => {
   };
   return (
 
-    <Container >
+    <Container xs={12} md={6} lg={4} className='d-flex justify-content-center mx-auto align-items-center' >
       <Row >
-        <Col xs={12} md={6} lg={4} className="mx-auto">
+        <Col >
           <div className="login-page d-flex justify-content-center align-items-center">
-            <Card className='custom-background w-100'>
+            <Card className='custom-background'>
               <Card.Body>
                 <Card.Title className="text-center text-dark"><h3>Logga in</h3></Card.Title>
                 <Form onSubmit={handleSubmit}>
