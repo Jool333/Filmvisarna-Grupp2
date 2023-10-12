@@ -62,7 +62,7 @@ function SeatsGrid() {
         </Col>
         <Col md={4} xs={12}>
           <div>
-            <h5 className='d-flex align-items-center justify-content-center'>Välj Stolar ({selectedSeats.length} valda)</h5>
+            <h4 className='d-flex align-items-center justify-content-center'>Välj Stolar ({selectedSeats.length} valda)</h4>
             <div
               className='film-screen mb-5'
               style={{
@@ -77,6 +77,7 @@ function SeatsGrid() {
             >
               <p className='text-light' >Bioduk</p>
             </div>
+            {/*generates all the seats*/}
             <div className='chairs-container mt-10'>
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
@@ -103,6 +104,11 @@ function SeatsGrid() {
               ))}
             </div>
           </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+
         </Col>
       </Row>
     </Container>
