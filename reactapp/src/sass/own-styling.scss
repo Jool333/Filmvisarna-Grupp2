@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap');
 
-body {
+#root {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -28,6 +28,10 @@ a:hover {
 
 .custom-background {
     background-color: #CDB991;
+}
+
+.c-bg-2 {
+    background: #C1A875CC;
 }
 
 .img-max-height-5rem {
