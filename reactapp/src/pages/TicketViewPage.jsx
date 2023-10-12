@@ -7,13 +7,13 @@ import { Container, Row } from "react-bootstrap";
 
 function TicketViewPage() {
   const [selectedAge, setSelectedAge] = useState("all"); // Åldersgränsfilter
-  const imagessource = "src\\images\\"
+  const imagessource = "src\\images\\";
   // Exempeldata för filmer och deras visningar
   const movies = [
     {
       id: 1,
       titel: "De Ostyriga",
-      coverBild: imagessource+"Poster.jpg",
+      coverBild: imagessource + "Poster.jpg",
       visningar: [
         { dag: "Måndag", tider: ["18:00", "20:00"] },
         { dag: "Tisdag", tider: ["18:00", "20:00"] },
@@ -27,7 +27,7 @@ function TicketViewPage() {
     {
       id: 1,
       titel: "De Ostyriga",
-      coverBild: imagessource+"frittfall.jpeg",
+      coverBild: imagessource + "frittfall.jpeg",
       visningar: [
         { dag: "Måndag", tider: ["18:00", "20:00"] },
         { dag: "Tisdag", tider: ["18:00", "20:00"] },
@@ -41,7 +41,7 @@ function TicketViewPage() {
     {
       id: 1,
       titel: "De Ostyriga",
-      coverBild: imagessource+"venedig.jpeg",
+      coverBild: imagessource + "venedig.jpeg",
       visningar: [
         { dag: "Måndag", tider: ["18:00", "20:00"] },
         { dag: "Tisdag", tider: ["18:00", "20:00"] },
@@ -67,12 +67,12 @@ function TicketViewPage() {
 
   return (
     <Container>
-        <Row>
+      <Row>
         <div>
-        <AgeFilter selectedAge={selectedAge} handleAgeChange={handleAgeChange} />
-        <MovieSchedule movies={filteredMovies} />
+          <AgeFilter selectedAge={selectedAge} handleAgeChange={handleAgeChange} />
+          <MovieSchedule movies={filteredMovies} />
         </div>
-        </Row>
+      </Row>
     </Container>
   );
 }

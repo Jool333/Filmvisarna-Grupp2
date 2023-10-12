@@ -7,13 +7,7 @@
 // Import our own styling (one or several files)
 @import './own-styling.scss';
 
-.age-filter{
-    text-align: center;
-    padding: 20px 0;
-    margin: 20px 0;
-    background: #A3874E;
-}
-.movie-schedule .movie{
+.movie-schedule .movie {
     background: #C1A875CC;
     display: flex;
     padding: 20px;
@@ -21,47 +15,56 @@
     margin-bottom: 20px;
     justify-content: center;
 }
-.movie,.movie-details,.movie-showtimes{
+
+.movie,
+.movie-details,
+.movie-showtimes {
     display: flex;
 }
-.movie-cover{
+
+.movie-cover {
     width: 110px;
     height: 150px;
     margin: 0 10px;
 }
-.movie-cover img{
+
+.movie-cover img {
     width: 100%;
     height: 100%;
 }
-.movie-details{
+
+.movie-details {
     margin: 0 10px;
 }
-.movie-showtimes h4{
+
+.movie-showtimes h4 {
     background: #CDB991;
-	font-size: 14px;
-	padding: 5px 10px;
-	color: #000;
-	font-weight: 600;
-	    width: 90px;
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #000;
+    font-weight: 600;
+    width: 90px;
     display: inline-block;
     text-align: center;
     margin-bottom: 0;
 }
-.movie-showtimes ul li{
+
+.movie-showtimes ul li {
     background: #000;
-	color: #CDB991;
-	text-align: center;
+    color: #CDB991;
+    text-align: center;
     width: 90px;
     margin-top: 10px;
     list-style: none;
 }
-.movie-showtimes{
+
+.movie-showtimes {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
-.movie-showtimes ul{
+
+.movie-showtimes ul {
     padding: 0 15px;
 }
-

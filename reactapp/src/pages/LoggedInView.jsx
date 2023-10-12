@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import BookingDetail from '../components/BookingDetail/BookingDetail'
+import { Container, Row } from 'react-bootstrap';
+import ActiveBookingDetail from '../components/BookingDetail/ActiveBookingDetail'
+import InActiveBookingDetail from '../components/BookingDetail/InActiveBookingDetail';
 
 
 
@@ -8,28 +9,12 @@ import BookingDetail from '../components/BookingDetail/BookingDetail'
 function LoggedInView() {
     return (
 
-        <Container className="container-loggedInView">
-            <Row className="container-loggedInView-aktiva-bokningar" >
-
-                <div  >
-                    <h2> Aktiva Bokningar</h2>
-
-                    <BookingDetail />
-                </div>
-
-             
-
+        <Container className="container-loggedInView custom-background p-3 rounded-5">
+            <Row className="mt-1 mx-1" >
+                <ActiveBookingDetail />
             </Row>
-            <Row  className="container-loggedInView-tidigare-bokningar">
-
-                <div>
-                    <h2> Tidigare Bokningar</h2>
-
-                    <BookingDetail />
-
-                    <BookingDetail />
-                </div>
-
+            <Row className="my-3 mx-1">
+                <InActiveBookingDetail />
             </Row>
 
         </Container >
