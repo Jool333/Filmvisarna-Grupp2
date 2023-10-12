@@ -99,14 +99,9 @@ a:hover {
 
 .custom-alert {
     position: absolute;
-    top: 10.7rem; // Anpassa vertikal position efter behov
-    right: 26.5rem; // Anpassa horisontell position efter behov
-    width: 200px; // Anpassa bredd efter behov
-    color: #333;
-    border: 1px solid black;
-    padding: 5px;
-    margin: 0; // Inget extra utrymme runt alerten
-    z-index: 0; // För att säkerställa att alerten visas ovanpå andra element
+    color: red;
+    padding: 0.2rem;
+    font-size: 0.8rem;
 }
 
 

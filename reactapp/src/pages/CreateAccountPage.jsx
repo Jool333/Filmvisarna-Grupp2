@@ -11,6 +11,8 @@ function CreateAccountPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordStrengthMessage, setPasswordStrengthMessage] = useState('');
 
+  const [showAlert, setShowAlert] = useState(false);
+
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -35,14 +37,19 @@ function CreateAccountPage() {
 
     if (newPassword.length < 8) {
       message = 'Lösenordet måste vara minst 8 tecken långt';
-    } else if (!/[A-Z]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/\d/.test(newPassword)) {
+    } else if (!/[A-ZÅÄÖ]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/\d/.test(newPassword)) {
       message = 'Lösenordet måste innehålla både stora och små bokstäver samt minst en siffra';
     }
-    else {
-      message = 'Lösenordet uppfyller kraven';
-    }
+
 
     setPasswordStrengthMessage(message);
+
+    setShowAlert(!!message);
+
+    if (!newPassword || message === '') {
+
+      setShowAlert(false);
+    }
 
   };
 
@@ -66,7 +73,7 @@ function CreateAccountPage() {
       <Row>
         <Col xs={12} md={6} lg={4} className="mx-auto">
           <div className="create-account-page d-flex justify-content-center align-items-center">
-            <Card style={{ backgroundColor: 'rgb(205, 185, 145)', border: '1px solid #ccc', width: '450px' }}>
+            <Card className="custom-background w-100"> {/* Använd w-100 för att fylla hela bredden */}
               <Card.Body>
                 <Card.Title className="text-center text-dark"><h3>Bli medlem</h3></Card.Title>
                 <Form onSubmit={handleSubmit}>
@@ -93,7 +100,7 @@ function CreateAccountPage() {
                           onChange={handlePasswordChange}
                           required
                         />
-                        {passwordStrengthMessage && (
+                        {showAlert && (
                           <Alert className="custom-alert custom-background">{passwordStrengthMessage}</Alert>
                         )}
                       </Form.Group>
