@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
-
+import Alert from 'react-bootstrap/Alert';
 
 function CreateAccountPage() {
   const [firstName, setFirstName] = useState('');
@@ -9,6 +9,9 @@ function CreateAccountPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordStrengthMessage, setPasswordStrengthMessage] = useState('');
+
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -27,7 +30,27 @@ function CreateAccountPage() {
   };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    let message = '';
+
+    if (newPassword.length < 8) {
+      message = 'Lösenordet måste vara minst 8 tecken långt';
+    } else if (!/[A-ZÅÄÖ]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/\d/.test(newPassword)) {
+      message = 'Lösenordet måste innehålla både stora och små bokstäver samt minst en siffra';
+    }
+
+
+    setPasswordStrengthMessage(message);
+
+    setShowAlert(!!message);
+
+    if (!newPassword || message === '') {
+
+      setShowAlert(false);
+    }
+
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -50,7 +73,8 @@ function CreateAccountPage() {
       <Row className='h-100 w-100'>
         <Col className='d-flex justify-content-center align-items-center' >
           <div className="create-account-page d-flex justify-content-center align-items-center">
-            <Card className="custom-background">
+
+            <Card className="custom-background w-100"> {/* Använd w-100 för att fylla hela bredden */}
               <Card.Body>
                 <Card.Title className="text-center text-dark"><h3>Bli medlem</h3></Card.Title>
                 <Form onSubmit={handleSubmit}>
@@ -77,6 +101,11 @@ function CreateAccountPage() {
                           onChange={handlePasswordChange}
                           required
                         />
+
+                        {showAlert && (
+                          <Alert className="custom-alert custom-background">{passwordStrengthMessage}</Alert>
+                        )}
+
                       </Form.Group>
                       <Form.Group className="mb-3">
                         <Form.Label className="text-dark">Bekräfta Lösenord:</Form.Label>
