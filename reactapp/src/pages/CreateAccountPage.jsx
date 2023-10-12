@@ -69,17 +69,18 @@ function CreateAccountPage() {
   };
 
   return (
-    <Container >
-      <Row>
-        <Col xs={12} md={6} lg={4} className="mx-auto">
+    <Container xs={12} md={6} lg={4} className='d-flex justify-content-center align-items-center mt-3' >
+      <Row className='h-100 w-100'>
+        <Col className='d-flex justify-content-center align-items-center' >
           <div className="create-account-page d-flex justify-content-center align-items-center">
+
             <Card className="custom-background w-100"> {/* Använd w-100 för att fylla hela bredden */}
               <Card.Body>
                 <Card.Title className="text-center text-dark"><h3>Bli medlem</h3></Card.Title>
                 <Form onSubmit={handleSubmit}>
-                  <Row>
+                  <Row className='d-flex justify-content-center mx-auto align-items-center'>
                     <Col md={6}>
-                      <Form.Group className="mb-3" style={{ marginRight: '10px' }}>
+                      <Form.Group className="mb-3">
                         <Form.Label className="text-dark">E-mail:</Form.Label>
                         <Form.Control
                           type="email"
@@ -100,9 +101,11 @@ function CreateAccountPage() {
                           onChange={handlePasswordChange}
                           required
                         />
+
                         {showAlert && (
                           <Alert className="custom-alert custom-background">{passwordStrengthMessage}</Alert>
                         )}
+
                       </Form.Group>
                       <Form.Group className="mb-3">
                         <Form.Label className="text-dark">Bekräfta Lösenord:</Form.Label>
