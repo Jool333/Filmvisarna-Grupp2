@@ -19,7 +19,10 @@ import img12 from "@/assets/poster/12.jpeg"
 
 function MainPage() {
 
-  const { moviesImport } = useOutletContext();
+
+  const moviesImport = useOutletContext().movies;
+  console.log(moviesImport)
+
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedAgeRating, setSelectedAgeRating] = useState('');
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -76,6 +79,7 @@ function MainPage() {
       img: img7,
       link: "/movie/1"
 
+
     },
     {
       title: 'Film 2',
@@ -115,16 +119,12 @@ function MainPage() {
 
   ];
 
-
   const days = [
     '2023-09-30',
     '2023-10-05',
-
   ];
 
   const filterMovies = () => {
-    console.log('filtered')
-
     // setFilterMode(true)
     const filtered = movies.filter(movie => {
       if (selectedDate && movie.date !== selectedDate) {
@@ -136,7 +136,7 @@ function MainPage() {
       return true;
 
     });
-    console.log(filtered)
+    //console.log(filtered)
 
     setFilteredMovies(filtered);
   };
@@ -146,7 +146,9 @@ function MainPage() {
   useEffect(() => {
 
 
+
     filterMovies()
+
 
   }, []);
 
@@ -194,17 +196,38 @@ function MainPage() {
       </Row>
       <Row>
         <Col>
-          <div>
+          <div>{/*
             <ul className='film-list'>
               {filteredMovies.map((movie, index) => (
                 <li key={index} className='film-list-item' >
+
                   <Nav.Link href={movie.link} className='nav-link-main'>
                     <img src={movie.img} width="200px" className='poster-img' />
+
+                  <Nav.Link href={movie.link}>
+
+                    <img src={movie.img} width="200px" className='poster-img' />
+
+                  </Nav.Link>
+
+                </li>
+              ))}
+              </ul>*/}
+
+            <ul className='film-list'>
+              {moviesImport.map((movie) => (
+                <li key={movie.id} className='film-list-item' >
+                  <Nav.Link href={'/movie/' + [movie.id]}>
+
+                    <img src={movie.imgUrl} width="200px" className='poster-img' />
+
+
                   </Nav.Link>
 
                 </li>
               ))}
             </ul>
+
           </div>
         </Col>
       </Row>
