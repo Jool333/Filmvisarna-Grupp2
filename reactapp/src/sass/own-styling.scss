@@ -115,8 +115,10 @@ a:hover {
     position: absolute;
     color: darkred;
     padding: 0.2rem;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     border: none;
+    z-index: 1;
+    background-color: transparent;
 }
 
 
