@@ -38,7 +38,7 @@ export default function App() {
             <MainMenu />
         </header>
         <main className="h-100 d-flex justify-content-center align-content-center mt-3">
-            <Outlet context={{ globals }} />
+            <Outlet context={globals} />
         </main>
         <StickyFooter />
 

@@ -2,7 +2,7 @@ const apiRoute = 'https://localhost:5000/api/'
 
 export async function get(route, method = 'GET') {
     return await (
-        await fetch('https://localhost:5000/api/' + route, { method }))
+        await fetch('/api/' + route, { method }))
         .json()
         .catch(e => ({ error: e + '' }));
 };
