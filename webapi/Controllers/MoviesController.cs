@@ -19,9 +19,11 @@ namespace webapi.Controllers
             _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
-        public async Task<IActionResult> ListAll(){
+        public async Task<IActionResult> ListAll()
+        {
             var result = await _context.Movies
-            .Select(m => new{
+            .Select(m => new
+            {
                 Id = m.Id,
                 Title = m.Title,
                 ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png"

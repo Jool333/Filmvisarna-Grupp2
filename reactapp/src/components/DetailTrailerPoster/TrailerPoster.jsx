@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const movie = {
     embedUrl: "U1fu_sA7XhE",
@@ -9,15 +9,16 @@ const movie = {
 function TrailerPoster() {
 
     return (
-        <Container className='h-300'>
-            <Row className='justify-content-md-center' >
-                <Col >
-                    <iframe className="trailer p-2"
+        <Container className='mb-5 w-100' >
+            <Row >
+                <Col xs={12} lg={9} className="d-flex justify-content-center align-items-center w-70">
+                    <iframe className="trailer"
                         src={"https://www.youtube.com/embed/" + `${movie.embedUrl}`}
                     />
                 </Col>
-                <Col md="auto" className="d-flex justify-content-center align-items-center">
-                    <img className='img-max-height-20rem' src={movie.imgUrl}
+                <Col xs={12} lg={3} className="d-flex justify-content-center align-items-center">
+                    <img className='img-max-height-20rem'
+                        src={movie.imgUrl}
                         alt="imgNotFound"
                     />
                 </Col>
