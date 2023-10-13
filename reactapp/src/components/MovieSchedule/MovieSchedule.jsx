@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 
 function MovieSchedule({ movies }) {
@@ -59,8 +59,25 @@ function MovieSchedule({ movies }) {
 
   const handleTimeClick = (date, time) => {
     console.log(`Tid klickad: ${date}, ${time}`);
+    //href booking
   };
+  /*
+  {isNarrow ? (<button
+                          href='/booking'
+                          className="timeButton text-center bg-black border-0 text-light m-1 p-1 rounded "
+                        >
+                          {time.split(':')[0]}: <br /> {time.slice(3)}
+                        </button>)
+                          : (<button
+                            href='/booking'
+                            className="timeButton text-center bg-black border-0 text-light m-1 p-1 rounded "
+                          >
+                            {time}
+                          </button>)}
+  */
+
   //{isNarrow ? (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>) : (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>)}
+  //onClick={() => handleTimeClick(date, time)}
   return (
     <Container>
       {movies.map((movie) => (
@@ -80,22 +97,12 @@ function MovieSchedule({ movies }) {
                       : (<p>{date.split(' ')[0]}  {date.split(' ')[1] + ' ' + date.split(' ')[2]}</p>)}</div>
                   {showtimes[date].map((time, timeIndex) => (
                     <Row className='d-flex justify-content-center align-items-center'>
-                      {isNarrow ? (<button
-                        key={timeIndex}
-                        onClick={() => handleTimeClick(date, time)}
-                        href='/booking'
+                      <Button
+                        href={'/booking'}
                         className="timeButton text-center bg-black border-0 text-light m-1 p-1 rounded "
                       >
-                        {time.split(':')[0]}: <br /> {time.slice(3)}
-                      </button>)
-                        : (<button
-                          key={timeIndex}
-                          onClick={() => handleTimeClick(date, time)}
-                          href='/booking'
-                          className="timeButton text-center bg-black border-0 text-light m-1 p-1 rounded "
-                        >
-                          {time}
-                        </button>)}
+                        {isNarrow ? (<p>{time.split(':')[0]}: <br /> {time.slice(3)}</p>) : (<p>{time}</p>)}
+                      </Button>
                     </Row>
 
                   ))}
