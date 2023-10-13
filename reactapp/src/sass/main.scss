@@ -7,15 +7,6 @@
 // Import our own styling (one or several files)
 @import './own-styling.scss';
 
-.movie-schedule .movie {
-    background: #C1A875CC;
-    display: flex;
-    padding: 20px;
-    align-items: center;
-    margin-bottom: 20px;
-    justify-content: center;
-}
-
 .movie,
 .movie-details,
 .movie-showtimes {
@@ -62,7 +53,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+
 }
 
 .movie-showtimes ul {

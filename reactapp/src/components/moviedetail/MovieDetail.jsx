@@ -5,28 +5,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 function MovieDetail() {
   const firstAndLastColStyle = {
     height: '15rem',
-    color: 'black', 
-    borderRadius:'10px',
-    marginBottom:'0.3rem',
-    marginTop:'0.3rem',
+    color: 'black',
+    borderRadius: '10px',
+    marginBottom: '0.3rem',
+    marginTop: '0.3rem',
     minheight: "15rem"
   };
 
   const middleColStyle = {
     color: 'black',
     fontSize: '12px',
-    borderRadius:'10px',
-    marginTop:'0.3rem',
-    marginBottom:'0.3rem',
+    borderRadius: '10px',
+    marginTop: '0.3rem',
+    marginBottom: '0.3rem',
 
 
   };
-
-  const weekdayBoxStyle = {
-    fontSize: '0.9rem'
-  };
-
-  
 
   const timeStyle = {
     cursor: 'pointer',
@@ -34,9 +28,9 @@ function MovieDetail() {
     backgroundColor: 'black',
     borderRadius: '6px',
     borderColor: 'black',
-    border: '2px solid black', 
-    padding: '10px', 
-    color: '#CDB991', 
+    border: '2px solid black',
+    padding: '10px',
+    color: '#CDB991',
     width: '50px'
   };
 
@@ -84,22 +78,23 @@ function MovieDetail() {
 
   return (
     <Container className='mt-1'>
-    <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
-        <Col className= 'p-3 custom-background'xs={12} md={2} style={firstAndLastColStyle}> 
-       <div>Transformers</div>
-       <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
-       <div style={{ marginTop: '40px' }}>Kategori: Action</div>
+      <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
+        <Col className='p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
+          <div>Transformers</div>
+          <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
+          <div style={{ marginTop: '40px' }}>Kategori: Action</div>
         </Col>
         <Col xs={12} md={7} style={middleColStyle} className='custom-background'>
           <Row className="flex p-3">
             {datesForWeek.map((date, index) => (
               <Col key={index} className=' flex p-1'>
-                <div className='w-100 text-center' style={weekdayBoxStyle}>{date.split(',')[0]}</div>
+                <div className='w-100 text-center' >{date.split(',')[0]}</div>
                 <div>{date.split(',')[1]}</div>
                 {showtimes[date].map((time, timeIndex) => (
                   <div
+                    className='timebutton px-1'
                     key={timeIndex}
-                    style={timeStyle} 
+                    style={timeStyle}
                     onClick={() => handleTimeClick(date, time)}
                   >
                     {time}
@@ -109,10 +104,10 @@ function MovieDetail() {
             ))}
           </Row>
         </Col>
-        <Col className= 'p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
-          <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons. 
-           De kommer från planeten Cybertron och leds av den onde Megatron.
-           </div>
+        <Col className='p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
+          <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons.
+            De kommer från planeten Cybertron och leds av den onde Megatron.
+          </div>
         </Col>
       </Row>
     </Container>
