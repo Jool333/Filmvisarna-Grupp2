@@ -184,7 +184,7 @@ function MainPage() {
       </Row>
       <Row>
         <Col>
-          <div>
+          <div>{/*
             <ul className='film-list'>
               {filteredMovies.map((movie, index) => (
                 <li key={index} className='film-list-item' >
@@ -196,21 +196,21 @@ function MainPage() {
 
                 </li>
               ))}
+              </ul>*/}
+
+            <ul className='film-list'>
+              {moviesImport.map((movie) => (
+                <li key={movie.id} className='film-list-item' >
+                  <Nav.Link href={'/movie/' + [movie.id]}>
+
+                    <img src={movie.imgUrl} width="200px" className='poster-img' />
+
+                  </Nav.Link>
+
+                </li>
+              ))}
             </ul>
-            {/*
-              <ul className='film-list'>
-                {moviesImport.map((movie) => (
-                  <li key={movie.id} className='film-list-item' >
-                    <Nav.Link href={'/movie/' + [movie.id]}>
 
-                      <img src={movie.imgUrl} width="200px" className='poster-img' />
-
-                    </Nav.Link>
-
-                  </li>
-                ))}
-              </ul>
-                */}
           </div>
         </Col>
       </Row>
