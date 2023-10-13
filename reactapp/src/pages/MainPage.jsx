@@ -186,17 +186,31 @@ function MainPage() {
         <Col>
           <div>
             <ul className='film-list'>
-              {moviesImport.map((movie) => (
-                <li key={movie.id} className='film-list-item' >
-                  <Nav.Link href={'/movie/' + [movie.id]}>
+              {filteredMovies.map((movie, index) => (
+                <li key={index} className='film-list-item' >
+                  <Nav.Link href={movie.link}>
 
-                    <img src={movie.imgUrl} width="200px" className='poster-img' />
+                    <img src={movie.img} width="200px" className='poster-img' />
 
                   </Nav.Link>
 
                 </li>
               ))}
             </ul>
+            {/*
+              <ul className='film-list'>
+                {moviesImport.map((movie) => (
+                  <li key={movie.id} className='film-list-item' >
+                    <Nav.Link href={'/movie/' + [movie.id]}>
+
+                      <img src={movie.imgUrl} width="200px" className='poster-img' />
+
+                    </Nav.Link>
+
+                  </li>
+                ))}
+              </ul>
+                */}
           </div>
         </Col>
       </Row>
