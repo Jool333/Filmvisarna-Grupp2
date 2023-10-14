@@ -6,13 +6,14 @@ function AgeFilter({ selectedAge, handleAgeChange }) {
   return (
     <Container>
       <Row>
-        <div className="filter">
+        <div className="bg-filter text-center p-2 my-3">
           <select value={selectedAge} onChange={handleAgeChange}>
-            <option value="all">Välj åldersgräns</option>
-            <option value="7">7 år</option>
-            <option value="12">12 år</option>
-            <option value="15">15 år</option>
-            <option value="18">18 år</option>
+            <option value="all">Alla åldersgränser</option>
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+            <option value="NC-17">NC-17</option>
           </select>
         </div>
       </Row>
