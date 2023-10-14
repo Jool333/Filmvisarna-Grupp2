@@ -5,24 +5,26 @@ function InActiveBookingDetail() {
     const imagessource = "/";
     const bookings = [
         {
+            id: 1,
             title: 'De Ostyriga',
-            date: new Date('2023-10-14T14:30'),
+            screeningdate: new Date('2023-10-14T14:30'),
             theather: 'Salong 1',
-            tickets: '2st ordinarie, 2st barn',
+            tickets: ['2st normal', ' 2st barn'],
             bookingNbr: 'ABC123',
             img: 'deostyriga.jpeg'
         },
         {
+            id: 2,
             title: 'Jaws',
-            date: new Date('2023-10-10T18:30'),
+            screeningdate: new Date('2023-10-10T18:30'),
             theather: 'Salong 2',
-            tickets: '2st ordinarie',
+            tickets: ['2st normal'],
             bookingNbr: 'DEF456',
             img: '12.jpeg'
 
         }
     ]
-    const activeBookings = bookings.filter(booking => booking.date < new Date)
+    const inActiveBookings = bookings.filter(booking => booking.screeningdate < new Date)
 
     const options = {
         month: 'short',
@@ -35,8 +37,8 @@ function InActiveBookingDetail() {
         return (
             <>
                 {
-                    activeBookings.map(booking => {
-                        return <Container className="container-loggedInView mt-2 text-light"  >
+                    inActiveBookings.map(booking => {
+                        return <Container key={booking.id} className="container-loggedInView mt-2 text-light"  >
                             <Row className=' p-4 bg-black'>
                                 <Col xs={6} lg={2} className='d-flex justify-content-center p-0'>
                                     <img className='bookingDetail-loggedInView-container-img'
@@ -50,11 +52,13 @@ function InActiveBookingDetail() {
                                         {booking.theather}
                                     </h5>
                                     <h5>
-                                        {booking.date.toLocaleString('sv-SE', options)}
+                                        {booking.screeningdate.toLocaleString('sv-SE', options)}
                                     </h5>
 
                                     <h6>
-                                        Biljetter: <br />{booking.tickets}
+                                        Biljetter: <br />{booking.tickets.map((ticket, index) => {
+                                            return <div key={index} >{ticket}</div>
+                                        })}
                                     </h6>
                                     <h6>
                                         Bokningsnummer: <br />  {booking.bookingNbr}
