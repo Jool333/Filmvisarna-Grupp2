@@ -38,7 +38,7 @@ try
     await SeedData.LoadUserRoleData(context);
     await SeedData.LoadUserData(context);
     await SeedData.LoadTheaterData(context);
-    // await SeedData.LoadSeatData(context); 
+    await SeedData.LoadSeatData(context);
     // await SeedData.LoadScreeningData(context);  
     // await SeedData.LoadBookingData(context); 
     // await SeedData.LoadBookingXSeatData(context);
