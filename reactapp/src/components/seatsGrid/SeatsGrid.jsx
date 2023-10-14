@@ -6,13 +6,6 @@ import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
 
 function SeatsGrid() {
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedTickets, setSelectedTickets] = useState({
-    normal: 0,
-    pensionär: 0,
-    barn: 0,
-  });
-  const [canContinue, setCanContinue] = useState(false);
 
   const seatsPerRow = [
     8,
@@ -24,6 +17,22 @@ function SeatsGrid() {
     12,
     12,
   ];
+
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [selectedTickets, setSelectedTickets] = useState({
+    normal: 0,
+    pensionär: 0,
+    barn: 0,
+  });
+  const [canContinue, setCanContinue] = useState(false);
+  const [isThereTickets, setIsThereTickets] = useState(false);
+
+  useEffect(() => {
+    const hasSelectedTickets = selectedTickets.normal > 0 || selectedTickets.pensionär > 0 || selectedTickets.barn > 0;
+    setIsThereTickets(hasSelectedTickets);
+  }, [selectedTickets]);
+
+
 
   useEffect(() => {
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
@@ -51,7 +60,7 @@ function SeatsGrid() {
 
   return (
     <Container className='text-light'>
-      <Row className='d-flex align-items-center justify-content-center'>
+      <Row className='d-flex justify-content-center'>
         <Col xs={12} md={6}>
           <TicketBooking
             selectedSeats={selectedSeats}
@@ -62,18 +71,9 @@ function SeatsGrid() {
         </Col>
         <Col md={4} xs={12}>
           <div>
-            <h4 className='d-flex align-items-center justify-content-center'>Välj Stolar ({selectedSeats.length} valda)</h4>
+            <h4 className='d-flex align-items-center justify-content-center mb-3'>Välj Stolar ({selectedSeats.length} valda)</h4>
             <div
-              className='film-screen mb-5'
-              style={{
-                maxWidth: '80%',
-                marginLeft: '10%',
-                maxHeight: '3px',
-                alignContent: 'center',
-                backgroundColor: 'gray',
-                textAlign: 'center',
-                borderRadius: '3px',
-              }}
+              className='film-screen mb-5 bg-secondary text-center rounded'
             >
               <p className='text-light' >Bioduk</p>
             </div>
@@ -94,6 +94,7 @@ function SeatsGrid() {
                             : ''
                             }`}
                           onClick={() => handleSeatsClick(i, j)}
+                          disabled={!isThereTickets}
                         >
                           <FontAwesomeIcon icon={faCouch} className="couch-font" />
                         </Button>
