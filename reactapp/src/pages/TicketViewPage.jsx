@@ -25,8 +25,8 @@ function TicketViewPage() {
       ],
     },
     {
-      id: 1,
-      titel: "De Ostyriga",
+      id: 2,
+      titel: "Fritt fall",
       coverBild: imagessource + "frittfall.jpeg",
       visningar: [
         { dag: "Måndag", tider: ["18:00", "20:00"] },
@@ -39,8 +39,8 @@ function TicketViewPage() {
       ],
     },
     {
-      id: 1,
-      titel: "De Ostyriga",
+      id: 3,
+      titel: "Venedig",
       coverBild: imagessource + "venedig.jpeg",
       visningar: [
         { dag: "Måndag", tider: ["18:00", "20:00"] },
