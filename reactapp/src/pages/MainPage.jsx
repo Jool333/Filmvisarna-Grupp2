@@ -50,7 +50,6 @@ function MainPage() {
       return false;
 
     });
-    console.log('filtrerade filmer' + filtered)
 
     setFilteredMovies(filtered);
   };
