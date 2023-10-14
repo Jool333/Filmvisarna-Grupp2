@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Col, Button, Form } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import SeatsGrid from '../components/seatsGrid/SeatsGrid';
 import { get } from '@/Apiconnection.jsx'
 
 function BookingViewPage() {
+  const [seats, setSeats] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const allSeats = await get('seats');
+      console.log(allSeats)
+      setSeats(allSeats)
+    })();
+  }, []);
+
   const [isContinueEnabled, setIsContinueEnabled] = useState(false);
 
   const handleSeatsSelected = (selectedSeats) => {
