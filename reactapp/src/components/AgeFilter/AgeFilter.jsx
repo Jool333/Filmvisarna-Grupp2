@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 
 
-function AgeFilter({ selectedAge, handleAgeChange }) {
+function AgeFilter({ handleAgeChange }) {
+
+  const [ageRating, setAgeRating] = useState("");
+
+  useEffect(() => {
+    callBackToTicketView(ageRating)
+  }, [ageRating]);
+
+  const handleFilterChange = (e) => {
+    const selectedAge = e.target.value;
+    setAgeRating(selectedAge);
+  }
+
+  const callBackToTicketView = (ar) => {
+    handleAgeChange(ar);
+  }
+
   return (
     <Container>
       <Row>
         <div className="bg-filter text-center p-2 my-3">
-          <select value={selectedAge} onChange={handleAgeChange}>
-            <option value="all">Alla åldersgränser</option>
+          <select value={ageRating} onChange={handleFilterChange}>
+            <option value="">Alla åldersgränser</option>
             <option value="G">G</option>
             <option value="PG">PG</option>
             <option value="PG-13">PG-13</option>
