@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
+using webapi.Functions;
 using webapi.ViewModel;
 
 namespace webapi.Controllers
@@ -52,12 +53,13 @@ namespace webapi.Controllers
             }
             //kolla att angivet lösenord stämmer till ang användare 
             //ändras när kyptering implementerats
-            if (await _context.Users.SingleOrDefaultAsync(c => c.Password == user.Password) is null)
+            if (await _context.Users.SingleOrDefaultAsync(c => c.Password == UserService.HashPassword(user.Password)) is null)
             {
                 return Unauthorized($"Ogiltigt lösenord");
             }
             return Ok("Login Successful");
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationPostViewModel reg)
         {
@@ -69,11 +71,12 @@ namespace webapi.Controllers
             {
                 return BadRequest($"Eposten är redan registrerad");
             }
-            
-            var userToAdd = new User{
+
+            var userToAdd = new User
+            {
                 Email = reg.Email,
                 //lägger till hash funktion när den implementerats
-                Password = reg.Password,
+                Password = UserService.HashPassword(reg.Password),
                 FirstName = reg.FirstName,
                 LastName = reg.LastName,
                 PhoneNumber = reg.PhoneNumber
@@ -90,7 +93,6 @@ namespace webapi.Controllers
                     new
                     {
                         Email = userToAdd.Email,
-                        //lägger till hash funktion när den implementerats
                         Password = userToAdd.Password,
                         FirstName = userToAdd.FirstName,
                         LastName = userToAdd.LastName,

@@ -366,3 +366,4 @@ MigrationBackup/
 FodyWeavers.xsd
 *.db-shm
 *.db-wal
+webapi/Functions/secret.json
