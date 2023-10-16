@@ -1,71 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
+import { post } from "../ApiConnection";
 
 function CreateAccountPage() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    password: ''
+  };
+  const [formData, setFormData] = useState(initialFormData)
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordStrengthMessage, setPasswordStrengthMessage] = useState('');
-
+  const [passwordMatchhMessage, setPasswordMatchMessage] = useState('');
+  const [passValid, setPassValid] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showMatchAlert, setShowMatchAlert] = useState(false);
 
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
+  const resetForm = () => {
+    setFormData(initialFormData);
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-
+  const checkPasswordRules = () => {
+    const newPassword = formData.password
     let message = '';
-
     if (newPassword.length < 8) {
       message = 'Lösenordet måste vara minst 8 tecken långt';
     } else if (!/[A-ZÅÄÖ]/.test(newPassword) || !/[a-z]/.test(newPassword) || !/\d/.test(newPassword)) {
       message = 'Lösenordet måste innehålla både stora och små bokstäver samt minst en siffra';
     }
-
-
     setPasswordStrengthMessage(message);
 
     setShowAlert(!!message);
 
-    if (!newPassword || message === '') {
-
+    if (message === '') {
       setShowAlert(false);
+      setPassValid(true);
     }
-
   };
+
+  useEffect(() => {
+    if (formData.password !== '') {
+      checkPasswordRules();
+      checkPasswordMatch();
+    }
+  }, [formData.password]);
+
+  const checkPasswordMatch = () => {
+    let message = '';
+    if (formData.password != confirmPassword) {
+      message = 'Lösenorden stämmer inte överens'
+    }
+    setPasswordMatchMessage(message)
+    setShowMatchAlert(!!message)
+  }
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (confirmPassword !== '') {
+      checkPasswordMatch();
+    }
+  }, [confirmPassword]);
 
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhoneNumber('');
-    setPassword('');
-    setConfirmPassword('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (passValid) {
+      var regUserData = {
+        Email: formData.email,
+        Password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phoneNumber: formData.phoneNumber
+      }
+      try {
+        var result = await post('users/register', regUserData);
+        if (result && result.error) {
+          alert('Registrering misslyckades. ' + result.error);
+          return;
+        }
+        alert('Registrering lyckades');
+        resetForm();
+      } catch (error) {
+
+      }
+      window.location.href = '/login'
+    }
   };
 
   return (
@@ -86,8 +115,8 @@ function CreateAccountPage() {
                           type="email"
                           id="email"
                           name="email"
-                          value={email}
-                          onChange={handleEmailChange}
+                          value={formData.email}
+                          onChange={handleInputChange}
                           required
                         />
                       </Form.Group>
@@ -97,8 +126,8 @@ function CreateAccountPage() {
                           type="password"
                           id="password"
                           name="password"
-                          value={password}
-                          onChange={handlePasswordChange}
+                          value={formData.password}
+                          onChange={handleInputChange}
                           required
                         />
 
@@ -117,6 +146,9 @@ function CreateAccountPage() {
                           onChange={handleConfirmPasswordChange}
                           required
                         />
+                        {showMatchAlert && (
+                          <Alert className="custom-alert custom-background">{passwordMatchhMessage}</Alert>
+                        )}
                       </Form.Group>
                     </Col>
                     <Col md={6}>
@@ -126,8 +158,8 @@ function CreateAccountPage() {
                           type="text"
                           id="firstName"
                           name="firstName"
-                          value={firstName}
-                          onChange={handleFirstNameChange}
+                          value={formData.firstName}
+                          onChange={handleInputChange}
                           required
                         />
                       </Form.Group>
@@ -137,8 +169,8 @@ function CreateAccountPage() {
                           type="text"
                           id="lastName"
                           name="lastName"
-                          value={lastName}
-                          onChange={handleLastNameChange}
+                          value={formData.lastName}
+                          onChange={handleInputChange}
                           required
                         />
                       </Form.Group>
@@ -148,8 +180,8 @@ function CreateAccountPage() {
                           type="tel"
                           id="phoneNumber"
                           name="phoneNumber"
-                          value={phoneNumber}
-                          onChange={handlePhoneNumberChange}
+                          value={formData.phoneNumber}
+                          onChange={handleInputChange}
                           required
                         />
                       </Form.Group>
@@ -158,7 +190,7 @@ function CreateAccountPage() {
                   <Row>
                     <Col md={12} className="text-center">
                       <div className="d-grid gap-2 mb-3">
-                        <Button variant="outline-dark" type="submit" href="/login">
+                        <Button variant="outline-dark" type="submit">
                           Bli Medlem
                         </Button>
                       </div>

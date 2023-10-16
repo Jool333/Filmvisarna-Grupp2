@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
+using webapi.Functions;
 using webapi.ViewModel;
 
 namespace webapi.Controllers
@@ -25,7 +26,6 @@ namespace webapi.Controllers
                 {
                     Id = u.Id,
                     Email = u.Email,
-                    //lägger till hash funktion när den implementerats
                     Password = u.Password,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
@@ -42,41 +42,42 @@ namespace webapi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("All information är inte med i anropet");
+                return BadRequest(new { error = "All information är inte med i anropet" });
             }
             //check Email is in DB
             var user = await _context.Users.SingleOrDefaultAsync(c => c.Email == login.Email);
             if (user is null)
             {
-                return Unauthorized($"Ogiltig epost");
+                return Unauthorized(new { error = "Ogiltig epost" });
             }
             //kolla att angivet lösenord stämmer till ang användare 
-            //ändras när kyptering implementerats
-            if (await _context.Users.SingleOrDefaultAsync(c => c.Password == user.Password) is null)
+            if (await _context.Users.SingleOrDefaultAsync(c => c.Password == UserService.HashPassword(user.Password)) is null)
             {
-                return Unauthorized($"Ogiltigt lösenord");
+                return Unauthorized(new { error = "Ogiltigt lösenord" });
             }
             return Ok("Login Successful");
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationPostViewModel reg)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("All nödvändig information är inte med i anropet");
+                return BadRequest(new { error = "All nödvändig information är inte med i anropet" });
             }
             if (await _context.Users.SingleOrDefaultAsync(c => c.Email == reg.Email) is not null)
             {
-                return BadRequest($"Eposten är redan registrerad");
+                return BadRequest(new { error = "Eposten är redan registrerad" });
             }
-            
-            var userToAdd = new User{
+
+            var userToAdd = new User
+            {
                 Email = reg.Email,
-                //lägger till hash funktion när den implementerats
-                Password = reg.Password,
+                Password = UserService.HashPassword(reg.Password),
                 FirstName = reg.FirstName,
                 LastName = reg.LastName,
-                PhoneNumber = reg.PhoneNumber
+                PhoneNumber = reg.PhoneNumber,
+                UserRoleId = 2
             };
 
             try
@@ -90,8 +91,6 @@ namespace webapi.Controllers
                     new
                     {
                         Email = userToAdd.Email,
-                        //lägger till hash funktion när den implementerats
-                        Password = userToAdd.Password,
                         FirstName = userToAdd.FirstName,
                         LastName = userToAdd.LastName,
                         PhoneNumber = userToAdd.PhoneNumber
