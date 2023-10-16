@@ -32,7 +32,7 @@ export default function App() {
             });
         })()
     }, []);
-    console.log(globals)
+
     return <>
         <header>
             <MainMenu />

@@ -1,5 +1,3 @@
-const apiRoute = 'https://localhost:5000/api/'
-
 export async function get(route, method = 'GET') {
     return await (
         await fetch('/api/' + route, { method }))
@@ -8,19 +6,19 @@ export async function get(route, method = 'GET') {
 };
 
 export async function post(route, body, method = 'POST') {
-    return await (await fetch(`${this.apiRoute}/${route}`, {
+    return await (await fetch('/api/' + route, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     })).json().catch(e => ({ error: e }));
 };
 
-/*
-static async put(route, body) {
-    return await this.post(route, body, 'PUT');
-};
 
-static async del(route, body) {
+export async function patch(route, body) {
+    return await this.post('/api/' + route, body, 'PATCH');
+};
+/*
+export async function del(route, body) {
     return await this.get(route, body, 'DELETE');
 };
 */
