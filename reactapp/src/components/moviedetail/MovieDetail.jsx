@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function MovieDetail({ chosenMovie }) {
   const [movie, setMovie] = useState('');
@@ -50,16 +50,31 @@ function MovieDetail({ chosenMovie }) {
     width: '50px'
   };
 
+  const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 751);
+
+  useEffect(() => {
+    const updateWindowWidth = () => {
+      setIsNarrow(window.innerWidth <= 751);
+    };
+
+    window.addEventListener('resize', updateWindowWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateWindowWidth);
+    };
+  }, []);
+
   const generateDatesForWeek = () => {
     const today = new Date();
     const days = [];
 
     today.setDate(today.getDate());
 
-    for (let i = 0; i < 7; i++) {
+    var nbrOfDays = isNarrow ? 4 : 7;
+    for (let i = 0; i < nbrOfDays; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() + i);
-      const options = { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
+      const options = isNarrow ? { weekday: 'narrow', month: 'numeric', day: 'numeric', locale: 'sv-SE' } : { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
       days.push(date.toLocaleDateString('sv-SE', options));
     }
 
@@ -70,15 +85,15 @@ function MovieDetail({ chosenMovie }) {
     const showtimes = {};
 
     const times = {
-      '18:00': ['18:00', '19:15', '20:00'],
-      '20:00': ['20:00', '21:15'],
+      ordtider: ['18:00', '19:15', '20:00'],
+      söndag: ['20:00', '21:15'],
     };
 
     for (const date of datesForWeek) {
-      if (date.includes('söndag')) {
-        showtimes[date] = times['20:00'];
+      if (date.includes('sön')) {
+        showtimes[date] = times.söndag;
       } else {
-        showtimes[date] = times['18:00'];
+        showtimes[date] = times.ordtider;
       }
     }
 
@@ -104,17 +119,20 @@ function MovieDetail({ chosenMovie }) {
           <Row className="flex p-3">
             {datesForWeek.map((date, index) => (
               <Col key={index} className=' flex p-1'>
-                <div className='w-100 text-center' >{date.split(',')[0]}</div>
-                <div>{date.split(',')[1]}</div>
+                <div className='w-100 text-center' >
+                  {isNarrow ?
+                    (<p className="p-1 m-0 h-100">{date.split(' ')[0]} < br /> {date.slice(1)}</p>)
+                    : (<p className="p-1 m-0 h-100">{date.split(' ')[0]}  {date.split(' ')[1] + ' ' + date.split(' ')[2]}</p>)}</div>
                 {showtimes[date].map((time, timeIndex) => (
-                  <div
-                    className='timebutton px-1'
+                  <Button
+                    className='timebutton px-1 text-center border-0 m-1 rounded'
                     key={timeIndex}
                     style={timeStyle}
                     onClick={() => handleTimeClick(date, time)}
+                    href={'/booking'}
                   >
-                    {time}
-                  </div>
+                    {isNarrow ? (<p>{time.split(':')[0]}: <br /> {time.slice(3)}</p>) : (<p>{time}</p>)}
+                  </Button>
                 ))}
               </Col>
             ))}
