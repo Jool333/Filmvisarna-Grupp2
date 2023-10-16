@@ -18,18 +18,18 @@ function TrailerPoster({ chosenMovie }) {
             fetchData();
     }, [chosenMovie]);
 
-
-    console.log("tp" + movie.trailerUrl)
     return (
-        <Container className='mb-5 w-100' >
-            <Row >
-                <Col xs={12} lg={9} className="d-flex justify-content-center align-items-center w-70">
-                    <iframe className="trailer"
-                        src={"https://www.youtube.com/embed/" + `${movie.trailerUrl}`}
+        <Container className='w-100' >
+            <Row className='flex justify-content-center  h-100'>
+                <Col sm={12} md={8} lg={9} className=" d-flex justify-content-center align-items-center p-0">
+                    <iframe className=" trailer h-100 w-100"
+                        src={`https://www.youtube.com/embed/${movie.trailerUrl}?autoplay=1`}
+                        allow='autoplay; encrypted-media'
+                        allowFullScreen
                     />
                 </Col>
-                <Col xs={12} lg={3} className="d-flex justify-content-center align-items-center">
-                    <img className='img-max-height-20rem'
+                <Col xs={6} md={4} lg={3} className="d-flex justify-content-center align-items-center">
+                    <img className='detail-poster'
                         src={movie.imgUrl}
                         alt="imgNotFound"
                     />

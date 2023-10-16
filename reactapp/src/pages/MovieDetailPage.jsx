@@ -9,12 +9,10 @@ import { get } from '../ApiConnection.jsx';
 function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const movieId = useParams().id;
-  console.log(movieId)
 
   const fetchData = async () => {
     try {
       const moviesData = await get(`movies/${movieId}`);
-      console.log(moviesData)
       setMovie(moviesData);
     } catch (error) {
       console.error('Error fetching movies: ', error);
