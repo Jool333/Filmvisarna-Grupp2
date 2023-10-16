@@ -1,8 +1,24 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-function MovieDetail() {
+function MovieDetail({ chosenMovie }) {
+  const [movie, setMovie] = useState('');
+
+  const fetchData = async () => {
+    try {
+      const movieData = await chosenMovie;
+      setMovie(movieData);
+    } catch (error) {
+      console.error('Error fetching movies: ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (chosenMovie)
+      fetchData();
+  }, [chosenMovie]);
+
   const firstAndLastColStyle = {
     height: '15rem',
     color: 'black',
@@ -80,7 +96,7 @@ function MovieDetail() {
     <Container className='mt-1'>
       <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-between">
         <Col className='p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
-          <div>Transformers</div>
+          <div>{movie.title}</div>
           <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
           <div style={{ marginTop: '40px' }}>Kategori: Action</div>
         </Col>
@@ -105,8 +121,8 @@ function MovieDetail() {
           </Row>
         </Col>
         <Col className='p-3 custom-background' xs={12} md={2} style={firstAndLastColStyle}>
-          <div>Transformers består av de heroiska Autobots, som leds av Optimus Prime och Bumblebee, och de onda Decepticons.
-            De kommer från planeten Cybertron och leds av den onde Megatron.
+          <div>
+            {movie.description}
           </div>
         </Col>
       </Row>
