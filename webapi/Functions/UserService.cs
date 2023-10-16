@@ -14,14 +14,17 @@ namespace webapi.Functions
 
         private static string GetSalt()
         {
-            string path = "./secret.json";
-            string jsonString = File.ReadAllText(path);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            string path = "Functions/secret.json";
+            string salt = File.ReadAllText(path);
 
             // Deserialize JSON to SecretConfig object
-            SecretConfig secret = JsonSerializer.Deserialize<SecretConfig>(jsonString);
+            //var secret = JsonSerializer.Deserialize<SecretConfig>(jsonString, options);
 
-            // Extract the salt value from the JSON object
-            return secret.Salt;
+            return salt;
         }
     }
 
