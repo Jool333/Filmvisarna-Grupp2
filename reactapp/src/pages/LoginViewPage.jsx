@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import LoggedInView from './LoggedInView';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    setEmail('');
-    setPassword('');
+    console.log(formData);
   };
+
   return (
 
     <Container xs={12} md={6} lg={4} className='d-flex justify-content-center align-items-center my-3' >
@@ -38,8 +34,8 @@ const LoginPage = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={email}
-                        onChange={handleEmailChange}
+                        value={formData.email}
+                        onChange={handleInputChange}
                         required
                       />
                     </Form.Group>
@@ -52,8 +48,8 @@ const LoginPage = () => {
                           type="password"
                           id="password"
                           name="password"
-                          value={password}
-                          onChange={handlePasswordChange}
+                          value={formData.password}
+                          onChange={handleInputChange}
                           required
                         />
                       </Form.Group>
@@ -65,10 +61,7 @@ const LoginPage = () => {
                         <a href="/create-account" className=' text-dark'>
                           Bli Medlem
                         </a>
-                        <Link to="/loggedin"> {LoggedInView}
-                          <Button variant="outline-dark" type="submit">Logga in</Button>
-                        </Link>
-
+                        <Button variant="outline-dark" type="submit" href="/loggedin">Logga in</Button>
                       </div>
                     </Col>
                   </Row>
@@ -80,6 +73,6 @@ const LoginPage = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default LoginPage;

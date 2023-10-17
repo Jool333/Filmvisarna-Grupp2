@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import StickyFooter from './components/StickyFooter/StickyFooter';
 import MainMenu from '@/components/MainMenu/MainMenu.jsx';
 import { Outlet } from "react-router-dom";
-import { get } from './ApiConnection.jsx'
+import { get } from './ApiConnection.jsx';
 
 // Import some Bootstrap components
 /*
@@ -32,7 +32,7 @@ export default function App() {
             });
         })()
     }, []);
-    console.log(globals)
+
     return <>
         <header>
             <MainMenu />

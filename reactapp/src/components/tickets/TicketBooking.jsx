@@ -4,8 +4,15 @@ import { Container, Col, Button, Form } from 'react-bootstrap';
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
   const maxTotalTickets = 81;
 
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    email: ''
+  });
   const [IsGuest, setIsGuest] = useState(true);
+
+  const handleEmailChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
 
   const getTotalTickets = () => {
     return selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
@@ -36,7 +43,6 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setEmail('');
   };
 
   const calculateTotalPrice = () => {
@@ -49,14 +55,17 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
 
   const ticketTypes = [
     {
+      id: 1,
       name: "normal",
       price: 140
     },
     {
+      id: 2,
       name: "pensionär",
       price: 120
     },
     {
+      id: 3,
       name: "barn",
       price: 80
     }
@@ -72,8 +81,8 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
         <h4>Välj biljetter</h4>
         {/*generates the ticket elements */}
         {ticketTypes.map(ticket => {
-          return <>
-            <div className='d-flex align-items-center py-2'>
+          return (
+            <div key={ticket.id} className='d-flex align-items-center py-2'>
               <h4 style={{ fontSize: '0.9rem', flex: '1' }}>{capitalizeString(ticket.name)} - {ticket.price} kr</h4>
 
               <div className='d-flex align-items-center' >
@@ -91,7 +100,7 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
                 </Button>
               </div>
             </div >
-          </>
+          )
         })}
 
       </div>
@@ -107,7 +116,8 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
                 type="email"
                 id="email"
                 name="email"
-                value={email}
+                value={formData.email}
+                onChange={handleEmailChange}
                 required
               />
             </Form.Group>

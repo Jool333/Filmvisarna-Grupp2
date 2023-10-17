@@ -1,75 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AgeFilter from "../components/AgeFilter/AgeFilter";
 import MovieSchedule from "../components/MovieSchedule/MovieSchedule";
 import { Container, Row } from "react-bootstrap";
-
-
+import { useOutletContext } from 'react-router-dom';
 
 function TicketViewPage() {
-  const [selectedAge, setSelectedAge] = useState("all"); // Åldersgränsfilter
-  const imagessource = "src\\images\\";
-  // Exempeldata för filmer och deras visningar
-  const movies = [
-    {
-      id: 1,
-      titel: "De Ostyriga",
-      coverBild: imagessource + "Poster.jpg",
-      visningar: [
-        { dag: "Måndag", tider: ["18:00", "20:00"] },
-        { dag: "Tisdag", tider: ["18:00", "20:00"] },
-        { dag: "Onsdag", tider: ["18:00", "20:00"] },
-        { dag: "Torsdag", tider: ["18:00", "20:00", "22:00"] },
-        { dag: "Fredag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Lördag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Söndag", tider: ["10:00", "15:00", "20:00"] },
-      ],
-    },
-    {
-      id: 1,
-      titel: "De Ostyriga",
-      coverBild: imagessource + "frittfall.jpeg",
-      visningar: [
-        { dag: "Måndag", tider: ["18:00", "20:00"] },
-        { dag: "Tisdag", tider: ["18:00", "20:00"] },
-        { dag: "Onsdag", tider: ["18:00", "20:00"] },
-        { dag: "Torsdag", tider: ["18:00", "20:00", "22:00"] },
-        { dag: "Fredag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Lördag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Söndag", tider: ["19:00", "21:00", "23:00"] },
-      ],
-    },
-    {
-      id: 1,
-      titel: "De Ostyriga",
-      coverBild: imagessource + "venedig.jpeg",
-      visningar: [
-        { dag: "Måndag", tider: ["18:00", "20:00"] },
-        { dag: "Tisdag", tider: ["18:00", "20:00"] },
-        { dag: "Onsdag", tider: ["18:00", "20:00"] },
-        { dag: "Torsdag", tider: ["18:00", "20:00", "22:00"] },
-        { dag: "Fredag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Lördag", tider: ["19:00", "21:00", "23:00"] },
-        { dag: "Söndag", tider: ["19:00", "21:00", "23:00"] },
-      ],
-    },
-    // Lägg till fler filmer här
-  ];
+  const outletContext = useOutletContext();
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [ageRating, setAgeRating] = useState("");
 
-  // Funktion för att hantera ändringar i åldersgränsfiltret
-  const handleAgeChange = (event) => {
-    setSelectedAge(event.target.value);
+  const fetchData = async () => {
+    try {
+      const moviesData = await outletContext.movies;
+      setMovies(moviesData);
+      console.log(movies)
+    } catch (error) {
+      console.error('Error fetching movies: ', error);
+    }
   };
 
-  // Filtrera filmer baserat på åldersgräns
-  const filteredMovies = selectedAge === "all"
-    ? movies
-    : movies.filter((movie) => movie.åldersgräns === selectedAge);
+  useEffect(() => {
+    fetchData();
+  }, [outletContext]);
+
+  useEffect(() => {
+    filterMovies()
+  }, [ageRating, movies]);
+
+  const updateAgeRating = (e) => {
+    setAgeRating(e)
+    filterMovies()
+  };
+
+  const filterMovies = () => {
+    const filtered = movies.filter(movie => {
+      if (ageRating == '' || movie.ageLimit == ageRating) {
+        return true;
+      }
+      return false;
+
+    });
+
+    setFilteredMovies(filtered);
+  };
 
   return (
     <Container>
       <Row>
         <div>
-          <AgeFilter selectedAge={selectedAge} handleAgeChange={handleAgeChange} />
+          <AgeFilter handleAgeChange={updateAgeRating} />
           <MovieSchedule movies={filteredMovies} />
         </div>
       </Row>
