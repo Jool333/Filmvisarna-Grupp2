@@ -5,6 +5,7 @@ function ActiveBookingDetail() {
     const imagessource = "/";
     const bookings = [
         {
+            id: 1,
             title: 'De Ostyriga',
             screeningdate: new Date('2023-10-14T14:30'),
             theather: 'Salong 1',
@@ -13,10 +14,11 @@ function ActiveBookingDetail() {
             img: 'deostyriga.jpeg'
         },
         {
+            id: 2,
             title: 'Jaws',
             screeningdate: new Date('2023-10-10T18:30'),
             theather: 'Salong 2',
-            tickets: '2st normal',
+            tickets: ['2st normal'],
             bookingNbr: 'DEF456',
             img: '12.jpeg'
 
@@ -36,7 +38,7 @@ function ActiveBookingDetail() {
             <>
                 {
                     activeBookings.map(booking => {
-                        return <Container className="container-loggedInView mt-2 text-light"  >
+                        return <Container key={booking.id} className="container-loggedInView mt-2 text-light"  >
                             <Row className=' pt-4 px-4 bg-black'>
                                 <Col xs={6} lg={2} className='d-flex justify-content-center p-0'>
                                     <img className='bookingDetail-loggedInView-container-img'
@@ -54,8 +56,8 @@ function ActiveBookingDetail() {
                                     </h5>
 
                                     <h6>
-                                        Biljetter: <br />{booking.tickets.map(ticket => {
-                                            return <div>{ticket}</div>
+                                        Biljetter: <br />{booking.tickets.map((ticket, index) => {
+                                            return <div key={index} >{ticket}</div>
                                         })}
                                     </h6>
                                     <h6>
