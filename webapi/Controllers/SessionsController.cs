@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("api/session")]
+    [Route("api/sessions")]
     public class SessionsController : ControllerBase
     {
         [HttpGet()]
@@ -19,9 +19,7 @@ namespace webapi.Controllers
 
             if (HttpContext.Session.GetInt32("Id") is null)
                 HttpContext.Session.SetInt32("Id", 0);
-
-            var userId = HttpContext.Session.GetInt32("Id");
-            return Ok(userId);
+            return Ok();
         }
     }
 }
