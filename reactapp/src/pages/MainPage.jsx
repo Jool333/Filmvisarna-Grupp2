@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col , Button} from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
 
 function MainPage() {
@@ -55,59 +55,63 @@ function MainPage() {
   };
 
   return (
-    <Container >
-      <Row className='custom-background p-2'>
-        <Col>
-          <label htmlFor="dateSelect">Välj datum:</label>
-          <select
-            id="dateSelect"
-            name="selectedDate"
-            value={filterData.selectedDate}
-            onChange={handleFilterChange}
-            disabled //temp until fix
-          >
-            <option value="">Alla dagar</option>
-            {screeningDate.map((day, index) => (
-              <option key={index} value={day}>
-                {day}
-              </option>
-            ))}
-          </select>
-        </Col>
-        <Col>
-          <label htmlFor="ageRatingSelect">Välj åldersgräns:</label>
-          <select
-            id="ageRatingSelect"
-            name="selectedAgeRating"
-            value={filterData.selectedAgeRating}
-            onChange={handleFilterChange}
-          >
-            <option value="">Alla åldersgränser</option>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG-13">PG-13</option>
-            <option value="R">R</option>
-            <option value="NC-17">NC-17</option>
-          </select>
-        </Col>
+    <Container className='container-main' >
+      <Row className='filter-main d-flex justify-content-center'>
+        <div className='d-flex justify-content-center'>
+
+          <Col className='data-container'>
+            <select
+              id="dateSelect"
+              value={filterData.selectedDate}
+              onChange={handleFilterChange}
+            >
+              <option value="">Välj datum</option>
+              {screeningDate.map((day, index) => (
+                <option key={index} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </Col>
+          <Col className='age-container'>
+            <select
+              id="ageRatingSelect"
+              value={filterData.selectedAgeRating}
+              onChange={handleFilterChange}
+            >
+              <option value="">Välj åldersgräns</option>
+              <option value="">Alla åldersgränser</option>
+              <option value="G">G</option>
+              <option value="PG">PG</option>
+              <option value="PG-13">PG-13</option>
+              <option value="R">R</option>
+              <option value="NC-17">NC-17</option>
+            </select>
+          </Col>
+          <Col className='filter-buuton d-flex justify-content-center'>
+            <Button variant="light" size="sm" onClick={filterMovies}>
+              Filtrera
+            </Button>
+          </Col>
+        </div>
+
       </Row>
+
+
       <Row>
         <Col>
-          <div>
-            <ul className='film-list'>
-              {filteredMovies.map((movie) => (
-                <li key={movie.id} className='film-list-item' >
-                  <a href={'/movie/' + [movie.id]}>
 
-                    <img src={movie.imgUrl} width="200px" className='poster-img' />
 
-                  </a>
+          <Row className='justify-content-center mt-5 '>
+            {filteredMovies.map((movie) => (
+              <Col xs={6} sm={4} md={3} lg={3} xl={3} key={movie.id} className='  mb-5     row align-items-center '  >
+                <a href={'/movie/' + [movie.id]}>
+                  <img src={movie.imgUrl} width={160} />
+                </a>
+              </Col>
+            ))}
+          </Row>
 
-                </li>
-              ))}
-            </ul>
-
-          </div>
         </Col>
       </Row>
     </Container >
