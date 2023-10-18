@@ -55,7 +55,7 @@ function SeatsGrid() {
         setSelectedSeats([...selectedSeats, { row, seat }]);
       }
     }
-    setSelectedTickets(newSelectedTickets);
+    setSelectedTickets(selectedTickets);
   };
 
   return (
@@ -77,7 +77,6 @@ function SeatsGrid() {
             >
               <p className='text-light' >Bioduk</p>
             </div>
-            {/*generates all the seats*/}
             <div className='chairs-container mt-10'>
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>

@@ -79,7 +79,6 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     <Col xs={12} md={6}>
       <div>
         <h4>Välj biljetter</h4>
-        {/*generates the ticket elements */}
         {ticketTypes.map(ticket => {
           return (
             <div key={ticket.id} className='d-flex align-items-center py-2'>
