@@ -64,6 +64,35 @@ namespace webapi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("user/{userid}")]
+        public async Task<IActionResult> GetByUserId(int userid)
+        {
+            var result = await _context.Bookings
+                .Where(b => b.User.Id == userid)
+                .Select(b => new
+                {
+                    BookingTime = b.BookingTime,
+                    BookingNbr = b.BookingNbr,
+                    Movie = b.Screening.Movie.Title,
+                    Theater = b.Screening.Theater.Name,
+                    ScreeningDate = b.Screening.ScreeningDate,
+                    Seats = b.BookingXSeats.Select(s => new
+                    {
+                        SeatNbr = s.Seat.SeatNbr,
+                        RowNbr = s.Seat.RowNbr,
+                    }),
+                    Ticket = b.BookingXSeats.Select(t => new
+                    {
+                        Name = t.TicketType.Name,
+                        Price = t.TicketType.Price,
+                    })
+
+                })
+                .ToListAsync();
+
+            return Ok(result);
+        }
+
         [HttpPost()]
         public async Task<IActionResult> Create(BookedPostViewModel res)
         {
