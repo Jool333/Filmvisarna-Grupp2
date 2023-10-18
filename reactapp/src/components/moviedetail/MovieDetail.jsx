@@ -143,7 +143,7 @@ function MovieDetail({ chosenMovie }) {
                       key={id}
                       style={timeStyle}
                       onClick={() => gotoBooking(id)}
-                      href={'/booking/'}
+                      href={'/booking/' + id}
                     >
                       {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
                     </Button>
