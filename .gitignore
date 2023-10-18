@@ -368,4 +368,3 @@ FodyWeavers.xsd
 *.db-wal
 webapi/Functions/secret.json
 webapi/Filmvisarna.db
-webapi/Filmvisarna.db
