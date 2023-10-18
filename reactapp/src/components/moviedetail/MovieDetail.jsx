@@ -1,14 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function MovieDetail({ chosenMovie }) {
+
+  const navigate = useNavigate(); // get the navigate method to use later
+
   const [movie, setMovie] = useState('');
 
   const fetchData = async () => {
     try {
       const movieData = await chosenMovie;
       setMovie(movieData);
+      getViewings(movieData);
     } catch (error) {
       console.error('Error fetching movies: ', error);
     }
@@ -18,6 +23,24 @@ function MovieDetail({ chosenMovie }) {
     if (chosenMovie)
       fetchData();
   }, [chosenMovie]);
+
+
+  // get all the screenings and filter for this movie only
+  // (would be better with a route we can send movieId to and only screenings for this movie)
+  const [viewings, setViewings] = useState([]);
+  async function getViewings(movie) {
+    let allViewings = await (await fetch('/api/viewings')).json();
+    let viewingsForThisMovie = allViewings.filter(x => x.movieId === movie.id);
+    console.log("ALL VIEWINGS", allViewings);
+    console.log("VIEWINGS THIS MOVIE", viewingsForThisMovie)
+    console.log("MOVIE", movie)
+    setViewings(viewingsForThisMovie);
+  }
+
+  // gotoBooking
+  function gotoBooking(viewingId) {
+    navigate('/booking/' + viewingId);
+  }
 
   const firstAndLastColStyle = {
     height: '15rem',
@@ -102,21 +125,29 @@ function MovieDetail({ chosenMovie }) {
         </Col>
         <Col xs={12} md={7} style={middleColStyle} className='custom-background'>
           <Row className="flex p-3">
+
             {datesForWeek.map((date, index) => (
               <Col key={index} className=' flex p-1'>
                 <div className='w-100 text-center' >{date.split(',')[0]}</div>
                 <div>{date.split(',')[1]}</div>
-                {showtimes[date].map((time, timeIndex) => (
-                  <Button
-                    className='timebutton px-1'
-                    key={timeIndex}
-                    style={timeStyle}
-                    onClick={() => handleTimeClick(date, time)}
-                    href={'/booking'}
-                  >
-                    {time}
-                  </Button>
-                ))}
+
+                {viewings
+                  .sort((a, b) => {
+                    const timeA = new Date(a.screeningDate).toLocaleString('sv-SE').slice(11, 16);
+                    const timeB = new Date(b.screeningDate).toLocaleString('sv-SE').slice(11, 16);
+                    return timeA.localeCompare(timeB);
+                  })
+                  .map(({ id, screeningDate }) => (
+                    <Button
+                      className='timebutton px-1'
+                      key={id}
+                      style={timeStyle}
+                      onClick={() => gotoBooking(id)}
+                      href={'/booking/'}
+                    >
+                      {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
+                    </Button>
+                  ))}
               </Col>
             ))}
           </Row>
