@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { post } from "../ApiConnection";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -12,9 +13,21 @@ function LoginPage() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    var loginData = {
+      Email: formData.email.toLowerCase(),
+      Password: formData.password
+    }
+    //console.log("submit: " + loginData.Email + ' ' + loginData.Password)
+    try {
+      await post('users/login', loginData);
+      alert("Inloggningen lyckades")
+      window.location.href = '/'
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
   return (
@@ -61,7 +74,7 @@ function LoginPage() {
                         <a href="/create-account" className=' text-dark'>
                           Bli Medlem
                         </a>
-                        <Button variant="outline-dark" type="submit" href="/loggedin">Logga in</Button>
+                        <Button variant="outline-dark" type="submit" >Logga in</Button>
                       </div>
                     </Col>
                   </Row>

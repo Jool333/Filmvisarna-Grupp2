@@ -76,7 +76,7 @@ function CreateAccountPage() {
     e.preventDefault();
     if (passValid) {
       var regUserData = {
-        Email: formData.email,
+        Email: formData.email.toLowerCase(),
         Password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -92,6 +92,7 @@ function CreateAccountPage() {
         resetForm();
       } catch (error) {
 
+        console.log(error)
       }
       window.location.href = '/login'
     }
