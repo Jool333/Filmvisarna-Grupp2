@@ -1,0 +1,12 @@
+[
+    {
+        "bookingId": 1,
+        "seatId": 66,
+        "ticketTypeId": 1
+    },
+    {
+        "bookingId": 1,
+        "seatId": 65,
+        "ticketTypeId": 1
+    }
+]
