@@ -18,9 +18,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("*") // frontend URL
+        builder => builder.WithOrigins("http://localhost:5173")
                         .AllowAnyHeader()
                         .AllowAnyMethod());
+});
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".Filmvisarna.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -37,11 +47,12 @@ try
     // await SeedDAta.LoadCategoryData(context);
     await SeedData.LoadUserRoleData(context);
     await SeedData.LoadUserData(context);
+    await SeedData.LoadTicketTypeData(context);
     await SeedData.LoadTheaterData(context);
     await SeedData.LoadSeatData(context);
     await SeedData.LoadScreeningData(context);
-    // await SeedData.LoadBookingData(context); 
-    // await SeedData.LoadBookingXSeatData(context);
+    await SeedData.LoadBookingData(context);
+    await SeedData.LoadBookingXSeatData(context);
     // await SeedData.LoadMovieXCategoryData(context);
 
 
@@ -64,6 +75,7 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.UseCors("AllowSpecificOrigin");
 
