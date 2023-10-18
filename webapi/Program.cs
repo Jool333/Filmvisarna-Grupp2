@@ -47,11 +47,12 @@ try
     // await SeedDAta.LoadCategoryData(context);
     await SeedData.LoadUserRoleData(context);
     await SeedData.LoadUserData(context);
+    await SeedData.LoadTicketTypeData(context);
     await SeedData.LoadTheaterData(context);
     await SeedData.LoadSeatData(context);
     await SeedData.LoadScreeningData(context);
-    // await SeedData.LoadBookingData(context); 
-    // await SeedData.LoadBookingXSeatData(context);
+    await SeedData.LoadBookingData(context);
+    await SeedData.LoadBookingXSeatData(context);
     // await SeedData.LoadMovieXCategoryData(context);
 
 
