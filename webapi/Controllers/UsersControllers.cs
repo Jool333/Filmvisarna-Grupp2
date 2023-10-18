@@ -57,7 +57,17 @@ namespace webapi.Controllers
                 return Unauthorized(new { error = "Ogiltigt lösenord" });
             }
 
-            return Ok();
+            HttpContext.Session.SetInt32("Id", user.Id);
+            var userId = HttpContext.Session.GetInt32("Id");
+            return Ok(userId);
+        }
+
+        [HttpDelete()]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.SetInt32("Id", 0);
+            var userId = HttpContext.Session.GetInt32("Id");
+            return Ok(userId);
         }
 
         [HttpPost("register")]
