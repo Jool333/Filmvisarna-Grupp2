@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
 using webapi.Functions;
-using webapi.ViewModel;
+using webapi.ViewModel.Post;
 
 namespace webapi.Controllers
 {

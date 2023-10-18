@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace webapi.ViewModel
+namespace webapi.ViewModel.Post
 {
     public class RegistrationPostViewModel
     {
