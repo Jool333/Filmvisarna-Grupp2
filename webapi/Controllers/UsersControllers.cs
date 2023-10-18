@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
 using webapi.Functions;
-using webapi.ViewModel;
+using webapi.ViewModel.Post;
 
 namespace webapi.Controllers
 {
@@ -44,18 +44,30 @@ namespace webapi.Controllers
             {
                 return BadRequest(new { error = "All information är inte med i anropet" });
             }
-            //check Email is in DB
-            var user = await _context.Users.SingleOrDefaultAsync(c => c.Email == login.Email);
+            //check if Email is in DB
+            User user = await _context.Users.SingleOrDefaultAsync(c => c.Email == login.Email);
+
             if (user is null)
             {
                 return Unauthorized(new { error = "Ogiltig epost" });
             }
             //kolla att angivet lösenord stämmer till ang användare 
-            if (await _context.Users.SingleOrDefaultAsync(c => c.Password == UserService.HashPassword(user.Password)) is null)
+            if (UserService.HashPassword(login.Password) != user.Password)
             {
                 return Unauthorized(new { error = "Ogiltigt lösenord" });
             }
-            return Ok("Login Successful");
+
+            HttpContext.Session.SetInt32("Id", user.Id);
+            var userId = HttpContext.Session.GetInt32("Id");
+            return Ok(userId);
+        }
+
+        [HttpDelete()]
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.SetInt32("Id", 0);
+            var userId = HttpContext.Session.GetInt32("Id");
+            return Ok(userId);
         }
 
         [HttpPost("register")]

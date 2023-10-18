@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "normal",
+        "price": 140
+    },
+    {
+        "id": 2,
+        "name": "pensionär",
+        "price": 120
+    },
+    {
+        "id": 3,
+        "name": "barn",
+        "price": 80
+    }
+]
