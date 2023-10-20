@@ -13,7 +13,7 @@ function MovieDetail({ chosenMovie }) {
     try {
       const movieData = await chosenMovie;
       setMovie(movieData);
-      getViewings(movieData);
+      getScreeenings(movieData);
     } catch (error) {
       console.error('Error fetching movies: ', error);
     }
@@ -27,19 +27,25 @@ function MovieDetail({ chosenMovie }) {
 
   // get all the screenings and filter for this movie only
   // (would be better with a route we can send movieId to and only screenings for this movie)
-  const [viewings, setViewings] = useState([]);
-  async function getViewings(movie) {
-    let allViewings = await (await fetch('/api/viewings')).json();
-    let viewingsForThisMovie = allViewings.filter(x => x.movieId === movie.id);
-    console.log("ALL VIEWINGS", allViewings);
-    console.log("VIEWINGS THIS MOVIE", viewingsForThisMovie)
-    console.log("MOVIE", movie)
-    setViewings(viewingsForThisMovie);
+  const [screenings, setScreenings] = useState([]);
+  async function getScreeenings(movie) {
+    let allScreenings = await (await fetch('/api/screenings')).json();
+    let screeningssForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
+
+    // Use the filter method to filter the screenings by date and time
+    const now = new Date();
+    screeningssForThisMovie = screeningssForThisMovie.filter(screening => {
+      const screeningDate = new Date(screening.screeningDate);
+      return screeningDate >= now;
+    });
+
+
+    setScreenings(screeningssForThisMovie);
   }
 
   // gotoBooking
-  function gotoBooking(viewingId) {
-    navigate('/booking/' + viewingId);
+  function gotoBooking(screeningId) {
+    navigate('/booking/' + screeningId);
   }
 
   const firstAndLastColStyle = {
@@ -130,24 +136,16 @@ function MovieDetail({ chosenMovie }) {
               <Col key={index} className=' flex p-1'>
                 <div className='w-100 text-center' >{date.split(',')[0]}</div>
                 <div>{date.split(',')[1]}</div>
-
-                {viewings
-                  .sort((a, b) => {
-                    const timeA = new Date(a.screeningDate).toLocaleString('sv-SE').slice(11, 16);
-                    const timeB = new Date(b.screeningDate).toLocaleString('sv-SE').slice(11, 16);
-                    return timeA.localeCompare(timeB);
-                  })
-                  .map(({ id, screeningDate }) => (
-                    <Button
-                      className='timebutton px-1'
-                      key={id}
-                      style={timeStyle}
-                      onClick={() => gotoBooking(id)}
-                      href={'/booking/' + id}
-                    >
-                      {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
-                    </Button>
-                  ))}
+                {screenings.map(({ id, screeningDate }) => (
+                  <Button
+                    className='timebutton px-1'
+                    key={id}
+                    style={timeStyle}
+                    onClick={() => gotoBooking(id)}
+                  >
+                    {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
+                  </Button>
+                ))}
               </Col>
             ))}
           </Row>
