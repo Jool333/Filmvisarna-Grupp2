@@ -9,7 +9,7 @@ using webapi.Data;
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("api/viewings")]
+    [Route("api/screenings")]
     public class ViewingsController : ControllerBase
     {
         private readonly FilmvisarnaContext _context;
