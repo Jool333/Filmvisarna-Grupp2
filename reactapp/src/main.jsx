@@ -19,7 +19,7 @@ export const pages = [
   { path: '/login', label: 'Login', element: <LoginViewPage /> },
   { path: '/create-account', label: 'Create Account', element: <CreateAccountPage /> },
   { path: '/confirmation', label: 'Confirmation', element: <ConfirmationPage /> },
-  { path: '/booking/:id'/* ska lägga till screening id när implementerat*/, label: 'Booking View', element: <BookingViewPage /> },
+  { path: '/booking/:screeningId', label: 'Booking View', element: <BookingViewPage /> },
   { path: '/loggedin', label: 'Bokningar', element: <LoggedInView /> }
 ];
 
