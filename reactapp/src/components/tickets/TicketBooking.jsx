@@ -14,6 +14,12 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     setFormData({ ...formData, [name]: value });
   }
 
+  const isEmailValid = () => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-ZÅÄÖ]{2,4}$/;
+    return emailPattern.test(formData.email);
+  };
+
+
   const getTotalTickets = () => {
     return selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
   };
@@ -105,8 +111,7 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
       </div>
       <hr />
       <h6 className='mb-2'>Totalt pris: {calculateTotalPrice()} kr</h6>
-
-      <div className='my-4' xs={12} md={6} lg={4} >
+      <div className='my-4' xs={12} md={6} lg={4}>
         {IsGuest && (
           <Form onSubmit={handleSubmit} className='w-5rem'>
             <Form.Group className="mb-3">
@@ -122,7 +127,12 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
             </Form.Group>
           </Form>
         )}
-        <Button variant="outline-warning" type='submit' href="/Confirmation" onSubmit={handleSubmit}>
+        <Button
+          variant="outline-warning"
+          type='submit'
+          href="/Confirmation"
+          disabled={!isEmailValid()}
+        >
           Fortsätt
         </Button>
       </div>

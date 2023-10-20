@@ -1,35 +1,52 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace EmailApi.Controllers
+namespace MailController.Controllers
 {
     [Route("api/email")]
     [ApiController]
     public class EmailController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> SendEmail([FromBody] EmailRequest emailRequest)
+        [HttpPost("sendMail")]
+        public IActionResult SendMail(int bookingId, string userEmail)
         {
             try
             {
-                using var smtpClient = new SmtpClient("smtp.gmail.com")
+
+                string filePath = "Functions/mailsecret.json";
+                string jsonString = System.IO.File.ReadAllText(filePath);
+                var secrets = JsonConvert.DeserializeObject<dynamic>(jsonString)!;
+
+
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string fromEmail = secrets.ServerEmail;
+                string password = secrets.ServerPassword;
+
+
+                using (SmtpClient client = new SmtpClient(smtpServer, smtpPort))
                 {
-                    Port = 587,
-                    Credentials = new NetworkCredential("fvisarna@gmail.com", "dliubamascxrdxjk"),
-                    EnableSsl = true,
-                };
-                using var mailMessage = new MailMessage
-                {
-                    From = new MailAddress("fivsarna@gmail.com"),
-                    Subject = emailRequest.Subject,
-                    Body = emailRequest.Body,
-                    IsBodyHtml = true,
-                };
-                mailMessage.To.Add(emailRequest.To);
-                await smtpClient.SendMailAsync(mailMessage);
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(fromEmail, password);
+                    client.EnableSsl = true;
+
+
+                    using (MailMessage mailMessage = new MailMessage())
+                    {
+                        mailMessage.From = new MailAddress(fromEmail);
+                        mailMessage.To.Add("fvisarna@gmail.com");
+                        mailMessage.Subject = "Bokningsbekräftelse";
+                        mailMessage.Body = $"Din bokning med ID {bookingId} är bekräftad.";
+
+                        client.Send(mailMessage);
+                    }
+                }
+
                 return Ok("Email sent successfully.");
             }
             catch (Exception ex)
@@ -38,11 +55,4 @@ namespace EmailApi.Controllers
             }
         }
     }
-}
-
-public class EmailRequest
-{
-    public string To { get; set; }
-    public string Subject { get; set; }
-    public string Body { get; set; }
 }
