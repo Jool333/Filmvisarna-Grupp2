@@ -75,6 +75,7 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
 app.UseSession();
 
 app.UseCors("AllowSpecificOrigin");
