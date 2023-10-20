@@ -9,7 +9,8 @@ import { get, post } from './ApiConnection.jsx';
 export default function App() {
 
     const [globals, setGlobals] = useState({
-        movies: []
+        movies: [],
+        user: []
     });
 
     useEffect(() => {
