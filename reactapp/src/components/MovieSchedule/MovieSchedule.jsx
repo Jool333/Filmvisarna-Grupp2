@@ -1,8 +1,56 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 
 function MovieSchedule({ movies }) {
+
+  const navigate = useNavigate();
+
+  // get all the screenings and filter for  movies
+  const [screenings, setScreenings] = useState([]);
+  async function getScreeenings(movies) {
+    const allScreenings = await (await fetch('/api/screenings')).json();
+
+    const movieScreeningsMap = {};
+
+    for (const movie of movies) {
+      const screeningsForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
+
+      // Use the filter method to filter the screenings by date and time
+      const now = new Date();
+      const filteredScreenings = screeningsForThisMovie.filter(screening => {
+        const screeningDate = new Date(screening.screeningDate);
+        return screeningDate >= now;
+      });
+
+      movieScreeningsMap[movie.id] = filteredScreenings;
+    }
+
+    setScreenings(movieScreeningsMap);
+  }
+
+  const fetchData = async () => {
+    try {
+      if (movies) {
+        await getScreeenings(movies);
+      }
+    } catch (error) {
+      console.error('Error fetching : ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (movies) {
+      fetchData();
+    }
+  }, [movies]);
+
+
+  // gotoBooking
+  function gotoBooking(screeningId) {
+    navigate('/booking/' + screeningId);
+  }
 
   const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 751);
 
@@ -35,6 +83,7 @@ function MovieSchedule({ movies }) {
     return days;
   };
 
+  /*
   const generateFixedShowtimes = () => {
     const showtimes = {};
 
@@ -53,13 +102,15 @@ function MovieSchedule({ movies }) {
 
     return showtimes;
   };
+  const showtimes = generateFixedShowtimes();
+  
+  
+  const handleTimeClick = (date, time) => {
+      console.log(`Tid klickad: ${date}, ${time}`);
+    };
+  */
 
   const datesForWeek = generateDatesForWeek();
-  const showtimes = generateFixedShowtimes();
-
-  const handleTimeClick = (date, time) => {
-    console.log(`Tid klickad: ${date}, ${time}`);
-  };
 
   //{isNarrow ? (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>) : (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>)}
   //onClick={() => handleTimeClick(date, time)}
@@ -76,13 +127,11 @@ function MovieSchedule({ movies }) {
               </Col>
             </Row>
           </Col>
-
           <Col xs={12} lg={9}>
             <Row className="d-flex">
               <h3>{movie.title}</h3>
               <h4>2h 30min</h4>
               <h5>Åldersgräns: {movie.ageLimit}</h5>
-
             </Row>
             <Row className="flex py-2">
               <Col className="d-flex justify-content-center align-items-center p-0">
@@ -94,17 +143,15 @@ function MovieSchedule({ movies }) {
                     {isNarrow ?
                       (<p className="p-1 m-0 h-100">{date.split(' ')[0]} < br /> {date.slice(1)}</p>)
                       : (<p className="p-1 m-0 h-100">{date.split(' ')[0]}  {date.split(' ')[1] + ' ' + date.split(' ')[2]}</p>)}</div>
-                  {showtimes[date].map((time, index) => (
-                    <Row key={index} className='d-flex justify-content-center align-items-center'>
+                  {screenings[movie.id]?.map(({ id, screeningDate }) => (
+                    <Row key={id} className='d-flex justify-content-center align-items-center'>
                       <Button
-                        className="timeButton text-center bg-black border-0 text-light m-1 p-1 rounded "
-                        onClick={() => handleTimeClick(date, time)}
-                        href={'/booking'}
+                        className='timeButton text-center bg-black border-0 text-light m-1 p-1 rounded'
+                        onClick={() => gotoBooking(id)}
                       >
-                        {isNarrow ? (<p>{time.split(':')[0]}: <br /> {time.slice(3)}</p>) : (<p>{time}</p>)}
+                        {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
                       </Button>
                     </Row>
-
                   ))}
                 </Col>
               ))}
@@ -113,14 +160,10 @@ function MovieSchedule({ movies }) {
               </Col>
             </Row>
           </Col>
-
           <hr />
         </Row>
-      ))
-      }
-
+      ))}
     </Container >
-
   );
 }
 
