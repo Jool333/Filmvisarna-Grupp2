@@ -18,8 +18,8 @@ export const pages = [
   { path: '/tickets', label: 'Ticket View', element: <TicketViewPage /> },
   { path: '/login', label: 'Login', element: <LoginViewPage /> },
   { path: '/create-account', label: 'Create Account', element: <CreateAccountPage /> },
-  { path: '/confirmation', label: 'Confirmation', element: <ConfirmationPage /> },
-  { path: '/booking'/* ska lägga till screening id när implementerat*/, label: 'Booking View', element: <BookingViewPage /> },
+  { path: '/confirmation/:id', label: 'Confirmation', element: <ConfirmationPage /> },
+  { path: '/booking/:screeningId', label: 'Booking View', element: <BookingViewPage /> },
   { path: '/loggedin', label: 'Bokningar', element: <LoggedInView /> }
 ];
 
