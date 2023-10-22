@@ -1,19 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function MovieDetail({ chosenMovie }) {
-
-  const navigate = useNavigate();
-
   const [movie, setMovie] = useState('');
 
   const fetchData = async () => {
     try {
       const movieData = await chosenMovie;
       setMovie(movieData);
-      getScreeenings(movieData);
     } catch (error) {
       console.error('Error fetching movies: ', error);
     }
@@ -23,30 +18,6 @@ function MovieDetail({ chosenMovie }) {
     if (chosenMovie)
       fetchData();
   }, [chosenMovie]);
-
-
-  // get all the screenings and filter for this movie only
-  // (would be better with a route we can send movieId to and only screenings for this movie)
-  const [screenings, setScreenings] = useState([]);
-  async function getScreeenings(movie) {
-    let allScreenings = await (await fetch('/api/screenings')).json();
-    let screeningssForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
-
-    // Use the filter method to filter the screenings by date and time
-    const now = new Date();
-    screeningssForThisMovie = screeningssForThisMovie.filter(screening => {
-      const screeningDate = new Date(screening.screeningDate);
-      return screeningDate >= now;
-    });
-
-
-    setScreenings(screeningssForThisMovie);
-  }
-
-  // gotoBooking
-  function gotoBooking(screeningId) {
-    navigate('/booking/' + screeningId);
-  }
 
   const firstAndLastColStyle = {
     height: '15rem',
@@ -67,19 +38,17 @@ function MovieDetail({ chosenMovie }) {
 
   };
 
-  const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 751);
-
-  useEffect(() => {
-    const updateWindowWidth = () => {
-      setIsNarrow(window.innerWidth <= 751);
-    };
-
-    window.addEventListener('resize', updateWindowWidth);
-
-    return () => {
-      window.removeEventListener('resize', updateWindowWidth);
-    };
-  }, []);
+  const timeStyle = {
+    cursor: 'pointer',
+    margin: '0.5rem',
+    backgroundColor: 'black',
+    borderRadius: '6px',
+    borderColor: 'black',
+    border: '2px solid black',
+    padding: '10px',
+    color: '#CDB991',
+    width: '50px'
+  };
 
   const generateDatesForWeek = () => {
     const today = new Date();
@@ -87,18 +56,16 @@ function MovieDetail({ chosenMovie }) {
 
     today.setDate(today.getDate());
 
-    var nbrOfDays = isNarrow ? 4 : 7;
-    for (let i = 0; i < nbrOfDays; i++) {
+    for (let i = 0; i < 7; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() + i);
-      const options = isNarrow ? { weekday: 'narrow', month: 'numeric', day: 'numeric', locale: 'sv-SE' } : { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
+      const options = { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
       days.push(date.toLocaleDateString('sv-SE', options));
     }
 
     return days;
   };
 
-  /*
   const generateFixedShowtimes = () => {
     const showtimes = {};
 
@@ -118,14 +85,12 @@ function MovieDetail({ chosenMovie }) {
     return showtimes;
   };
 
+  const datesForWeek = generateDatesForWeek();
   const showtimes = generateFixedShowtimes();
 
   const handleTimeClick = (date, time) => {
     console.log(`Tid klickad: ${date}, ${time}`);
   };
-  */
-
-  const datesForWeek = generateDatesForWeek();
 
   return (
     <Container className='mt-1'>
@@ -137,22 +102,19 @@ function MovieDetail({ chosenMovie }) {
         </Col>
         <Col xs={12} md={7} style={middleColStyle} className='custom-background'>
           <Row className="flex p-3">
-
             {datesForWeek.map((date, index) => (
-              <Col key={index} className='flex justify-content-center align-items-center p-0'>
-                <div className='d-flex justify-content-center align-items-center text-center py-1 custom-background' >
-                  {isNarrow ?
-                    (<p className="p-1 m-0 h-100">{date.split(' ')[0]} < br /> {date.slice(1)}</p>)
-                    : (<p className="p-1 m-0 h-100">{date.split(' ')[0]}  {date.split(' ')[1] + ' ' + date.split(' ')[2]}</p>)}</div>
-                {screenings.map(({ id, screeningDate }) => (
-                  <Row key={id} className='d-flex justify-content-center align-items-center'>
-                    <Button
-                      className='timeButton text-center bg-black border-0 text-light m-1 p-1 rounded'
-                      onClick={() => gotoBooking(id)}
-                    >
-                      {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
-                    </Button>
-                  </Row>
+              <Col key={index} className=' flex p-1'>
+                <div className='w-100 text-center' >{date.split(',')[0]}</div>
+                <div>{date.split(',')[1]}</div>
+                {showtimes[date].map((time, timeIndex) => (
+                  <div
+                    className='timebutton px-1'
+                    key={timeIndex}
+                    style={timeStyle}
+                    onClick={() => handleTimeClick(date, time)}
+                  >
+                    {time}
+                  </div>
                 ))}
               </Col>
             ))}

@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import TicketCondenser from './TicketCondenser';
 
-function ActiveBookingDetail({ userBooking }) {
-    console.log("a", userBooking)
+function ActiveBookingDetail() {
+    const imagessource = "/";
+    const bookings = [
+        {
+            id: 1,
+            title: 'De Ostyriga',
+            screeningdate: new Date('2023-10-14T14:30'),
+            theather: 'Salong 1',
+            tickets: ['2st normal', ' 2st barn'],
+            bookingNbr: 'ABC123',
+            img: 'deostyriga.jpeg'
+        },
+        {
+            id: 2,
+            title: 'Jaws',
+            screeningdate: new Date('2023-10-10T18:30'),
+            theather: 'Salong 2',
+            tickets: ['2st normal'],
+            bookingNbr: 'DEF456',
+            img: '12.jpeg'
+
+        }
+    ]
+    const activeBookings = bookings.filter(booking => booking.screeningdate >= new Date)
 
     const options = {
         month: 'short',
@@ -15,51 +36,46 @@ function ActiveBookingDetail({ userBooking }) {
     const renderBookings = () => {
         return (
             <>
-                {userBooking.map((booking, index) => (
-                    <Container key={index} className="container-loggedInView mt-3 text-light"  >
-                        <Row className=' pt-4 px-4 bg-black rounded-top-4'>
-                            <Col xs={6} lg={3} className='d-flex justify-content-center align-items-start p-0 '>
-                                <img className='mw-100 mh-100'
-                                    src={booking.imgUrl}
-                                    alt={booking.movie.title} />
-                            </Col>
-                            <Col xs={6} lg={4} className='py-0'>
-                                <h2>
-                                    {booking.movie.title}
-                                </h2>
-                                <h5>
-                                    {booking.theater}
-                                </h5>
-                                <h5>
-                                    {new Date(booking.screeningDate).toLocaleString('sv-SE', options)}
-                                </h5>
-                                <h6>
-                                    Biljetter: </h6>
-                                <h6><TicketCondenser booking={booking} /></h6>
-                                <h6>
-                                    Platser:
-                                </h6>
-                                {booking.seats.map((seat, seatIndex) => (
-                                    <h6 key={seatIndex}>
-                                        Stolsnr: {seat.seatNbr}, rad: {seat.rowNbr}
+                {
+                    activeBookings.map(booking => {
+                        return <Container key={booking.id} className="container-loggedInView mt-2 text-light"  >
+                            <Row className=' pt-4 px-4 bg-black'>
+                                <Col xs={6} lg={2} className='d-flex justify-content-center p-0'>
+                                    <img className='bookingDetail-loggedInView-container-img'
+                                        src={imagessource + booking.img} />
+                                </Col>
+                                <Col xs={6} lg={2} className='py-0'>
+                                    <h4>
+                                        {booking.title}
+                                    </h4>
+                                    <h5>
+                                        {booking.theather}
+                                    </h5>
+                                    <h5>
+                                        {booking.screeningdate.toLocaleString('sv-SE', options)}
+                                    </h5>
+
+                                    <h6>
+                                        Biljetter: <br />{booking.tickets.map((ticket, index) => {
+                                            return <div key={index} >{ticket}</div>
+                                        })}
                                     </h6>
-                                ))}
-                                <h6>
-                                    Bokningsnummer: <br />  {booking.bookingNbr}
-                                </h6>
+                                    <h6>
+                                        Bokningsnummer: <br />  {booking.bookingNbr}
+                                    </h6>
 
-                            </Col>
-                        </Row>
+                                </Col>
+                            </Row>
 
-                        <Row className='bookingDetail-loggedInView-container pt-2 bg-black rounded-bottom-4'>
-                            <Col className='px-4 d-flex justify-content-end'>
-                                <Button variant='light' className='text-dark mb-3 border-0 custom-background'> Avboka </Button>
-                            </Col>
-                        </Row >
+                            <Row className='bookingDetail-loggedInView-container pt-2 bg-black'>
+                                <Col>
+                                    <Button variant='light' className='text-dark mb-3'> Avboka </Button>
+                                </Col>
+                            </Row >
 
-                    </Container >
+                        </Container >
 
-                ))
+                    })
                 }
             </>
         )

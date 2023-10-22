@@ -7,7 +7,7 @@ namespace webapi.Controllers
     public class SessionsController : ControllerBase
     {
         [HttpGet()]
-        public IActionResult GetCurrentSessionUserId()
+        public IActionResult GetCurrentSessionUser()
         {
             var userId = HttpContext.Session.GetInt32("Id");
 
@@ -17,7 +17,7 @@ namespace webapi.Controllers
         public IActionResult SetDefaultGuest()
         {
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("Id")))
+            if (HttpContext.Session.GetInt32("Id") is null)
                 HttpContext.Session.SetInt32("Id", 0);
             return Ok();
         }

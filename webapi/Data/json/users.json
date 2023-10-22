@@ -2,7 +2,7 @@
     {
         "id": 1,
         "email": "jool333@live.se",
-        "password": "CiI9xY0znkmWxnPB5K5Ew5hTmmktJkQJuoXavOqqHK4=",
+        "password": "tobeHashedPassword",
         "firstname": "Johan",
         "lastname": "Olsson",
         "phonenumber": "0738441377",

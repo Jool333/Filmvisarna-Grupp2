@@ -5,44 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
 
-function SeatsGrid({ screening }) {
+function SeatsGrid() {
 
-  const theaterId = screening.theaterId;
-
-  const [seatsPerRow, setSeatsPerRow] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/seats');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        let data = await response.json();
-
-        // filter seats
-        data = data.filter(x => x.theaterId === theaterId);
-
-        // make array with the seats in rows (array of arrays)
-        let inRows = [], currentRowNbr, currentRow;
-        for (let seat of data) {
-          if (currentRowNbr !== seat.rowNbr) {
-            currentRowNbr = seat.rowNbr;
-            currentRow = [];
-            inRows.push(currentRow);
-          }
-          currentRow.push(seat);
-        }
-        setSeatsPerRow(inRows);
-      } catch (error) {
-        console.error('Error fetching seats:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const seatsPerRow = [
+    8,
+    9,
+    10,
+    10,
+    10,
+    10,
+    12,
+    12,
+  ];
 
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({
@@ -64,7 +38,6 @@ function SeatsGrid({ screening }) {
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
-
 
   const handleSeatsClick = (row, seat) => {
     const isSeatSelected = selectedSeats.some(
@@ -105,22 +78,21 @@ function SeatsGrid({ screening }) {
               <p className='text-light' >Bioduk</p>
             </div>
             <div className='chairs-container mt-10'>
-
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
                   <Col className='d-flex align-items-center justify-content-center p-0'>
-                    {seats.map((x) => (
-                      <div className='d-inline-block' key={x.seatNbr}>
+                    {new Array(seats).fill(1).map((x, j) => (
+                      <div className='d-inline-block' key={j}>
                         <Button
                           variant='black'
                           size='sm'
                           className={`chair-button border-0 p-0 ${selectedSeats.some(
-                            (seat) => seat.row === x.rowNbr && seat.seat === x.seatNbr
+                            (seat) => seat.row === i && seat.seat === j
                           )
                             ? 'text-warning'
                             : ''
                             }`}
-                          onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr)}
+                          onClick={() => handleSeatsClick(i, j)}
                           disabled={!isThereTickets}
                         >
                           <FontAwesomeIcon icon={faCouch} className="couch-font" />
@@ -132,6 +104,11 @@ function SeatsGrid({ screening }) {
               ))}
             </div>
           </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+
         </Col>
       </Row>
     </Container>
