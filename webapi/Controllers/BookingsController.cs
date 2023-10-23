@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
@@ -16,10 +17,13 @@ namespace webapi.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly FilmvisarnaContext _context;
+        private readonly string _imgBaseUrl;
 
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
+
+            _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
         public async Task<IActionResult> ListAll()
@@ -47,7 +51,7 @@ namespace webapi.Controllers
                 {
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
-                    Movie = b.Screening.Movie.Title,
+                    Movie = b.Screening.Movie,
                     Theater = b.Screening.Theater.Name,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
@@ -70,13 +74,16 @@ namespace webapi.Controllers
         [HttpGet("user/{userid}")]
         public async Task<IActionResult> GetByUserId(int userid)
         {
+            CultureInfo swedishCulture = CultureInfo.CreateSpecificCulture("sv-SE");
             var result = await _context.Bookings
                 .Where(b => b.User.Id == userid)
                 .Select(b => new
                 {
+                    Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
-                    Movie = b.Screening.Movie.Title,
+                    Movie = b.Screening.Movie,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
@@ -84,7 +91,7 @@ namespace webapi.Controllers
                         SeatNbr = s.Seat.SeatNbr,
                         RowNbr = s.Seat.RowNbr,
                     }),
-                    Ticket = b.BookingXSeats.Select(t => new
+                    Tickets = b.BookingXSeats.Select(t => new
                     {
                         Name = t.TicketType.Name,
                         Price = t.TicketType.Price,
