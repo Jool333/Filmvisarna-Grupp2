@@ -29,7 +29,7 @@ function MovieDetail({ chosenMovie }) {
   async function fetchScreenings() {
     const screeningsForMovie = await get(`screenings/movie/${chosenMovie.id}`);
     setScreenings(screeningsForMovie);
-    console.log(screeningsForMovie)
+    //console.log(screeningsForMovie)
   }
 
   function gotoBooking(screeningId) {
