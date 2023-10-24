@@ -66,9 +66,9 @@ function SeatsGrid({ screening }) {
   }, [selectedSeats, selectedTickets]);
 
 
-  const handleSeatsClick = (row, seat) => {
+  const handleSeatsClick = (row, seat, id) => {
     const isSeatSelected = selectedSeats.some(
-      (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
+      (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat && selectedSeat.id === id
     );
 
     const maxTicketsSelected =
@@ -77,9 +77,9 @@ function SeatsGrid({ screening }) {
 
     if (!maxTicketsSelected || isSeatSelected) {
       if (isSeatSelected) {
-        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
+        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat && selectedSeat.id === id)));
       } else {
-        setSelectedSeats([...selectedSeats, { row, seat }]);
+        setSelectedSeats([...selectedSeats, { row, seat, id }]);
       }
     }
     setSelectedTickets(selectedTickets);
@@ -120,7 +120,7 @@ function SeatsGrid({ screening }) {
                             ? 'text-warning'
                             : ''
                             }`}
-                          onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr)}
+                          onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr, x.id)}
                           disabled={!isThereTickets}
                         >
                           <FontAwesomeIcon icon={faCouch} className="couch-font" />
