@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { get } from "../../ApiConnection";
 
 
 function MovieSchedule({ movies }) {
 
   const navigate = useNavigate();
 
-  // get all the screenings and filter for  movies
   const [screenings, setScreenings] = useState([]);
-  async function getScreeenings(movies) {
-    const allScreenings = await (await fetch('/api/screenings')).json();
 
+  async function fetchScreenings() {
     const movieScreeningsMap = {};
 
     for (const movie of movies) {
-      const screeningsForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
+      const screeningsForMovie = await get(`screenings/movie/${movie.id}`)
 
-      // Use the filter method to filter the screenings by date and time
-      const now = new Date();
-      const filteredScreenings = screeningsForThisMovie.filter(screening => {
-        const screeningDate = new Date(screening.screeningDate);
-        return screeningDate >= now;
-      });
+      const filteredScreenings = screeningsForMovie.filter(screening =>
+        (new Date(screening.screeningDate) >= new Date()));
 
-      movieScreeningsMap[movie.id] = filteredScreenings;
-    }
-
+      movieScreeningsMap[movie.id] = screeningsForMovie;
+    };
     setScreenings(movieScreeningsMap);
+    console.log(movieScreeningsMap)
   }
 
   const fetchData = async () => {
     try {
       if (movies) {
-        await getScreeenings(movies);
+        await fetchScreenings();
       }
     } catch (error) {
       console.error('Error fetching : ', error);
@@ -46,17 +41,15 @@ function MovieSchedule({ movies }) {
     }
   }, [movies]);
 
-
-  // gotoBooking
   function gotoBooking(screeningId) {
     navigate('/booking/' + screeningId);
   }
 
-  const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 751);
+  const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 1383);
 
   useEffect(() => {
     const updateWindowWidth = () => {
-      setIsNarrow(window.innerWidth <= 751);
+      setIsNarrow(window.innerWidth <= 1383);
     };
 
     window.addEventListener('resize', updateWindowWidth);
@@ -66,54 +59,24 @@ function MovieSchedule({ movies }) {
     };
   }, []);
 
-  const generateDatesForWeek = () => {
-    const today = new Date();
-    const days = [];
+  const [isVeryNarrow, setIsVeryNarrow] = useState(window.innerWidth <= 751);
 
-    today.setDate(today.getDate());
-
-    var nbrOfDays = isNarrow ? 4 : 7;
-    for (let i = 0; i < nbrOfDays; i++) {
-      const date = new Date(today);
-      date.setDate(date.getDate() + i);
-      const options = isNarrow ? { weekday: 'narrow', month: 'numeric', day: 'numeric', locale: 'sv-SE' } : { weekday: 'short', month: 'short', day: 'numeric', locale: 'sv-SE' };
-      days.push(date.toLocaleDateString('sv-SE', options));
-    }
-
-    return days;
-  };
-
-  /*
-  const generateFixedShowtimes = () => {
-    const showtimes = {};
-
-    const times = {
-      ordtider: ['18:00', '19:15', '20:00'],
-      söndag: ['20:00', '21:15'],
+  useEffect(() => {
+    const updateWindowWidth = () => {
+      setIsVeryNarrow(window.innerWidth <= 751);
     };
 
-    for (const date of datesForWeek) {
-      if (date.includes('sön')) {
-        showtimes[date] = times.söndag;
-      } else {
-        showtimes[date] = times.ordtider;
-      }
-    }
+    window.addEventListener('resize', updateWindowWidth);
 
-    return showtimes;
-  };
-  const showtimes = generateFixedShowtimes();
-  
-  
-  const handleTimeClick = (date, time) => {
-      console.log(`Tid klickad: ${date}, ${time}`);
+    return () => {
+      window.removeEventListener('resize', updateWindowWidth);
     };
-  */
+  }, []);
 
-  const datesForWeek = generateDatesForWeek();
+  const dateOptions = isNarrow ?
+    { weekday: 'narrow', month: 'numeric', day: 'numeric' }
+    : { weekday: 'short', month: 'short', day: 'numeric' };
 
-  //{isNarrow ? (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>) : (<p>{date.split('')[0]} < br /> {date.slice(1)}</p>)}
-  //onClick={() => handleTimeClick(date, time)}
   return (
     <Container>
       {movies.map((movie) => (
@@ -133,23 +96,28 @@ function MovieSchedule({ movies }) {
               <h4>2h 30min</h4>
               <h5>Åldersgräns: {movie.ageLimit}</h5>
             </Row>
-            <Row className="flex py-2">
+            <Row className="flex py-2 justify-content-between">
               <Col className="d-flex justify-content-center align-items-center p-0">
                 <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
               </Col>
-              {datesForWeek.map((date, index) => (
-                <Col key={index} className='flex justify-content-center align-items-center p-0'>
-                  <div className='d-flex justify-content-center align-items-center text-center py-1 custom-background' >
+
+
+              {screenings[movie.id]?.slice(0, isNarrow ? (isVeryNarrow ? 3 : 5) : 7).map(({ date, screenings }) => (
+                <Col key={date} className='flex justify-content-center align-items-center p-0 h-100'>
+                  <Row className='d-flex justify-content-center align-items-center text-center py-1 custom-background' >
                     {isNarrow ?
-                      (<p className="p-1 m-0 h-100">{date.split(' ')[0]} < br /> {date.slice(1)}</p>)
-                      : (<p className="p-1 m-0 h-100">{date.split(' ')[0]}  {date.split(' ')[1] + ' ' + date.split(' ')[2]}</p>)}</div>
-                  {screenings[movie.id]?.map(({ id, screeningDate }) => (
-                    <Row key={id} className='d-flex justify-content-center align-items-center'>
+                      (<p className="p-1 m-0 h-100">{new Date(date).toLocaleString('sv-SE', dateOptions).split(' ')[0]}
+                        < br /> {new Date(date).toLocaleString('sv-SE', dateOptions).split(' ')[1]} </p>)
+                      : (<p className="p-1 m-0 h-100">{new Date(date).toLocaleString('sv-SE', dateOptions)} </p>)}
+                  </Row>
+                  {screenings.map(({ id, time }) => (
+                    <Row key={id} className="flex justify-content-center align-items-center">
                       <Button
+                        key={id}
                         className='timeButton text-center bg-black border-0 text-light m-1 p-1 rounded'
                         onClick={() => gotoBooking(id)}
                       >
-                        {new Date(screeningDate).toLocaleString('sv-SE').slice(0, -3).slice(11, 16)}
+                        {time.slice(0, 5)}
                       </Button>
                     </Row>
                   ))}
@@ -161,7 +129,7 @@ function MovieSchedule({ movies }) {
             </Row>
           </Col>
           <hr />
-        </Row>
+        </Row >
       ))}
     </Container >
   );
