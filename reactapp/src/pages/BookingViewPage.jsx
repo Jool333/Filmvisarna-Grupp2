@@ -40,7 +40,7 @@ function BookingViewPage() {
     console.log("isContinueEnabled:", isContinueEnabled);
   };
 
-  console.log(screening)
+  //console.log(screening)
   return !screening ? null : (
     <Container>
       <Col className=' text-light'>
