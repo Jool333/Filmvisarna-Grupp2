@@ -71,9 +71,9 @@ namespace webapi.Controllers
         [HttpGet("user/{userid}")]
         public async Task<IActionResult> GetByUserId(int userid)
         {
-            CultureInfo swedishCulture = CultureInfo.CreateSpecificCulture("sv-SE");
             var result = await _context.Bookings
                 .Where(b => b.User.Id == userid)
+                .OrderBy(b => b.Screening.ScreeningDate)
                 .Select(b => new
                 {
                     Id = b.Id,
