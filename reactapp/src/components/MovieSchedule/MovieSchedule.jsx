@@ -22,7 +22,7 @@ function MovieSchedule({ movies }) {
       movieScreeningsMap[movie.id] = screeningsForMovie;
     };
     setScreenings(movieScreeningsMap);
-    console.log(movieScreeningsMap)
+    //console.log(movieScreeningsMap)
   }
 
   const fetchData = async () => {
@@ -80,7 +80,7 @@ function MovieSchedule({ movies }) {
   return (
     <Container>
       {movies.map((movie) => (
-        <Row key={movie.id} className="movie-schedule c-bg-2 p-1 d-flex justify-content-center align-items-center" >
+        <Row key={movie.id} className="movie-schedule p-1 d-flex justify-content-center align-items-center text-light" >
           <Col xs={12} lg={2} className="m-1">
             <Row>
               <Col className="movie-cover d-flex justify-content-center align-items-center ">
@@ -96,15 +96,15 @@ function MovieSchedule({ movies }) {
               <h4>2h 30min</h4>
               <h5>Åldersgräns: {movie.ageLimit}</h5>
             </Row>
-            <Row className="flex py-2 justify-content-between">
-              <Col className="d-flex justify-content-center align-items-center p-0">
-                <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
-              </Col>
+            <Row className="flex py-2 justify-content-between text-dark m-2">
+              {/*<Col className="d-flex justify-content-center align-items-center p-0">
+              <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
+            </Col>*/}
 
 
-              {screenings[movie.id]?.slice(0, isNarrow ? (isVeryNarrow ? 3 : 5) : 7).map(({ date, screenings }) => (
+              {screenings[movie.id]?.slice(0, isNarrow ? (isVeryNarrow ? 4 : 5) : 7).map(({ date, screenings }) => (
                 <Col key={date} className='flex justify-content-center align-items-center p-0 h-100'>
-                  <Row className='d-flex justify-content-center align-items-center text-center py-1 custom-background' >
+                  <Row className='d-flex justify-content-center align-items-center text-center py-1 mb-2 bg-filter rounded' >
                     {isNarrow ?
                       (<p className="p-1 m-0 h-100">{new Date(date).toLocaleString('sv-SE', dateOptions).split(' ')[0]}
                         < br /> {new Date(date).toLocaleString('sv-SE', dateOptions).split(' ')[1]} </p>)
@@ -114,7 +114,7 @@ function MovieSchedule({ movies }) {
                     <Row key={id} className="flex justify-content-center align-items-center">
                       <Button
                         key={id}
-                        className='timeButton text-center bg-black border-0 text-light m-1 p-1 rounded'
+                        className='timeButton text-center custom-background border-0 text-dark m-1 mb-2 p-2 rounded'
                         onClick={() => gotoBooking(id)}
                       >
                         {time.slice(0, 5)}
@@ -123,9 +123,9 @@ function MovieSchedule({ movies }) {
                   ))}
                 </Col>
               ))}
-              <Col className="d-flex justify-content-center align-items-center p-0">
-                <Button variant="outline-dark" className="text-center h-100 w-75 border-0">❯</Button>
-              </Col>
+              {/*<Col className="d-flex justify-content-center align-items-center p-0">
+              <Button variant="outline-dark" className="text-center h-100 w-75 border-0">❯</Button>
+            </Col>*/}
             </Row>
           </Col>
           <hr />
