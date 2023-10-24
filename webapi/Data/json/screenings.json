@@ -157,26 +157,86 @@
   },
   {
     "id": 27,
-    "screeningDate": "2023-09-29T19:15",
+    "screeningDate": "2023-10-29T19:15",
     "movieId": 2,
     "theaterId": 1
   },
   {
     "id": 28,
-    "screeningDate": "2023-09-26T16:35",
+    "screeningDate": "2023-10-26T16:35",
     "movieId": 3,
     "theaterId": 2
   },
   {
     "id": 29,
-    "screeningDate": "2023-09-23T18:55",
+    "screeningDate": "2023-10-23T18:55",
     "movieId": 4,
     "theaterId": 1
   },
   {
     "id": 30,
-    "screeningDate": "2023-09-20T20:30",
+    "screeningDate": "2023-10-26T20:30",
     "movieId": 5,
+    "theaterId": 2
+  },
+  {
+    "id": 31,
+    "screeningDate": "2023-10-27T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 32,
+    "screeningDate": "2023-10-28T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 33,
+    "screeningDate": "2023-10-29T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 34,
+    "screeningDate": "2023-10-30T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 35,
+    "screeningDate": "2023-10-31T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 36,
+    "screeningDate": "2023-11-01T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 37,
+    "screeningDate": "2023-11-02T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 38,
+    "screeningDate": "2023-11-03T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 39,
+    "screeningDate": "2023-11-04T20:30",
+    "movieId": 1,
+    "theaterId": 2
+  },
+  {
+    "id": 40,
+    "screeningDate": "2023-11-05T20:30",
+    "movieId": 1,
     "theaterId": 2
   }
 ]
