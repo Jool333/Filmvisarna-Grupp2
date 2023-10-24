@@ -40,7 +40,9 @@ namespace webapi.Controllers
                 Id = s.Id,
                 screeningDate = s.ScreeningDate,
                 movieId = s.MovieId,
-                theaterId = s.TheaterId
+                Title = s.Movie.Title,
+                theaterId = s.TheaterId,
+                Theater = s.Theater.Name
             })
             .SingleOrDefaultAsync(c => c.Id == id);
 
