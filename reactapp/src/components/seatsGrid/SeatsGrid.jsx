@@ -1,4 +1,3 @@
-// SeatsGrid.js
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

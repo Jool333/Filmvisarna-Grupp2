@@ -10,6 +10,13 @@ function BookingViewPage() {
   const { screeningId } = useParams();
   const [screening, setScreening] = useState(null);
 
+  const options = {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  };
+
   useEffect(() => {
     (async () => {
       setScreening(await (await fetch('/api/screenings/' + screeningId)).json());
@@ -20,7 +27,7 @@ function BookingViewPage() {
   useEffect(() => {
     (async () => {
       const allSeats = await get('seats');
-      console.log(allSeats)
+      //console.log(allSeats)
       setSeats(allSeats)
     })();
   }, []);
@@ -33,12 +40,13 @@ function BookingViewPage() {
     console.log("isContinueEnabled:", isContinueEnabled);
   };
 
+  //console.log(screening)
   return !screening ? null : (
     <Container>
       <Col className=' text-light'>
         <div className="d-flex justify-content-between">
-          <span>Transformers</span>
-          <span>Salong, Tid</span>
+          <span>{screening.title}</span>
+          <span>{screening.theater}, {new Date(screening.screeningDate).toLocaleString('sv-SE', options)}</span>
         </div>
         <hr />
       </Col>

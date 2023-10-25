@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Col, Button, Form } from 'react-bootstrap';
+import { useOutletContext } from 'react-router-dom';
 
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
   const maxTotalTickets = 81;
+
+  const user = useOutletContext().user;
 
   const [formData, setFormData] = useState({
     email: ''
@@ -36,8 +39,8 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
   };
 
   useEffect(() => {
-    const isLoggedIn = false /*get("loggedIn");*/
-    setIsGuest(!isLoggedIn);
+    const isNotLoggedIn = (user == 0 ^ user == null)
+    setIsGuest(isNotLoggedIn);
   }, []);
 
   const handleSubmit = (e) => {
@@ -107,7 +110,7 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
       <h6 className='mb-2'>Totalt pris: {calculateTotalPrice()} kr</h6>
 
       <div className='my-4' xs={12} md={6} lg={4} >
-        {IsGuest && (
+        {IsGuest ? (
           <Form onSubmit={handleSubmit} className='w-5rem'>
             <Form.Group className="mb-3">
               <Form.Label className="text-light">E-mail:</Form.Label>
@@ -121,7 +124,7 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
               />
             </Form.Group>
           </Form>
-        )}
+        ) : (<></>)}
         <Button variant="outline-warning" type='submit' href="/Confirmation" onSubmit={handleSubmit}>
           Fortsätt
         </Button>

@@ -14,7 +14,7 @@ function TicketViewPage() {
     try {
       const moviesData = await outletContext.movies;
       setMovies(moviesData);
-      console.log(movies)
+      //console.log(movies)
     } catch (error) {
       console.error('Error fetching movies: ', error);
     }
