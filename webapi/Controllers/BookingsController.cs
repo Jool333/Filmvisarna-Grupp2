@@ -72,6 +72,7 @@ namespace webapi.Controllers
         {
             var result = await _context.Bookings
                 .Where(b => b.User.Id == userid)
+                .OrderBy(b => b.Screening.ScreeningDate)
                 .Select(b => new
                 {
                     BookingTime = b.BookingTime,
