@@ -8,6 +8,7 @@ import TicketBooking from '../tickets/TicketBooking';
 function SeatsGrid({ screening }) {
 
   const theaterId = screening.theaterId;
+  const screeningId = screening.id;
 
   const [seatsPerRow, setSeatsPerRow] = useState([]);
 
@@ -43,6 +44,25 @@ function SeatsGrid({ screening }) {
     fetchData();
   }, []);
 
+  // Hämta datan för inbokade stolar från DB
+  const [bookedSeats, setBookedSeats] = useState([]);
+  useEffect(() => {
+    const fetchBookedSeats = async () => {
+      try {
+        const response = await fetch('/api/screenings/occupiedseats/' + screeningId);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setBookedSeats(data);
+      } catch (error) {
+        console.error('Error fetching booked seats:', error);
+      }
+    };
+
+    fetchBookedSeats();
+  }, [theaterId]);
+
 
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({
@@ -52,6 +72,7 @@ function SeatsGrid({ screening }) {
   });
   const [canContinue, setCanContinue] = useState(false);
   const [isThereTickets, setIsThereTickets] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const hasSelectedTickets = selectedTickets.normal > 0 || selectedTickets.pensionär > 0 || selectedTickets.barn > 0;
@@ -66,7 +87,12 @@ function SeatsGrid({ screening }) {
   }, [selectedSeats, selectedTickets]);
 
 
-  const handleSeatsClick = (row, seat, id) => {
+  const handleSeatsClick = (row, seat, id, isBooked) => {
+    if (isBooked) {
+      setMessage("Platsen du försöker välja är bokad.");
+      return;
+    }
+    setMessage('');
     const isSeatSelected = selectedSeats.some(
       (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat && selectedSeat.id === id
     );
@@ -99,6 +125,7 @@ function SeatsGrid({ screening }) {
         <Col md={4} xs={12}>
           <div>
             <h4 className='d-flex align-items-center justify-content-center mb-3'>Välj Stolar ({selectedSeats.length} valda)</h4>
+            {message && <p className="text-danger">{message}</p>}
             <div
               className='film-screen mb-5 bg-secondary text-center rounded'
             >
@@ -109,24 +136,27 @@ function SeatsGrid({ screening }) {
               {seatsPerRow.map((seats, i) => (
                 <Row key={i}>
                   <Col className='d-flex align-items-center justify-content-center p-0'>
-                    {seats.map((x) => (
-                      <div className='d-inline-block' key={x.seatNbr}>
-                        <Button
-                          variant='black'
-                          size='sm'
-                          className={`chair-button border-0 p-0 ${selectedSeats.some(
-                            (seat) => seat.row === x.rowNbr && seat.seat === x.seatNbr
-                          )
-                            ? 'text-warning'
-                            : ''
-                            }`}
-                          onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr, x.id)}
-                          disabled={!isThereTickets}
-                        >
-                          <FontAwesomeIcon icon={faCouch} className="couch-font" />
-                        </Button>
-                      </div>
-                    ))}
+                    {seats.map((x) => {
+                      const isBooked = bookedSeats.includes(x.id);
+                      return (
+                        <div className='d-inline-block' key={x.seatNbr}>
+                          <Button
+                            variant={isBooked ? 'danger' : 'black'}
+                            size='sm'
+                            className={`chair-button border-0 p-0 ${selectedSeats.some(
+                              (seat) => seat.row === x.rowNbr && seat.seat === x.seatNbr
+                            )
+                              ? 'text-warning'
+                              : ''
+                              }`}
+                            onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr, x.id, isBooked)}
+                            disabled={!isThereTickets}
+                          >
+                            <FontAwesomeIcon icon={faCouch} className="couch-font" />
+                          </Button>
+                        </div>
+                      );
+                    })}
                   </Col>
                 </Row>
               ))}
