@@ -133,8 +133,6 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
         <Button
           variant="outline-warning"
           type="submit"
-
-          onClick={handleContinueClick}
           disabled={
             !isEmailValid() ||
             selectedSeats.length === 0 ||
