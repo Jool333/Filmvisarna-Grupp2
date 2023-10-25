@@ -4,6 +4,36 @@ import { Container, Col, Button, Form } from 'react-bootstrap';
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
   const maxTotalTickets = 81;
 
+  const handleContinueClick = async () => {
+    const email = formData.email;
+    const selectedSeatData = selectedSeats.map(seat => ({ SeatId: seat.id, RowNbr: seat.row }));
+    const bookingData = {
+      Email: email,
+      BookingXSeats: selectedSeatData,
+    };
+
+    try {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (response.status === 201) {
+        console.log('Booking request sent successfully.');
+
+      } else {
+
+        console.log('Booking request failed.');
+      }
+    } catch (error) {
+      console.error('Error sending the booking request:', error);
+    }
+  };
+
+
   const [formData, setFormData] = useState({
     email: ''
   });
@@ -129,9 +159,14 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
         )}
         <Button
           variant="outline-warning"
-          type='submit'
-          href="/Confirmation"
-          disabled={!isEmailValid()}
+          type="submit"
+
+          onClick={handleContinueClick}
+          disabled={
+            !isEmailValid() ||
+            selectedSeats.length === 0 ||
+            getTotalTickets() !== selectedSeats.length
+          }
         >
           Fortsätt
         </Button>
@@ -139,5 +174,6 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     </Col >
   );
 }
+
 
 export default TicketBooking;

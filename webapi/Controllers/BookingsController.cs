@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
@@ -17,13 +16,10 @@ namespace webapi.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly FilmvisarnaContext _context;
-        private readonly string _imgBaseUrl;
 
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
-
-            _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
         public async Task<IActionResult> ListAll()
@@ -74,16 +70,13 @@ namespace webapi.Controllers
         [HttpGet("user/{userid}")]
         public async Task<IActionResult> GetByUserId(int userid)
         {
-            CultureInfo swedishCulture = CultureInfo.CreateSpecificCulture("sv-SE");
             var result = await _context.Bookings
                 .Where(b => b.User.Id == userid)
                 .Select(b => new
                 {
-                    Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
-                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
@@ -135,9 +128,10 @@ namespace webapi.Controllers
             var bookingToAdd = new Booking
             {
                 BookingNbr = bookingNbr,
-                BookingTime = DateTime.Now,
+                BookingTime = DateTime.Now.Date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute),
                 UserId = userWhoBooked.Id,
                 ScreeningId = res.ScreeningId
+
             };
 
             try
@@ -161,7 +155,7 @@ namespace webapi.Controllers
 
                     try
                     {
-                        string filePath = "Functions/mailsecret.json";
+                        string filePath = "Functions/mailsecrets.json";
                         string jsonString = System.IO.File.ReadAllText(filePath);
                         var secrets = JsonConvert.DeserializeObject<dynamic>(jsonString)!;
 
@@ -181,16 +175,42 @@ namespace webapi.Controllers
                                 mailMessage.From = new MailAddress(fromEmail);
                                 mailMessage.To.Add(userWhoBooked.Email);
                                 mailMessage.Subject = "Bokningsbekräftelse";
-                                mailMessage.Body = $"Bokningsnummer \"{bookingToAdd.BookingNbr}\n" +
-                                // $"Film: {bookingToAdd.Screening}" +
-                                $"Valda platser {bookingToAdd.BookingXSeats}";
+                                mailMessage.Body =
+                                $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
+                                $"Datum för bokning: {bookingToAdd.BookingTime:yyyy-MM-dd HH:mm}\n" +
+                                "Valda platser:\n";
 
+                                foreach (var bookingXSeat in res.BookingXSeats)
+                                {
+                                    var seat = await _context.Seats.FirstOrDefaultAsync(s => s.Id == bookingXSeat.SeatId);
+                                    if (seat != null)
+                                    {
+                                        mailMessage.Body += $"Stolsnummer: {seat.SeatNbr}, Rad: {seat.RowNbr}\n";
+                                    }
+                                }
 
+                                var screening = await _context.Screenings
+                                    .Where(s => s.Id == bookingToAdd.ScreeningId)
+                                    .Include(s => s.Movie)
+                                    .Include(s => s.Theater)
+                                    .FirstOrDefaultAsync();
+
+                                if (screening != null)
+                                {
+                                    var movieTitle = screening.Movie.Title;
+                                    var theaterName = screening.Theater.Name;
+
+                                    mailMessage.Body += $"Film: {movieTitle}\n";
+                                    mailMessage.Body += $"Teater: {theaterName}\n";
+                                    mailMessage.Body += $"Datum: {screening.ScreeningDate:yyyy-MM-dd HH:mm}\n";
+                                }
 
                                 client.Send(mailMessage);
+
+                                Console.WriteLine("Email sent successfully.");
+
                             }
                         }
-
 
                     }
                     catch (Exception ex)
