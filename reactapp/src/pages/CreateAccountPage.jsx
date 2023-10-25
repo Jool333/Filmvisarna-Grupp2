@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from "react-router-dom";
 import { post } from "../ApiConnection";
 
 function CreateAccountPage() {
+
+  const navigate = useNavigate();
+
   const initialFormData = {
     firstName: '',
     lastName: '',
@@ -94,7 +98,7 @@ function CreateAccountPage() {
 
         console.log(error)
       }
-      window.location.href = '/login'
+      navigate('/login')
     }
   };
 

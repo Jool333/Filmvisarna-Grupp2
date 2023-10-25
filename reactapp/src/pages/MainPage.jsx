@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, NavLink } from 'react-router-dom';
 
 function MainPage() {
   const outletContext = useOutletContext();
@@ -55,9 +55,9 @@ function MainPage() {
   };
 
   return (
-    <Container >
-      <Row className='custom-background p-2'>
-        <Col>
+    <Container className='flex justify-content-between align-content-center' >
+      <Row className='bg-filter p-2 text-center rounded'>
+        <Col className='py-1 px-2'>
           <label htmlFor="dateSelect">Välj datum:</label>
           <select
             id="dateSelect"
@@ -74,7 +74,7 @@ function MainPage() {
             ))}
           </select>
         </Col>
-        <Col>
+        <Col className='py-1 px-3'>
           <label htmlFor="ageRatingSelect">Välj åldersgräns:</label>
           <select
             id="ageRatingSelect"
@@ -91,24 +91,17 @@ function MainPage() {
           </select>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <div>
-            <ul className='film-list'>
-              {filteredMovies.map((movie) => (
-                <li key={movie.id} className='film-list-item' >
-                  <a href={'/movie/' + [movie.id]}>
+      <Row xs={12} lg={9} className='flex justify-content-center align-content-center my-3 p-0 '>
+        {filteredMovies.map((movie) => (
+          <Col xs={4} md={3} lg={2} key={movie.id} className='p-1 my-2 mx-3 flex justify-content-center align-content-center' >
+            <NavLink to={'/movie/' + [movie.id]}>
 
-                    <img src={movie.imgUrl} width="200px" className='poster-img' />
+              <img src={movie.imgUrl} className='mw-100 w-100' />
 
-                  </a>
+            </NavLink>
 
-                </li>
-              ))}
-            </ul>
-
-          </div>
-        </Col>
+          </Col>
+        ))}
       </Row>
     </Container >
 

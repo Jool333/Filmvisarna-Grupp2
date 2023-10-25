@@ -18,7 +18,7 @@ function LoggedInView() {
         try {
             const bookingData = await get(`bookings/user/${userId}`);
             setBooking(bookingData);
-            console.log("Loggedin", bookingData)
+            //console.log("Loggedin", bookingData)
         } catch (error) {
             console.error('Error fetching movies: ', error);
         }

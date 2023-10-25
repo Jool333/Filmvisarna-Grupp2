@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import { post } from "../ApiConnection";
 
 function LoginPage() {
@@ -71,9 +72,9 @@ function LoginPage() {
                   <Row>
                     <Col>
                       <div className=" d-grid gap-2 mb-3 d-flex justify-content-between align-items-center">
-                        <a href="/create-account" className=' text-dark'>
+                        <NavLink to="/create-account" className=' text-dark'>
                           Bli Medlem
-                        </a>
+                        </NavLink>
                         <Button variant="outline-dark" type="submit" >Logga in</Button>
                       </div>
                     </Col>
