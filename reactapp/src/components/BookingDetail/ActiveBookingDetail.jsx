@@ -3,7 +3,6 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import TicketCondenser from './TicketCondenser';
 
 function ActiveBookingDetail({ userBooking }) {
-    console.log("a", userBooking)
 
     const options = {
         month: 'short',
