@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
-using webapi.ViewModel;
+using webapi.ViewModel.Post;
 
 namespace webapi.Controllers
 {

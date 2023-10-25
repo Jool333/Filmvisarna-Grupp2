@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@750&display=swap');
 
 #root {
     display: flex;
@@ -47,6 +47,13 @@ a:hover {
     max-width: 20rem;
     max-height: 30rem;
     width: 100%;
+    height: auto;
+}
+
+.confirm-poster {
+    max-width: 20rem;
+    max-height: 30rem;
+    width: auto;
     height: auto;
 }
 
@@ -129,25 +136,4 @@ a:hover {
     border: none;
     z-index: 1;
     background-color: transparent;
-}
-
-
-.container-loggedInView {
-    max-width: 65rem;
-
-    img {
-        height: 13rem;
-        width: auto;
-        padding-right: 10%;
-    }
-
-    button {
-        float: right;
-        // width: 200px;
-        background-color: #CDB991;
-        border: none;
-    }
-
-
-
 }

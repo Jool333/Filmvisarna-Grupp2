@@ -25,8 +25,7 @@ namespace webapi.Controllers
                 Id = s.Id,
                 SeatNbr = s.SeatNbr,
                 RowNbr = s.RowNbr,
-                TheaterId = s.TheaterId,
-                IsTaken = s.IsTaken
+                TheaterId = s.TheaterId
             })
             .ToListAsync();
             return Ok(result);
@@ -40,8 +39,7 @@ namespace webapi.Controllers
                 Id = s.Id,
                 SeatNbr = s.SeatNbr,
                 RowNbr = s.RowNbr,
-                TheaterId = s.TheaterId,
-                IsTaken = s.IsTaken
+                TheaterId = s.TheaterId
             })
             .SingleOrDefaultAsync(c => c.Id == id);
             return Ok(result);
@@ -55,23 +53,10 @@ namespace webapi.Controllers
                 Id = s.Id,
                 SeatNbr = s.SeatNbr,
                 RowNbr = s.RowNbr,
-                TheaterId = s.TheaterId,
-                IsTaken = s.IsTaken
+                TheaterId = s.TheaterId
             })
             .SingleOrDefaultAsync(c => c.TheaterId == id);
             return Ok(result);
-        }
-        [HttpPatch("update/{id}")]
-        public async Task<IActionResult> ChangeIsTaken(int id)
-        {
-            var seatToUpdate = await _context.Seats.FindAsync(id);
-            if (seatToUpdate is null) return NotFound("Sätet finns inte");
-            seatToUpdate.IsTaken = !seatToUpdate.IsTaken;
-
-            _context.Seats.Update(seatToUpdate);
-            if (await _context.SaveChangesAsync() > 0) return NoContent();
-
-            return StatusCode(500, "Internal Server Error");
         }
     }
 }
