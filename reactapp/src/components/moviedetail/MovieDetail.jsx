@@ -32,14 +32,6 @@ function MovieDetail({ chosenMovie }) {
     let allScreenings = await (await fetch('/api/screenings')).json();
     let screeningssForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
 
-    // Use the filter method to filter the screenings by date and time
-    const now = new Date();
-    screeningssForThisMovie = screeningssForThisMovie.filter(screening => {
-      const screeningDate = new Date(screening.screeningDate);
-      return screeningDate >= now;
-    });
-
-
     setScreenings(screeningssForThisMovie);
   }
 

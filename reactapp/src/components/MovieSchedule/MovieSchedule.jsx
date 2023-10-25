@@ -16,15 +16,7 @@ function MovieSchedule({ movies }) {
 
     for (const movie of movies) {
       const screeningsForThisMovie = allScreenings.filter(x => x.movieId === movie.id);
-
-      // Use the filter method to filter the screenings by date and time
-      const now = new Date();
-      const filteredScreenings = screeningsForThisMovie.filter(screening => {
-        const screeningDate = new Date(screening.screeningDate);
-        return screeningDate >= now;
-      });
-
-      movieScreeningsMap[movie.id] = filteredScreenings;
+      movieScreeningsMap[movie.id] = screeningsForThisMovie;
     }
 
     setScreenings(movieScreeningsMap);
