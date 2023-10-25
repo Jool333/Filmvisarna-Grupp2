@@ -134,7 +134,7 @@ namespace webapi.Data
                 await context.SaveChangesAsync();
             }
         }
-        public static async Task LoadJsonData<T>(FilmvisarnaContext context, string fileName) where T : class
+        public static async Task LoadJsonData<T>(FilmvisarnaContext context) where T : class
         {
             var options = new JsonSerializerOptions
             {
@@ -143,7 +143,7 @@ namespace webapi.Data
 
             if (context.Set<T>().Any()) return;
 
-            var json = System.IO.File.ReadAllText($"Data/json/{fileName}.json");
+            var json = System.IO.File.ReadAllText("Data/json/moviesxcategories.json");
             var data = JsonSerializer.Deserialize<List<T>>(json, options);
 
             if (data is not null && data.Count > 0)
