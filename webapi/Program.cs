@@ -43,6 +43,7 @@ try
     // await SeedData.LoadBookingData(context); 
     // await SeedData.LoadBookingXSeatData(context);
     // await SeedData.LoadMovieXCategoryData(context);
+    await SeedData.LoadJsonData(context);
 
 
 }

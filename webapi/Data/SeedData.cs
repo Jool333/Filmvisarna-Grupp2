@@ -134,5 +134,24 @@ namespace webapi.Data
                 await context.SaveChangesAsync();
             }
         }
+        public static async Task LoadJsonData<T>(FilmvisarnaContext context, string fileName) where T : class
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            if (context.Set<T>().Any()) return;
+
+            var json = System.IO.File.ReadAllText($"Data/json/{fileName}.json");
+            var data = JsonSerializer.Deserialize<List<T>>(json, options);
+
+            if (data is not null && data.Count > 0)
+            {
+                await context.Set<T>().AddRangeAsync(data);
+                await context.SaveChangesAsync();
+            }
+        }
+
     }
 }
