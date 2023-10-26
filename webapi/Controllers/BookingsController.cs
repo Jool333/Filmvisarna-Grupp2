@@ -178,7 +178,7 @@ namespace webapi.Controllers
                             using (MailMessage mailMessage = new MailMessage())
                             {
                                 mailMessage.From = new MailAddress(fromEmail);
-                                mailMessage.To.Add("fvisarna@gmail.com");
+                                mailMessage.To.Add(userWhoBooked.Email);
                                 mailMessage.Subject = "Bokningsbekräftelse";
                                 mailMessage.Body = $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
                                 $"Datum för bokning: {bookingToAdd.BookingTime.ToString("yyyy-MM-dd HH:mm")}\n";
