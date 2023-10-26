@@ -74,7 +74,8 @@ function MovieDetail({ chosenMovie }) {
         <Col className='p-3 my-2 custom-background rounded' md={12} lg={2} >
           <h5>{movie.title}</h5>
           <h6 >Speltid:{isVeryNarrow ? " " : <br />} {Math.floor(movie.duration / 60)} {movie.duration <= 120 ? "timme" : "timmar"} {Math.floor(movie.duration % 60)} {movie.duration % 60 > 1 ? "minuter" : "minut"}</h6>
-          <h6 >Kategori: Action</h6>
+          <h6 >Åldersgräns: {movie.ageLimit}</h6>
+          <h6 >Genre: Action</h6>
         </Col>
         <Col md={12} lg={6} className='custom-background rounded my-2 mx-4 px-3'>
           <Row className="flex p-0 pb-3">
