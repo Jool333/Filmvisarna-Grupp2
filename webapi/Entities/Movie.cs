@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace webapi.Entities
@@ -11,10 +10,11 @@ namespace webapi.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; } //datatyp Json med Url:
-        public string AgeLimit { get; set; } //kanske enum
+        public string Description { get; set; }
+        public int DurationMinutes { get; set; }
+        public string AgeLimit { get; set; }
         public string ImgUrl { get; set; }
-        public string TrailerUrl { get; set; } 
+        public string TrailerUrl { get; set; }
 
         public ICollection<Screening> Screenings { get; set; }
         public ICollection<MovieXCategory> MovieXCategories { get; set; }

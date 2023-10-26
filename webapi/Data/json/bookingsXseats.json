@@ -8,5 +8,15 @@
         "bookingId": 1,
         "seatId": 65,
         "ticketTypeId": 1
+    },
+    {
+        "bookingId": 2,
+        "seatId": 101,
+        "ticketTypeId": 1
+    },
+    {
+        "bookingId": 2,
+        "seatId": 102,
+        "ticketTypeId": 2
     }
 ]
