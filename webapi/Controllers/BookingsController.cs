@@ -16,10 +16,12 @@ namespace webapi.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly FilmvisarnaContext _context;
+        private readonly string _imgBaseUrl;
 
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
+            _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
         public async Task<IActionResult> ListAll()
@@ -75,10 +77,12 @@ namespace webapi.Controllers
                 .OrderBy(b => b.Screening.ScreeningDate)
                 .Select(b => new
                 {
+                    Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
                     Theater = b.Screening.Theater.Name,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
                     {
@@ -129,7 +133,7 @@ namespace webapi.Controllers
             var bookingToAdd = new Booking
             {
                 BookingNbr = bookingNbr,
-                BookingTime = DateTime.Now.Date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute),
+                BookingTime = DateTime.Now,
                 UserId = userWhoBooked.Id,
                 ScreeningId = res.ScreeningId
 
@@ -174,21 +178,10 @@ namespace webapi.Controllers
                             using (MailMessage mailMessage = new MailMessage())
                             {
                                 mailMessage.From = new MailAddress(fromEmail);
-                                mailMessage.To.Add(userWhoBooked.Email);
+                                mailMessage.To.Add("fvisarna@gmail.com");
                                 mailMessage.Subject = "Bokningsbekräftelse";
-                                mailMessage.Body =
-                                $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
-                                $"Datum för bokning: {bookingToAdd.BookingTime:yyyy-MM-dd HH:mm}\n" +
-                                "Valda platser:\n";
-
-                                foreach (var bookingXSeat in res.BookingXSeats)
-                                {
-                                    var seat = await _context.Seats.FirstOrDefaultAsync(s => s.Id == bookingXSeat.SeatId);
-                                    if (seat != null)
-                                    {
-                                        mailMessage.Body += $"Stolsnummer: {seat.SeatNbr}, Rad: {seat.RowNbr}\n";
-                                    }
-                                }
+                                mailMessage.Body = $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
+                                $"Datum för bokning: {bookingToAdd.BookingTime.ToString("yyyy-MM-dd HH:mm")}\n";
 
                                 var screening = await _context.Screenings
                                     .Where(s => s.Id == bookingToAdd.ScreeningId)
@@ -202,8 +195,19 @@ namespace webapi.Controllers
                                     var theaterName = screening.Theater.Name;
 
                                     mailMessage.Body += $"Film: {movieTitle}\n";
-                                    mailMessage.Body += $"Teater: {theaterName}\n";
-                                    mailMessage.Body += $"Datum: {screening.ScreeningDate:yyyy-MM-dd HH:mm}\n";
+                                    mailMessage.Body += $"Salong: {theaterName}\n";
+                                    mailMessage.Body += $"Datum: {screening.ScreeningDate.ToString("yyyy-MM-dd HH:mm")}\n";
+                                }
+
+                                mailMessage.Body += "Valda platser:\n";
+
+                                foreach (var bookingXSeat in res.BookingXSeats)
+                                {
+                                    var seat = await _context.Seats.FirstOrDefaultAsync(s => s.Id == bookingXSeat.SeatId);
+                                    if (seat != null)
+                                    {
+                                        mailMessage.Body += $"Stolsnummer: {seat.SeatNbr}, Rad: {seat.RowNbr}\n";
+                                    }
                                 }
 
                                 client.Send(mailMessage);
