@@ -20,7 +20,7 @@ function LoginPage() {
       Email: formData.email.toLowerCase(),
       Password: formData.password
     }
-    //console.log("submit: " + loginData.Email + ' ' + loginData.Password)
+
     try {
       var res = await post('users/login', loginData);
       console.log(res);

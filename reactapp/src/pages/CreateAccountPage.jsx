@@ -107,8 +107,7 @@ function CreateAccountPage() {
       <Row className='h-100 w-100'>
         <Col className='d-flex justify-content-center align-items-center' >
           <div className="create-account-page d-flex justify-content-center align-items-center">
-
-            <Card className="custom-background w-100"> {/* Använd w-100 för att fylla hela bredden */}
+            <Card className="custom-background w-100">
               <Card.Body>
                 <Card.Title className="text-center text-dark"><h3>Bli medlem</h3></Card.Title>
                 <Form onSubmit={handleSubmit}>
