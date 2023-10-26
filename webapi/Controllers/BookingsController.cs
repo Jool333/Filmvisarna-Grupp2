@@ -47,6 +47,7 @@ namespace webapi.Controllers
                 .Where(b => b.Id == id)
                 .Select(b => new
                 {
+                    Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
