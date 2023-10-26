@@ -22,7 +22,7 @@ function AgeFilter({ handleAgeChange }) {
   return (
     <Container>
       <Row>
-        <div className="bg-filter text-center p-2 my-3">
+        <div className="bg-filter rounded text-center p-2 my-3">
           <select value={ageRating} onChange={handleFilterChange}>
             <option value="">Alla åldersgränser</option>
             <option value="G">G</option>

@@ -808,11 +808,5 @@
         "seatNbr": 54,
         "rowNbr": 7,
         "theaterId": 2
-    },
-    {
-        "id": 136,
-        "seatNbr": 55,
-        "rowNbr": 8,
-        "theaterId": 2
     }
 ]

@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
@@ -6,6 +5,9 @@ using webapi.Entities;
 using webapi.Functions;
 using webapi.ViewModel.Delete;
 using webapi.ViewModel.Post;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.Mail;
 
 namespace webapi.Controllers
 {
@@ -19,7 +21,6 @@ namespace webapi.Controllers
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
-
             _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
@@ -46,9 +47,11 @@ namespace webapi.Controllers
                 .Where(b => b.Id == id)
                 .Select(b => new
                 {
+                    Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
@@ -56,7 +59,7 @@ namespace webapi.Controllers
                         SeatNbr = s.Seat.SeatNbr,
                         RowNbr = s.Seat.RowNbr,
                     }),
-                    Ticket = b.BookingXSeats.Select(t => new
+                    Tickets = b.BookingXSeats.Select(t => new
                     {
                         Name = t.TicketType.Name,
                         Price = t.TicketType.Price,
@@ -71,17 +74,17 @@ namespace webapi.Controllers
         [HttpGet("user/{userid}")]
         public async Task<IActionResult> GetByUserId(int userid)
         {
-            CultureInfo swedishCulture = CultureInfo.CreateSpecificCulture("sv-SE");
             var result = await _context.Bookings
                 .Where(b => b.User.Id == userid)
+                .OrderBy(b => b.Screening.ScreeningDate)
                 .Select(b => new
                 {
                     Id = b.Id,
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
-                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
                     {
@@ -135,10 +138,12 @@ namespace webapi.Controllers
                 BookingTime = DateTime.Now,
                 UserId = userWhoBooked.Id,
                 ScreeningId = res.ScreeningId
+
             };
 
             try
             {
+
                 await _context.Bookings.AddAsync(bookingToAdd);
 
                 if (await _context.SaveChangesAsync() > 0)
@@ -155,16 +160,81 @@ namespace webapi.Controllers
                     }
                     await _context.SaveChangesAsync();
 
+                    try
+                    {
+                        string filePath = "Functions/mailsecrets.json";
+                        string jsonString = System.IO.File.ReadAllText(filePath);
+                        var secrets = JsonConvert.DeserializeObject<dynamic>(jsonString)!;
+
+                        string smtpServer = "smtp.gmail.com";
+                        int smtpPort = 587;
+                        string fromEmail = secrets.ServerEmail;
+                        string password = secrets.ServerPassword;
+
+                        using (SmtpClient client = new SmtpClient(smtpServer, smtpPort))
+                        {
+                            client.UseDefaultCredentials = false;
+                            client.Credentials = new NetworkCredential(fromEmail, password);
+                            client.EnableSsl = true;
+
+                            using (MailMessage mailMessage = new MailMessage())
+                            {
+                                mailMessage.From = new MailAddress(fromEmail);
+                                mailMessage.To.Add(userWhoBooked.Email);
+                                mailMessage.Subject = "Bokningsbekräftelse";
+                                mailMessage.Body = $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
+                                $"Datum för bokning: {bookingToAdd.BookingTime.ToString("yyyy-MM-dd HH:mm")}\n";
+
+                                var screening = await _context.Screenings
+                                    .Where(s => s.Id == bookingToAdd.ScreeningId)
+                                    .Include(s => s.Movie)
+                                    .Include(s => s.Theater)
+                                    .FirstOrDefaultAsync();
+
+                                if (screening != null)
+                                {
+                                    var movieTitle = screening.Movie.Title;
+                                    var theaterName = screening.Theater.Name;
+
+                                    mailMessage.Body += $"Film: {movieTitle}\n";
+                                    mailMessage.Body += $"Salong: {theaterName}\n";
+                                    mailMessage.Body += $"Datum: {screening.ScreeningDate.ToString("yyyy-MM-dd HH:mm")}\n";
+                                }
+
+                                mailMessage.Body += "Valda platser:\n";
+
+                                foreach (var bookingXSeat in res.BookingXSeats)
+                                {
+                                    var seat = await _context.Seats.FirstOrDefaultAsync(s => s.Id == bookingXSeat.SeatId);
+                                    if (seat != null)
+                                    {
+                                        mailMessage.Body += $"Stolsnummer: {seat.SeatNbr}, Rad: {seat.RowNbr}\n";
+                                    }
+                                }
+
+                                client.Send(mailMessage);
+
+                                Console.WriteLine("Email sent successfully.");
+
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Email sending failed. Error: " + ex.Message);
+                    }
+
                     // return StatusCode(201);
                     return CreatedAtAction(nameof(GetById), new { id = bookingToAdd.Id },
-                    new
-                    {
-                        Id = bookingToAdd.Id,
-                        BookingNbr = bookingToAdd.BookingNbr,
-                        BookingTime = bookingToAdd.BookingTime,
-                        UserId = bookingToAdd.UserId,
-                        ScreeningId = bookingToAdd.ScreeningId
-                    });
+                            new
+                            {
+                                Id = bookingToAdd.Id,
+                                BookingNbr = bookingToAdd.BookingNbr,
+                                BookingTime = bookingToAdd.BookingTime,
+                                UserId = bookingToAdd.UserId,
+                                ScreeningId = bookingToAdd.ScreeningId
+                            });
                 }
 
                 return StatusCode(500, "Internal Server Error");
@@ -210,6 +280,8 @@ namespace webapi.Controllers
                 Console.WriteLine(ex.Message);
                 return StatusCode(500, "Internal Server Error");
             }
+
         }
     }
+
 }

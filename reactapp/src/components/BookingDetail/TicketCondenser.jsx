@@ -13,11 +13,16 @@ function TicketCondenser({ booking }) {
   const condensedTicketsArray = Object.entries(condensedTickets);
 
   return (
-    <div>
+    <>
+      <h6>Biljetter:</h6>
       {condensedTicketsArray.map(([ticketName, count], index) => (
-        <div key={index}>{count} {ticketName}</div>
+        <h6 key={index}>{count}st {ticketName}</h6>
       ))}
-    </div>
+      <h6>
+        Total kostnad: {booking.tickets.reduce((sum, ticket) => sum + ticket.price, 0)} kr
+      </h6>
+
+    </>
   );
 }
 export default TicketCondenser;

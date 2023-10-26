@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import TicketCondenser from './TicketCondenser';
 
 function InActiveBookingDetail({ userBooking }) {
-    console.log("Ia", userBooking)
 
     const options = {
         month: 'short',
@@ -32,9 +31,7 @@ function InActiveBookingDetail({ userBooking }) {
                                 <h5>
                                     {new Date(booking.screeningDate).toLocaleString('sv-SE', options)}
                                 </h5>
-                                <h6>
-                                    Biljetter: </h6>
-                                <h6><TicketCondenser booking={booking} /></h6>
+                                <TicketCondenser booking={booking} />
                                 <h6>
                                     Platser:
                                 </h6>
