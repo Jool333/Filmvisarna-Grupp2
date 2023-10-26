@@ -8,7 +8,6 @@ function MainPage() {
   const [filterData, setFilterData] = useState({
     selectedAgeRating: '',
     selectedDate: ''
-    
   });
   const [filteredMovies, setFilteredMovies] = useState([]);
 
