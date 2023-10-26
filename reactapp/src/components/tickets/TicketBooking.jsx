@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Col, Button, Form } from 'react-bootstrap';
-import { useOutletContext } from 'react-router-dom';
+import { Col, Button, Form } from 'react-bootstrap';
+import { useOutletContext, useParams } from 'react-router-dom';
+import { get } from '../../ApiConnection';
 
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
   const maxTotalTickets = 81;
+
+  const screeningId = useParams().screeningId;
 
   const user = useOutletContext().user;
 
   const [formData, setFormData] = useState({
     email: ''
   });
-  const [IsGuest, setIsGuest] = useState(true);
+
+  const [IsGuest, setIsGuest] = useState(null);
+  const [ticketTypes, setTicketTypes] = useState([]);
 
   const handleEmailChange = (e) => {
     const { name, value } = e.target;
@@ -47,12 +52,15 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
   useEffect(() => {
     const isNotLoggedIn = (user == 0 ^ user == null)
     setIsGuest(isNotLoggedIn);
-  }, []);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
   };
+
+  async function postBooking() {
+    console.log(selectedSeats, selectedTickets, screeningId, user)
+  }
 
   const calculateTotalPrice = () => {
     const normalPrice = selectedTickets.normal * 140;
@@ -62,23 +70,18 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     return normalPrice + pensionärPrice + barnPrice;
   };
 
-  const ticketTypes = [
-    {
-      id: 1,
-      name: "normal",
-      price: 140
-    },
-    {
-      id: 2,
-      name: "pensionär",
-      price: 120
-    },
-    {
-      id: 3,
-      name: "barn",
-      price: 80
-    }
-  ]
+  useEffect(() => {
+    (async () => {
+      try {
+        const ticketData = await get('tickets');
+        setTicketTypes(ticketData)
+
+      } catch (error) {
+        console.error("Error loading ticket types:", error);
+      }
+    })()
+  }, []);
+
   const capitalizeString = (str) => {
     str = str.toLowerCase();
     return str.charAt(0).toUpperCase() + str.slice(1)
@@ -115,32 +118,47 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
       <hr />
       <h6 className='mb-2'>Totalt pris: {calculateTotalPrice()} kr</h6>
       <div className='my-4' xs={12} md={6} lg={4} >
-        {IsGuest ? (
-          <Form onSubmit={handleSubmit} className='w-5rem'>
-            <Form.Group className="mb-3">
-              <Form.Label className="text-light">E-mail:</Form.Label>
-              <Form.Control
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleEmailChange}
-                required
-              />
-            </Form.Group>
-          </Form>
-        ) : (<></>)}
-        <Button
-          variant="outline-warning"
-          type="submit"
-          disabled={
-            !isEmailValid() ||
-            selectedSeats.length === 0 ||
-            getTotalTickets() !== selectedSeats.length
-          }
-        >
-          Fortsätt
-        </Button>
+        {IsGuest ?
+          (
+            <Form onSubmit={handleSubmit} className='w-5rem'>
+              <Form.Group className="mb-3">
+                <Form.Label className="text-light">E-mail:</Form.Label>
+                <Form.Control
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleEmailChange}
+                  required
+                />
+              </Form.Group>
+              <Button
+                variant="outline-warning"
+                type="submit"
+                disabled={
+                  !isEmailValid() ||
+                  selectedSeats.length === 0 ||
+                  getTotalTickets() !== selectedSeats.length
+                }
+              >
+                Slutför bokning
+              </Button>
+            </Form>
+          ) : (
+            <Button
+              variant="outline-warning"
+              type="submit"
+              onClick={postBooking}
+              disabled={
+                selectedSeats.length === 0 ||
+                getTotalTickets() !== selectedSeats.length
+              }
+            >
+              Slutför bokning
+            </Button>
+          )
+        }
+
       </div>
     </Col >
   );
