@@ -132,9 +132,12 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
         ) : (<></>)}
         <Button
           variant="outline-warning"
-          type='submit'
-          href="/Confirmation"
-          disabled={!isEmailValid()}
+          type="submit"
+          disabled={
+            !isEmailValid() ||
+            selectedSeats.length === 0 ||
+            getTotalTickets() !== selectedSeats.length
+          }
         >
           Fortsätt
         </Button>
@@ -142,5 +145,6 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     </Col >
   );
 }
+
 
 export default TicketBooking;

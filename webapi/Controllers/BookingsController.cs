@@ -1,4 +1,3 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
@@ -22,7 +21,6 @@ namespace webapi.Controllers
         public BookingsController(FilmvisarnaContext context, IConfiguration config)
         {
             _context = context;
-
             _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
@@ -83,8 +81,8 @@ namespace webapi.Controllers
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
-                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
                     {
@@ -138,6 +136,7 @@ namespace webapi.Controllers
                 BookingTime = DateTime.Now,
                 UserId = userWhoBooked.Id,
                 ScreeningId = res.ScreeningId
+
             };
 
             try
@@ -161,7 +160,7 @@ namespace webapi.Controllers
 
                     try
                     {
-                        string filePath = "Functions/mailsecret.json";
+                        string filePath = "Functions/mailsecrets.json";
                         string jsonString = System.IO.File.ReadAllText(filePath);
                         var secrets = JsonConvert.DeserializeObject<dynamic>(jsonString)!;
 
@@ -181,16 +180,42 @@ namespace webapi.Controllers
                                 mailMessage.From = new MailAddress(fromEmail);
                                 mailMessage.To.Add(userWhoBooked.Email);
                                 mailMessage.Subject = "Bokningsbekräftelse";
-                                mailMessage.Body = $"Bokningsnummer \"{bookingToAdd.BookingNbr}\n" +
-                                // $"Film: {bookingToAdd.Screening}" +
-                                $"Valda platser {bookingToAdd.BookingXSeats}";
+                                mailMessage.Body = $"Bokningsnummer: {bookingToAdd.BookingNbr}\n" +
+                                $"Datum för bokning: {bookingToAdd.BookingTime.ToString("yyyy-MM-dd HH:mm")}\n";
 
+                                var screening = await _context.Screenings
+                                    .Where(s => s.Id == bookingToAdd.ScreeningId)
+                                    .Include(s => s.Movie)
+                                    .Include(s => s.Theater)
+                                    .FirstOrDefaultAsync();
 
+                                if (screening != null)
+                                {
+                                    var movieTitle = screening.Movie.Title;
+                                    var theaterName = screening.Theater.Name;
+
+                                    mailMessage.Body += $"Film: {movieTitle}\n";
+                                    mailMessage.Body += $"Salong: {theaterName}\n";
+                                    mailMessage.Body += $"Datum: {screening.ScreeningDate.ToString("yyyy-MM-dd HH:mm")}\n";
+                                }
+
+                                mailMessage.Body += "Valda platser:\n";
+
+                                foreach (var bookingXSeat in res.BookingXSeats)
+                                {
+                                    var seat = await _context.Seats.FirstOrDefaultAsync(s => s.Id == bookingXSeat.SeatId);
+                                    if (seat != null)
+                                    {
+                                        mailMessage.Body += $"Stolsnummer: {seat.SeatNbr}, Rad: {seat.RowNbr}\n";
+                                    }
+                                }
 
                                 client.Send(mailMessage);
+
+                                Console.WriteLine("Email sent successfully.");
+
                             }
                         }
-
 
                     }
                     catch (Exception ex)
