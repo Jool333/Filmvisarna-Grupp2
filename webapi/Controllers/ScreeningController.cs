@@ -49,15 +49,5 @@ namespace webapi.Controllers
             return Ok(result);
         }
 
-
-        [HttpGet("occupiedseats/{screeningId}")]
-        public async Task<IActionResult> GetOccupiedSeats(int screeningId)
-        {
-            var result = await _context.Database
-                .SqlQuery<int>($"SELECT seatId AS SeatId FROM bookingView WHERE ScreeningId = {screeningId}")
-                .ToListAsync();
-
-            return Ok(result);
-        }
     }
 }
