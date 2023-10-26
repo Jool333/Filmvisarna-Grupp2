@@ -44,6 +44,7 @@ namespace webapi.Controllers
                     Id = m.Id,
                     Title = m.Title,
                     Description = TruncateDescription.TruncDesc(m.Description),
+                    Duration = m.DurationMinutes,
                     ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png",
                     TrailerUrl = m.TrailerUrl
                 })
