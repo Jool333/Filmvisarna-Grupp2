@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
+using webapi.Functions;
 using webapi.ViewModel.Post;
 
 namespace webapi.Controllers
@@ -26,6 +27,7 @@ namespace webapi.Controllers
             {
                 Id = m.Id,
                 Title = m.Title,
+                Duration = m.DurationMinutes,
                 AgeLimit = m.AgeLimit,
                 ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png"
             })
@@ -42,7 +44,9 @@ namespace webapi.Controllers
                 {
                     Id = m.Id,
                     Title = m.Title,
-                    Description = m.Description,
+                    Description = TruncateDescription.TruncDesc(m.Description),
+                    Duration = m.DurationMinutes,
+                    AgeLimit = m.AgeLimit,
                     ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png",
                     TrailerUrl = m.TrailerUrl
                 })
