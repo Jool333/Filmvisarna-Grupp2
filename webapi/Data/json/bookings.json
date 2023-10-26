@@ -5,12 +5,5 @@
         "bookingTime": "2023-10-18T10:20",
         "userId": 1,
         "screeningId": 19
-    },
-    {
-        "id": 2,
-        "bookingNbr": "BBD224",
-        "bookingTime": "2023-10-25T11:10",
-        "userId": 2,
-        "screeningId": 1
     }
 ]
