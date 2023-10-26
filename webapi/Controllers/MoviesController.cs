@@ -27,6 +27,7 @@ namespace webapi.Controllers
             {
                 Id = m.Id,
                 Title = m.Title,
+                Duration = m.DurationMinutes,
                 AgeLimit = m.AgeLimit,
                 ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png"
             })
