@@ -51,6 +51,7 @@ namespace webapi.Controllers
                     BookingTime = b.BookingTime,
                     BookingNbr = b.BookingNbr,
                     Movie = b.Screening.Movie,
+                    imgUrl = _imgBaseUrl + b.Screening.Movie.ImgUrl,
                     Theater = b.Screening.Theater.Name,
                     ScreeningDate = b.Screening.ScreeningDate,
                     Seats = b.BookingXSeats.Select(s => new
@@ -58,7 +59,7 @@ namespace webapi.Controllers
                         SeatNbr = s.Seat.SeatNbr,
                         RowNbr = s.Seat.RowNbr,
                     }),
-                    Ticket = b.BookingXSeats.Select(t => new
+                    Tickets = b.BookingXSeats.Select(t => new
                     {
                         Name = t.TicketType.Name,
                         Price = t.TicketType.Price,
