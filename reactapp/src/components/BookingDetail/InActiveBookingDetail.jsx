@@ -31,8 +31,6 @@ function InActiveBookingDetail({ userBooking }) {
                                 <h5>
                                     {new Date(booking.screeningDate).toLocaleString('sv-SE', options)}
                                 </h5>
-                                <h6>
-                                    Biljetter: </h6>
                                 <h6><TicketCondenser booking={booking} /></h6>
                                 <h6>
                                     Platser:

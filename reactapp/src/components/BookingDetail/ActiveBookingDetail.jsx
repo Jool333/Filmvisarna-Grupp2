@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import TicketCondenser from './TicketCondenser';
 
 function ActiveBookingDetail({ userBooking }) {
@@ -17,6 +18,7 @@ function ActiveBookingDetail({ userBooking }) {
                 {userBooking.map((booking, index) => (
                     <Container key={index} className="container-loggedInView mt-3 text-light"  >
                         <Row className=' pt-4 px-4 bg-black rounded-top-4'>
+
                             <Col xs={6} lg={3} className='d-flex justify-content-center align-items-start p-0 '>
                                 <img className='mw-100 mh-100'
                                     src={booking.imgUrl}
@@ -32,8 +34,6 @@ function ActiveBookingDetail({ userBooking }) {
                                 <h5>
                                     {new Date(booking.screeningDate).toLocaleString('sv-SE', options)}
                                 </h5>
-                                <h6>
-                                    Biljetter: </h6>
                                 <h6><TicketCondenser booking={booking} /></h6>
                                 <h6>
                                     Platser:
