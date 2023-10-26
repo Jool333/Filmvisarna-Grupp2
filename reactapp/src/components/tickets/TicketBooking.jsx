@@ -56,10 +56,15 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    postBooking(formData.email)
   };
 
   async function postBooking() {
-    console.log(selectedSeats, selectedTickets, screeningId, user)
+    if (!formData.email) {
+      const userData = await get('users/' + user);
+      formData.email = userData.email;
+    }
+    console.log(selectedSeats, selectedTickets, screeningId, user, formData.email)
   }
 
   const calculateTotalPrice = () => {
