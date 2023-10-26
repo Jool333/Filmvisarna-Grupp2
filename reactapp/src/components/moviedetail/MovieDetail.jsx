@@ -70,11 +70,11 @@ function MovieDetail({ chosenMovie }) {
     <Container className='mt-1'>
       <Row style={{ marginTop: '3%', marginBottom: '3%', }} className="d-flex justify-content-center">
         <Col className='p-3 my-2 custom-background rounded' xs={12} md={2} >
-          <div>{movie.title}</div>
-          <div style={{ marginTop: '40px' }}>Speltid: 2 timmar 30 min</div>
-          <div style={{ marginTop: '40px' }}>Kategori: Action</div>
+          <h5>{movie.title}</h5>
+          <h6 >Speltid: 2 timmar 30 min</h6>
+          <h6 >Kategori: Action</h6>
         </Col>
-        <Col xs={12} md={7} className='custom-background rounded my-2 mx-4 px-3'>
+        <Col xs={12} md={6} className='custom-background rounded my-2 mx-4 px-3'>
           <Row className="flex p-2 pb-3">
             {/*<Col className="d-flex justify-content-center align-items-center p-0">
               <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
@@ -105,7 +105,7 @@ function MovieDetail({ chosenMovie }) {
             </Col>*/}
           </Row>
         </Col>
-        <Col className='p-3 custom-background rounded my-2' xs={12} md={2} >
+        <Col className='p-3 custom-background rounded my-2' xs={12} md={3} >
           <div>
             {movie.description}
           </div>
