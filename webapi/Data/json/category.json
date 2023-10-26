@@ -1,18 +1,14 @@
 [
     {
         "id": 1,
-        "name": "Epic biographical thriller"
-    },
-    {
-        "id": 2,
         "name": "Thriller"
     },
     {
-        "id": 3,
+        "id": 2,
         "name": "Drama"
     },
     {
-        "id": 4,
+        "id": 3,
         "name": "Criminal"
     }
 ]
