@@ -24,6 +24,24 @@ namespace webapi.Data
             }
         }
 
+        public static async Task LoadCategoryData(FilmvisarnaContext context)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            if (context.Category.Any()) return;
+            var json = System.IO.File.ReadAllText("Data/json/category.json");
+
+            var categories = JsonSerializer.Deserialize<List<Category>>(json, options);
+
+            if (categories is not null && categories.Count > 0)
+            {
+                await context.Category.AddRangeAsync(categories);
+                await context.SaveChangesAsync();
+            }
+        }
         public static async Task LoadUserData(FilmvisarnaContext context)
         {
             var options = new JsonSerializerOptions

@@ -7,6 +7,7 @@ namespace webapi.Data
     public class FilmvisarnaContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Screening> Screenings { get; set; }
         public DbSet<Seat> Seats { get; set; }
