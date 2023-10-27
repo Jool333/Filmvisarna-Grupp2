@@ -6,7 +6,6 @@ import TicketBooking from '../tickets/TicketBooking';
 import { get } from '../../ApiConnection';
 
 function SeatsGrid({ screening }) {
-
   const [seatsPerRow, setSeatsPerRow] = useState([]);
 
   useEffect(() => {
@@ -22,6 +21,25 @@ function SeatsGrid({ screening }) {
     fetchData();
   }, []);
 
+  // Hämta datan för inbokade stolar från DB
+  const [bookedSeats, setBookedSeats] = useState([]);
+  useEffect(() => {
+    const fetchBookedSeats = async () => {
+      try {
+        const response = await fetch('/api/screenings/occupiedseats/' + screeningId);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setBookedSeats(data);
+      } catch (error) {
+        console.error('Error fetching booked seats:', error);
+      }
+    };
+
+    fetchBookedSeats();
+  }, [theaterId]);
+
 
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({
@@ -31,6 +49,7 @@ function SeatsGrid({ screening }) {
   });
   const [canContinue, setCanContinue] = useState(false);
   const [isThereTickets, setIsThereTickets] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const hasSelectedTickets = selectedTickets.normal > 0 || selectedTickets.pensionär > 0 || selectedTickets.barn > 0;
@@ -43,7 +62,6 @@ function SeatsGrid({ screening }) {
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
-
 
   const handleSeatsClick = (seat) => {
     const isSeatSelected = selectedSeats.some(
@@ -79,6 +97,7 @@ function SeatsGrid({ screening }) {
         <Col md={4} xs={12}>
           <div>
             <h4 className='d-flex align-items-center justify-content-center mb-3'>Välj Stolar ({selectedSeats.length} valda)</h4>
+            {message && <p className="text-danger">{message}</p>}
             <div
               className='film-screen mb-5 bg-secondary text-center rounded'
             >
