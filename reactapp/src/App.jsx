@@ -28,7 +28,6 @@ export default function App() {
         fetchData();
     }, []);
 
-    //console.log(globals.user)
     return <>
         <header>
             <MainMenu user={globals.user} />

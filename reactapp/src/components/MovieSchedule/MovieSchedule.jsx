@@ -22,7 +22,6 @@ function MovieSchedule({ movies }) {
       movieScreeningsMap[movie.id] = screeningsForMovie;
     };
     setScreenings(movieScreeningsMap);
-    //console.log(movieScreeningsMap)
   }
 
   const fetchData = async () => {
@@ -103,8 +102,6 @@ function MovieSchedule({ movies }) {
               {/*<Col className="d-flex justify-content-center align-items-center p-0">
               <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
             </Col>*/}
-
-
               {screenings[movie.id]?.slice(0, isNarrow ? (isVeryNarrow ? 4 : 5) : 7).map(({ date, screenings }) => (
                 <Col key={date} className='flex justify-content-center align-items-center p-0 h-100'>
                   <Row className='d-flex justify-content-center align-items-center text-center py-1 mb-2 bg-filter rounded' >
@@ -117,6 +114,7 @@ function MovieSchedule({ movies }) {
                     <Row key={id} className="flex justify-content-center align-items-center">
                       <Button
                         key={id}
+                        variant="warning"
                         className='timeButton text-center custom-background border-0 text-dark m-1 mb-2 p-2 rounded'
                         onClick={() => gotoBooking(id)}
                       >
