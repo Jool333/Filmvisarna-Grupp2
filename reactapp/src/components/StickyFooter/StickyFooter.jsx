@@ -15,7 +15,7 @@ function StickyFooter() {
             </Row>
             <Row >
                 <Col className='d-flex justify-content-center'>
-                    <div>Email: 1234@Filmvisarna.se</div>
+                    <div>Email: Fvisarna@gmail.com</div>
                 </Col>
             </Row>
             <Row>
