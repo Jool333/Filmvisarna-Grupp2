@@ -20,11 +20,18 @@ function LoginPage() {
       Email: formData.email.toLowerCase(),
       Password: formData.password
     }
-    //console.log("submit: " + loginData.Email + ' ' + loginData.Password)
+
     try {
-      await post('users/login', loginData);
-      alert("Inloggningen lyckades")
-      window.location.href = '/'
+      var res = await post('users/login', loginData);
+      console.log(res);
+      if (!res.error) {
+        alert("Inloggningen lyckades")
+        window.location.href = '/'
+      } else {
+        alert("Inloggning misslyckades", res.error)
+      }
+
+
     } catch (error) {
       console.log(error)
     }

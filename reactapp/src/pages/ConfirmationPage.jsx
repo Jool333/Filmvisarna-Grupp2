@@ -13,7 +13,6 @@ function BookingView() {
     try {
       const bookingData = await get(`bookings/${bookingId}`);
       setBooking(bookingData);
-      console.log(bookingData)
     } catch (error) {
       console.error('Error fetching movies: ', error);
     }

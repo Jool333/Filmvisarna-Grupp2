@@ -29,7 +29,6 @@ function MovieDetail({ chosenMovie }) {
   async function fetchScreenings() {
     const screeningsForMovie = await get(`screenings/movie/${chosenMovie.id}`);
     setScreenings(screeningsForMovie);
-    //console.log(screeningsForMovie)
   }
 
   function gotoBooking(screeningId) {
@@ -39,8 +38,6 @@ function MovieDetail({ chosenMovie }) {
   const dateOptions = isNarrow ?
     { weekday: 'narrow', month: 'numeric', day: 'numeric' }
     : { weekday: 'short', month: 'short', day: 'numeric' };
-
-
 
   useEffect(() => {
     const updateWindowWidth = () => {
@@ -53,8 +50,6 @@ function MovieDetail({ chosenMovie }) {
       window.removeEventListener('resize', updateWindowWidth);
     };
   }, []);
-
-
 
   useEffect(() => {
     const updateWindowWidth = () => {
