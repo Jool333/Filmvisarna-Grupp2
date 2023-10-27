@@ -26,5 +26,17 @@ namespace webapi.Controllers
             .ToListAsync();
             return Ok(result);
         }
+        [HttpGet("{ticketName}")]
+        public async Task<IActionResult> GetIdByTicketName(string ticketName)
+        {
+            var result = await _context.TicketType
+            .Where(t => t.Name == ticketName)
+            .Select(t => new
+            {
+                Id = t.Id
+            })
+            .SingleOrDefaultAsync();
+            return Ok(result);
+        }
     }
 }

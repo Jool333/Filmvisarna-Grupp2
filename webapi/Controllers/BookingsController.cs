@@ -148,13 +148,13 @@ namespace webapi.Controllers
 
                 if (await _context.SaveChangesAsync() > 0)
                 {
-                    foreach (var bookingXSeat in res.BookingXSeats)
+                    foreach (var bxs in res.BookingXSeats)
                     {
                         var bookedSeats = new BookingXSeat
                         {
                             BookingId = bookingToAdd.Id,
-                            SeatId = bookingXSeat.SeatId,
-                            TicketTypeId = bookingXSeat.TicketTypeId
+                            SeatId = bxs.SeatId,
+                            TicketTypeId = bxs.TicketTypeId
                         };
                         _context.BookingsXSeats.Add(bookedSeats);
                     }
