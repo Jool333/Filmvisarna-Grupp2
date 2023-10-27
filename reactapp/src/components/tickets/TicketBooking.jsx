@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Button, Form } from 'react-bootstrap';
-import { useOutletContext, useParams } from 'react-router-dom';
-import { get } from '../../ApiConnection';
+import { useOutletContext, useParams, useNavigate } from 'react-router-dom';
+import { get, post } from '../../ApiConnection';
 
 function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, setSelectedSeats }) {
+  const navigate = useNavigate();
   const maxTotalTickets = 81;
 
   const screeningId = useParams().screeningId;
@@ -64,7 +65,37 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
       const userData = await get('users/' + user);
       formData.email = userData.email;
     }
-    console.log(selectedSeats, selectedTickets, screeningId, user, formData.email)
+    const ticketIds = [];
+
+    for (const ticketType in selectedTickets) {
+      const count = selectedTickets[ticketType];
+
+      for (let i = 0; i < count; i++) {
+        const ticketId = await get('tickets/' + ticketType);
+        ticketIds.push(ticketId);
+      }
+    }
+    const seats = selectedSeats.map(seat => seat.seat);
+    const tickets = ticketIds.map(ticket => ticket.id);
+
+    const combinedList = seats.map((seat, index) => {
+      return {
+        seatId: seat,
+        ticketTypeId: tickets[index]
+      };
+    });
+
+    const postData = {
+      userId: user,
+      screeningId: +screeningId,
+      email: formData.email,
+      bookingXSeats: combinedList
+    }
+
+    const res = await post('bookings', postData);
+
+    navigate('/confirmation/' + res.id)
+
   }
 
   const calculateTotalPrice = () => {
