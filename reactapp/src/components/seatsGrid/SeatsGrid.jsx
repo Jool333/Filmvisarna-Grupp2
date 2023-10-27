@@ -3,38 +3,16 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
+import { get } from '../../ApiConnection';
 
 function SeatsGrid({ screening }) {
-
-  const theaterId = screening.theaterId;
-  const screeningId = screening.id;
-
   const [seatsPerRow, setSeatsPerRow] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/seats');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        let data = await response.json();
-
-        // filter seats
-        data = data.filter(x => x.theaterId === theaterId);
-
-        // make array with the seats in rows (array of arrays)
-        let inRows = [], currentRowNbr, currentRow;
-        for (let seat of data) {
-          if (currentRowNbr !== seat.rowNbr) {
-            currentRowNbr = seat.rowNbr;
-            currentRow = [];
-            inRows.push(currentRow);
-          }
-          currentRow.push(seat);
-        }
-        setSeatsPerRow(inRows);
+        const seats = await get('/seats/screening/' + screening.id);
+        setSeatsPerRow(seats)
       } catch (error) {
         console.error('Error fetching seats:', error);
       }
@@ -85,15 +63,9 @@ function SeatsGrid({ screening }) {
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
 
-
-  const handleSeatsClick = (row, seat, id, isBooked) => {
-    if (isBooked) {
-      setMessage("Platsen du försöker välja är bokad.");
-      return;
-    }
-    setMessage('');
+  const handleSeatsClick = (seat) => {
     const isSeatSelected = selectedSeats.some(
-      (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat && selectedSeat.id === id
+      (selectedSeat) => selectedSeat.seat === seat
     );
 
     const maxTicketsSelected =
@@ -102,11 +74,12 @@ function SeatsGrid({ screening }) {
 
     if (!maxTicketsSelected || isSeatSelected) {
       if (isSeatSelected) {
-        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat && selectedSeat.id === id)));
+        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.seat === seat)));
       } else {
-        setSelectedSeats([...selectedSeats, { row, seat, id }]);
+        setSelectedSeats([...selectedSeats, { seat }]);
       }
     }
+
     setSelectedTickets(selectedTickets);
   };
 
@@ -132,30 +105,23 @@ function SeatsGrid({ screening }) {
             </div>
             <div className='chairs-container mt-10'>
 
-              {seatsPerRow.map((seats, i) => (
-                <Row key={i}>
+              {seatsPerRow.map((seats, row) => (
+                <Row key={row}>
                   <Col className='d-flex align-items-center justify-content-center p-0'>
-                    {seats.map((x) => {
-                      const isBooked = bookedSeats.includes(x.id);
-                      return (
-                        <div className='d-inline-block' key={x.seatNbr}>
-                          <Button
-                            variant={isBooked ? 'danger' : 'black'}
-                            size='sm'
-                            className={`chair-button border-0 p-0 ${selectedSeats.some(
-                              (seat) => seat.row === x.rowNbr && seat.seat === x.seatNbr
-                            )
-                              ? 'text-warning'
-                              : ''
-                              }`}
-                            onClick={() => handleSeatsClick(x.rowNbr, x.seatNbr, x.id, isBooked)}
-                            disabled={!isThereTickets}
-                          >
-                            <FontAwesomeIcon icon={faCouch} className="couch-font" />
-                          </Button>
-                        </div>
-                      );
-                    })}
+                    {seats.map((seat) => (
+                      < div className='d-inline-block' key={seat.id} >
+                        <Button
+                          variant='transparent'
+                          size='sm'
+                          className={`chair-button border-0 p-0 ${seat.isTaken && 'text-danger'} 
+                          ${selectedSeats.some(selectedSeat => selectedSeat.row === seat.rowNbr && selectedSeat.seat === seat.id) && 'text-warning'}`}
+                          onClick={() => handleSeatsClick(seat.id)}
+                          disabled={!isThereTickets || seat.isTaken}
+                        >
+                          <FontAwesomeIcon icon={faCouch} className="couch-font" />
+                        </Button>
+                      </div>
+                    ))}
                   </Col>
                 </Row>
               ))}
@@ -163,7 +129,7 @@ function SeatsGrid({ screening }) {
           </div>
         </Col>
       </Row>
-    </Container>
+    </Container >
   );
 }
 

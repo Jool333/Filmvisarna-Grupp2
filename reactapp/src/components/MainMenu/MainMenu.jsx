@@ -15,13 +15,11 @@ function MainMenu({ user }) {
 
   const navigate = useNavigate();
 
-  //console.log(user);
   const [isLoggedin, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const userStatus = (user != 0 && user != null)
     setIsLoggedIn(userStatus);
-    //console.log(userStatus)
   }, [user]);
 
   async function logout() {
