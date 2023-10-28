@@ -5,9 +5,6 @@ import InActiveBookingDetail from '../components/BookingDetail/InActiveBookingDe
 import { get } from '../ApiConnection';
 import { useOutletContext } from 'react-router-dom';
 
-
-
-
 function LoggedInView() {
 
     const userId = useOutletContext().user;
@@ -18,7 +15,6 @@ function LoggedInView() {
         try {
             const bookingData = await get(`bookings/user/${userId}`);
             setBooking(bookingData);
-            //console.log("Loggedin", bookingData)
         } catch (error) {
             console.error('Error fetching movies: ', error);
         }
@@ -28,9 +24,8 @@ function LoggedInView() {
         fetchBookings();
     }, [userId]);
 
-
     return (
-        < >
+        <>
             <Container className='col-12 col-lg-5 mt-2'>
                 <Row className="custom-background rounded-top-4 p-2 mx-1 flex justify-content-center" >
                     <Col className='p-0 my-3 mx-1 flex justify-content-center'>
@@ -43,7 +38,7 @@ function LoggedInView() {
                     </Col>
                 </Row>
             </Container>
-        </ >
+        </>
     );
 }
 

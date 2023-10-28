@@ -43,8 +43,6 @@ function MovieDetail({ chosenMovie }) {
     { weekday: 'narrow', month: 'numeric', day: 'numeric' }
     : { weekday: 'short', month: 'short', day: 'numeric' };
 
-
-
   useEffect(() => {
     const updateWindowWidth = () => {
       setIsNarrow(window.innerWidth <= 1383);
@@ -56,8 +54,6 @@ function MovieDetail({ chosenMovie }) {
       window.removeEventListener('resize', updateWindowWidth);
     };
   }, []);
-
-
 
   useEffect(() => {
     const updateWindowWidth = () => {
@@ -76,7 +72,11 @@ function MovieDetail({ chosenMovie }) {
       <Row className="d-flex justify-content-center mt-4">
         <Col className='p-3 my-2 custom-background rounded' md={12} lg={2} >
           <h5>{movie.title}</h5>
-          <h6 >Speltid:{isVeryNarrow ? " " : <br />} {Math.floor(movie.duration / 60)} {movie.duration <= 120 ? "timme" : "timmar"} {Math.floor(movie.duration % 60)} {movie.duration % 60 > 1 ? "minuter" : "minut"}</h6>
+          <h6 >Speltid:{isVeryNarrow ? " " : <br />}
+            {Math.floor(movie.duration / 60) + " "}
+            {movie.duration <= 120 ? "timme " : "timmar "}
+            {Math.floor(movie.duration % 60) + " "}
+            {movie.duration % 60 > 1 ? "minuter" : "minut"}</h6>
           <h6 >Åldersgräns: {movie.ageLimit}</h6>
           <div>
 

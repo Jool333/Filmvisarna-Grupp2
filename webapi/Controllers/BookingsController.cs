@@ -106,26 +106,25 @@ namespace webapi.Controllers
         [HttpPost()]
         public async Task<IActionResult> Create(BookedPostViewModel res)
         {
-            //check if all data is present
             if (!ModelState.IsValid)
             {
                 return BadRequest("All nödvändig information är inte med i anropet");
             }
+
             User userWhoBooked = await _context.Users.SingleOrDefaultAsync(c => c.Email == res.Email);
-
-
 
             if (userWhoBooked is null)
             {
                 userWhoBooked = new User
                 {
-                    Email = res.Email
+                    Email = res.Email,
+                    UserRoleId = 3
                 };
                 _context.Users.Add(userWhoBooked);
                 await _context.SaveChangesAsync();
 
             }
-            //generate a unique booking nbr
+
             var bookingNbr = "";
             do
             {
@@ -148,13 +147,13 @@ namespace webapi.Controllers
 
                 if (await _context.SaveChangesAsync() > 0)
                 {
-                    foreach (var bookingXSeat in res.BookingXSeats)
+                    foreach (var bxs in res.BookingXSeats)
                     {
                         var bookedSeats = new BookingXSeat
                         {
                             BookingId = bookingToAdd.Id,
-                            SeatId = bookingXSeat.SeatId,
-                            TicketTypeId = bookingXSeat.TicketTypeId
+                            SeatId = bxs.SeatId,
+                            TicketTypeId = bxs.TicketTypeId
                         };
                         _context.BookingsXSeats.Add(bookedSeats);
                     }

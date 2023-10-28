@@ -22,7 +22,6 @@ function MovieSchedule({ movies }) {
       movieScreeningsMap[movie.id] = screeningsForMovie;
     };
     setScreenings(movieScreeningsMap);
-    //console.log(movieScreeningsMap)
   }
 
   const fetchData = async () => {
@@ -93,18 +92,16 @@ function MovieSchedule({ movies }) {
           <Col xs={12} lg={9}>
             <Row className="d-flex">
               <h3>{movie.title}</h3>
-              <h4>Speltid: {Math.floor(movie.duration / 60)}
-                {movie.durationMinutes <= 120 ? " timme " : " timmar "}
-                {Math.floor(movie.duration % 60)}
-                {movie.durationMinutes % 60 > 1 ? " minuter" : " minut"}</h4>
+              <h4>Speltid: {Math.floor(movie.duration / 60) + " "}
+                {movie.duration <= 120 ? "timme " : "timmar "}
+                {Math.floor(movie.duration % 60) + " "}
+                {movie.duration % 60 > 1 ? "minuter" : "minut"}</h4>
               <h5>Åldersgräns: {movie.ageLimit}</h5>
             </Row>
             <Row className="flex py-2 justify-content-between text-dark m-2">
               {/*<Col className="d-flex justify-content-center align-items-center p-0">
               <Button variant="outline-dark" className="text-center h-100 w-75 border-0 ">❮</Button>
             </Col>*/}
-
-
               {screenings[movie.id]?.slice(0, isNarrow ? (isVeryNarrow ? 4 : 5) : 7).map(({ date, screenings }) => (
                 <Col key={date} className='flex justify-content-center align-items-center p-0 h-100'>
                   <Row className='d-flex justify-content-center align-items-center text-center py-1 mb-2 bg-filter rounded' >
@@ -117,6 +114,7 @@ function MovieSchedule({ movies }) {
                     <Row key={id} className="flex justify-content-center align-items-center">
                       <Button
                         key={id}
+                        variant="warning"
                         className='timeButton text-center custom-background border-0 text-dark m-1 mb-2 p-2 rounded'
                         onClick={() => gotoBooking(id)}
                       >
