@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
@@ -11,28 +12,24 @@ namespace webapi.Controllers
     [Route("api/category")]
     public class CategoryController : ControllerBase
     {
-       private readonly FilmvisarnaContext _context;
+        private readonly FilmvisarnaContext _context;
 
-            public CategoryController(FilmvisarnaContext context, IConfiguration config)
-            {
-                _context = context;
-            } 
-       
+        public CategoryController(FilmvisarnaContext context, IConfiguration config)
+        {
+            _context = context;
+        }
+
         [HttpGet("movie/{movieid}")]
         public async Task<IActionResult> GetByMovieId(int movieid)
         {
 
             var result = await _context.MoviesXCategories
-             .Where(b => movieid == b.MovieId)
+                .Where(b => movieid == b.MovieId)
                 .Select(b => new
                 {
                     Id = b.CategoryId,
-             
-                category=b.Category.Name
-
-
+                    category = b.Category.Name
                 })
-
                 .ToListAsync();
 
             return Ok(result);
