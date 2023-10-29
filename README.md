@@ -27,6 +27,9 @@ Kravspec
 Bort med användarnamn, In med förnamn, efternamn och telefonnummer. 
 Epost om du är guest. 
 
+The db-template is currently outdated, do not follow the steps regarding it below untill it is updated. Instead generate a new .db file by simply running the backend program. Where it is populated by the json files which are up to date.
+
+Currently irrelevant:
 When you have cloned this repo go to the db folder and copy Filmvisarna.db-template and rename it Filmvisarna.db before you start backend server
 The backend will connect to Filmvisarna.db
 If you make changes to the db you want commit, stop the server and copy Filmvisarna.db as a db-template and commit. 

@@ -37,6 +37,9 @@ namespace webapi.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookingNbr")
+                        .IsUnique();
+
                     b.HasIndex("ScreeningId");
 
                     b.HasIndex("UserId");
@@ -75,6 +78,9 @@ namespace webapi.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Category");
                 });
 
@@ -90,6 +96,9 @@ namespace webapi.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ImgUrl")
                         .HasColumnType("TEXT");
 
@@ -100,6 +109,18 @@ namespace webapi.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Description")
+                        .IsUnique();
+
+                    b.HasIndex("ImgUrl")
+                        .IsUnique();
+
+                    b.HasIndex("Title")
+                        .IsUnique();
+
+                    b.HasIndex("TrailerUrl")
+                        .IsUnique();
 
                     b.ToTable("Movies");
                 });
@@ -125,11 +146,11 @@ namespace webapi.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ScreeningDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("TheaterId")
                         .HasColumnType("INTEGER");
@@ -176,6 +197,9 @@ namespace webapi.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Theaters");
                 });
 
@@ -192,6 +216,9 @@ namespace webapi.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("TicketType");
                 });
@@ -217,21 +244,43 @@ namespace webapi.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserRoleId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("webapi.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("webapi.Entities.Booking", b =>
                 {
                     b.HasOne("webapi.Entities.Screening", "Screening")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("ScreeningId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("webapi.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -290,13 +339,13 @@ namespace webapi.Data.Migrations
             modelBuilder.Entity("webapi.Entities.Screening", b =>
                 {
                     b.HasOne("webapi.Entities.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Screenings")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("webapi.Entities.Theater", "Theater")
-                        .WithMany()
+                        .WithMany("Screenings")
                         .HasForeignKey("TheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -309,12 +358,23 @@ namespace webapi.Data.Migrations
             modelBuilder.Entity("webapi.Entities.Seat", b =>
                 {
                     b.HasOne("webapi.Entities.Theater", "Theater")
-                        .WithMany()
+                        .WithMany("Seats")
                         .HasForeignKey("TheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("webapi.Entities.User", b =>
+                {
+                    b.HasOne("webapi.Entities.UserRole", "UserRole")
+                        .WithMany()
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("webapi.Entities.Booking", b =>
@@ -330,6 +390,13 @@ namespace webapi.Data.Migrations
             modelBuilder.Entity("webapi.Entities.Movie", b =>
                 {
                     b.Navigation("MovieXCategories");
+
+                    b.Navigation("Screenings");
+                });
+
+            modelBuilder.Entity("webapi.Entities.Screening", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("webapi.Entities.Seat", b =>
@@ -337,9 +404,21 @@ namespace webapi.Data.Migrations
                     b.Navigation("BookingXSeats");
                 });
 
+            modelBuilder.Entity("webapi.Entities.Theater", b =>
+                {
+                    b.Navigation("Screenings");
+
+                    b.Navigation("Seats");
+                });
+
             modelBuilder.Entity("webapi.Entities.TicketType", b =>
                 {
                     b.Navigation("BookingXSeats");
+                });
+
+            modelBuilder.Entity("webapi.Entities.User", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

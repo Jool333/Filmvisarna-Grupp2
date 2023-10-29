@@ -1,166 +1,86 @@
-import React, { useState , useEffect} from 'react';
-import { Container, Row, Col, Button ,Nav} from 'react-bootstrap';
-
-import img1 from "@/assets/poster/1.jpeg"
-import img2 from "@/assets/poster/2.jpeg"
-import img3 from "@/assets/poster/3.jpeg"
-import img4 from "@/assets/poster/4.jpeg"
-import img5 from "@/assets/poster/5.jpeg"
-import img6 from "@/assets/poster/6.jpeg"
-
-import img7 from "@/assets/poster/7.jpeg"
-import img8 from "@/assets/poster/8.jpeg"
-import img9 from "@/assets/poster/9.jpeg"
-import img10 from "@/assets/poster/10.jpeg"
-import img11 from "@/assets/poster/11.jpeg"
-import img12 from "@/assets/poster/12.jpeg"
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useOutletContext, NavLink } from 'react-router-dom';
 
 function MainPage() {
-
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedAgeRating, setSelectedAgeRating] = useState('');
+  const outletContext = useOutletContext();
+  const [movies, setMovies] = useState([]);
+  const [filterData, setFilterData] = useState({
+    selectedAgeRating: '',
+    selectedDate: ''
+  });
   const [filteredMovies, setFilteredMovies] = useState([]);
-  
 
 
-
-  const FilmsData = [
-    {
-      title: 'Film 1',
-      date: '2023-09-30',
-      ageRating: 'PG',
-      img: img1
-
-    },
-    {
-      title: 'Film 2',
-      date: '2023-10-05',
-      ageRating: 'NC-17',
-      img: img2
-    },
-    {
-      title: 'Film 3',
-      date: '2023-10-05',
-      ageRating: 'G',
-      img: img3
-    },
-    {
-      title: 'Film 4',
-      date: '2023-10-05',
-      ageRating: 'PG-13',
-      img: img4
-    },
-    {
-      title: 'Film 5',
-      date: '2023-10-05',
-      ageRating: 'NC-17',
-      img:img5
-    },
-    {
-      title: 'Film 6',
-      date: '2023-10-05',
-      ageRating: 'R',
-      img:img6
-    },
-    {
-      title: 'Film 1',
-      date: '2023-09-30',
-      ageRating: 'NC-17',
-      img: img7
-
-    },
-    {
-      title: 'Film 2',
-      date: '2023-10-05',
-      ageRating: 'R',
-      img: img8
-    },
-    {
-      title: 'Film 3',
-      date: '2023-10-05',
-      ageRating: 'G',
-      img: img9
-    },
-    {
-      title: 'Film 4',
-      date: '2023-10-05',
-      ageRating: 'PG',
-      img: img10
-    },
-    {
-      title: 'Film 5',
-      date: '2023-10-05',
-      ageRating: 'PG-13',
-      img:img11
-    },
-    {
-      title: 'Film 6',
-      date: '2023-10-05',
-      ageRating: 'PG-13',
-      img:img12, 
-      link:"/MovieDetailPage"
+  const fetchData = async () => {
+    try {
+      const moviesData = await outletContext.movies;
+      setMovies(moviesData);
+    } catch (error) {
+      console.error('Error fetching movies: ', error);
     }
+  };
 
-  ];
+  useEffect(() => {
+    fetchData();
+  }, [outletContext]);
 
-  const days = [
+  useEffect(() => {
+    filterMovies()
+  }, [filterData, movies]);
+
+  const screeningDate = [
     '2023-09-30',
     '2023-10-05',
-
   ];
 
-  const filterMovies = () => {
-    console.log('filtered')
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilterData({ ...filterData, [name]: value })
+    filterMovies()
+  };
 
-    // setFilterMode(true)
-    const filtered = FilmsData.filter(movie => {
-      if (selectedDate && movie.date !== selectedDate) {
-        return false;
+  const filterMovies = () => {
+    const filtered = movies.filter(movie => {
+      if ((filterData.selectedDate == '' /* || movie.screenings.some(screening => screening.screeningDate === filterData.selectedDate))*/)
+        && (filterData.selectedAgeRating == '' || movie.ageLimit == filterData.selectedAgeRating)
+      ) {
+        return true;
       }
-      if (selectedAgeRating && movie.ageRating !== selectedAgeRating) {
-        return false;
-      }
-      return true;
+      return false;
 
     });
-    console.log(filtered)
 
     setFilteredMovies(filtered);
   };
 
-
-
-  useEffect(() => {  
-    
-
-    filterMovies()
-
-   },[]);
-
   return (
-    <Container className="mt-5">
-      <Row>
-        <Col>
+    <Container className='flex justify-content-between align-content-center' >
+      <Row className='bg-filter p-2 text-center rounded'>
+        <Col className='py-1 px-2'>
           <label htmlFor="dateSelect">Välj datum:</label>
           <select
             id="dateSelect"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+            name="selectedDate"
+            value={filterData.selectedDate}
+            onChange={handleFilterChange}
+            disabled //temp until fix
           >
-            <option value="">Välj dag</option>
-            {days.map((day, index) => (
+            <option value="">Alla dagar</option>
+            {screeningDate.map((day, index) => (
               <option key={index} value={day}>
                 {day}
               </option>
             ))}
           </select>
         </Col>
-        <Col>
+        <Col className='py-1 px-3'>
           <label htmlFor="ageRatingSelect">Välj åldersgräns:</label>
           <select
             id="ageRatingSelect"
-            value={selectedAgeRating}
-            onChange={(e) => setSelectedAgeRating(e.target.value)}
+            name="selectedAgeRating"
+            value={filterData.selectedAgeRating}
+            onChange={handleFilterChange}
           >
             <option value="">Alla åldersgränser</option>
             <option value="G">G</option>
@@ -170,29 +90,18 @@ function MainPage() {
             <option value="NC-17">NC-17</option>
           </select>
         </Col>
-        <Col className='text-center'>
-          <Button variant="light" size="sm" onClick={filterMovies}>
-            Filtrera
-          </Button>
-        </Col>
       </Row>
-      <Row>
-        <Col>
-          <div>
-            <ul className='film-list'>
-              {filteredMovies.map((movie, index) => (
-                <li key={index}  className='film-list-item' >
-                  <Nav.Link href={movie.link} style={{color:"black"}}>
+      <Row xs={12} lg={9} className='flex justify-content-center align-content-center my-3 p-0 '>
+        {filteredMovies.map((movie) => (
+          <Col xs={4} md={3} lg={2} key={movie.id} className='p-1 my-2 mx-3 flex justify-content-center align-content-center' >
+            <NavLink to={'/movie/' + [movie.id]}>
 
-                  <img src={movie.img}  width="200px" className='poster-img' />
-                  
-                  </Nav.Link>
+              <img src={movie.imgUrl} className='mw-100 w-100' />
 
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Col>
+            </NavLink>
+
+          </Col>
+        ))}
       </Row>
     </Container >
 

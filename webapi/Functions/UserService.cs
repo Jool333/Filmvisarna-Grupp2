@@ -1,42 +1,35 @@
 using System.Text;
+using System.Security.Cryptography;
+using System.Text.Json;
 
 namespace webapi.Functions
 {
     public class UserService
     {
-    public string HashPassword(string password)
-    {
-        string salt = "";
-
-        // Hash the password with the salt
-        string hashedPassword = "";
-
-    return hashedPassword;
-    }
-
-    public bool VerifyPassword(string enteredPassword, string hashedPasswordFromDatabase)
-    {
-        return (enteredPassword==hashedPasswordFromDatabase);
-    }
-
-    // Funktion för att skapa uniqt bokingsnummer. 
-    public class ReservationSystem
-    {
-    private Random random = new Random();
-
-    public string GenerateReservationNumber(int length = 6)
-    {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        StringBuilder reservationNumber = new StringBuilder();
-
-        for (int i = 0; i < length; i++)
+        private static string salt = GetSalt();
+        public static string HashPassword(string password)
         {
-            int index = random.Next(chars.Length);
-            reservationNumber.Append(chars[index]);
+            return Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(password + salt)));
         }
 
-        return reservationNumber.ToString();
+        private static string GetSalt()
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            string path = "Functions/secret.json";
+            string salt = File.ReadAllText(path);
+
+            // Deserialize JSON to SecretConfig object
+            //var secret = JsonSerializer.Deserialize<SecretConfig>(jsonString, options);
+
+            return salt;
+        }
     }
-    }
+
+    class SecretConfig
+    {
+        public string Salt { get; set; }
     }
 }

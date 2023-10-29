@@ -1,11 +1,28 @@
-// SeatsGrid.js
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import TicketBooking from '../tickets/TicketBooking';
+import { get } from '../../ApiConnection';
 
-function SeatsGrid() {
+function SeatsGrid({ screening }) {
+
+  const [seatsPerRow, setSeatsPerRow] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const seats = await get('/seats/screening/' + screening.id);
+        setSeatsPerRow(seats)
+      } catch (error) {
+        console.error('Error fetching seats:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({
     normal: 0,
@@ -13,54 +30,45 @@ function SeatsGrid() {
     barn: 0,
   });
   const [canContinue, setCanContinue] = useState(false);
-
-  const seatsPerRow = [
-    8,
-    9,
-    10,
-    10,
-    10,
-    10,
-    12,
-    12,
-  ];
+  const [isThereTickets, setIsThereTickets] = useState(false);
 
   useEffect(() => {
-    // Kolla om användaren har valt rätt antal biljetter och platser
+    const hasSelectedTickets = selectedTickets.normal > 0 || selectedTickets.pensionär > 0 || selectedTickets.barn > 0;
+    setIsThereTickets(hasSelectedTickets);
+  }, [selectedTickets]);
+
+
+
+  useEffect(() => {
     const totalSelectedTickets = selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn;
     setCanContinue(totalSelectedTickets > 0 && totalSelectedTickets === selectedSeats.length);
   }, [selectedSeats, selectedTickets]);
 
-  const handleSeatsClick = (row, seat) => {
+
+  const handleSeatsClick = (seat) => {
     const isSeatSelected = selectedSeats.some(
-      (selectedSeat) => selectedSeat.row === row && selectedSeat.seat === seat
+      (selectedSeat) => selectedSeat.seat === seat
     );
 
-    // Kolla om användaren har valt maximalt antal biljetter
     const maxTicketsSelected =
       selectedTickets.normal + selectedTickets.pensionär + selectedTickets.barn ===
       selectedSeats.length;
 
     if (!maxTicketsSelected || isSeatSelected) {
-      // Om användaren inte har valt maximalt antal biljetter eller om stolen är redan vald,
-      // tillåt dem att fortsätta välja och byta platser
       if (isSeatSelected) {
-        // Om stolen redan är vald, ta bort den från listan
-        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.row === row && selectedSeat.seat === seat)));
+        setSelectedSeats(selectedSeats.filter((selectedSeat) => !(selectedSeat.seat === seat)));
       } else {
-        // Om stolen inte är vald, lägg till den i listan
-        setSelectedSeats([...selectedSeats, { row, seat }]);
+        setSelectedSeats([...selectedSeats, { seat }]);
       }
     }
 
-    // Uppdatera state för valda biljetter och platser
-    setSelectedTickets(newSelectedTickets);
+    setSelectedTickets(selectedTickets);
   };
 
   return (
-    <Container>
-      <Row>
-        <Col xs={12} md={4}>
+    <Container className='text-light'>
+      <Row className='d-flex justify-content-center'>
+        <Col xs={12} md={6}>
           <TicketBooking
             selectedSeats={selectedSeats}
             selectedTickets={selectedTickets}
@@ -68,51 +76,30 @@ function SeatsGrid() {
             setSelectedSeats={setSelectedSeats}
           />
         </Col>
-        <Col md={6} xs={12}>
+        <Col md={4} xs={12}>
           <div>
-            <h5 className='justify-content'>Välj Stolar ({selectedSeats.length} valda)</h5>
+            <h4 className='d-flex align-items-center justify-content-center mb-3'>Välj Stolar ({selectedSeats.length} valda)</h4>
             <div
-              className='film-screen'
-              style={{
-                marginBottom: '10%',
-                maxWidth: '50%',
-                marginLeft: '25%',
-                maxHeight: '3px',
-                alignContent: 'center',
-                backgroundColor: 'gray',
-                textAlign: 'center',
-                borderRadius: '3px',
-              }}
+              className='film-screen mb-5 bg-secondary text-center rounded'
             >
-              <p style={{ color: 'white', fontSize: '15px' }}>Bioduk</p>
+              <p className='text-light' >Bioduk</p>
             </div>
-            <div className='chairs-container'>
-              {seatsPerRow.map((seats, i) => (
-                <Row key={i}>
-                  <Col className='text-center'>
-                    {new Array(seats).fill(1).map((x, j) => (
-                      <div className='d-inline-block' key={j}>
+            <div className='chairs-container mt-10'>
+
+              {seatsPerRow.map((seats, row) => (
+                <Row key={row}>
+                  <Col className='d-flex align-items-center justify-content-center p-0'>
+                    {seats.map((seat) => (
+                      < div className='d-inline-block' key={seat.id} >
                         <Button
-                          variant='black'
+                          variant='transparent'
                           size='sm'
-                          className={`chair-button ${
-                            selectedSeats.some(
-                              (seat) => seat.row === i && seat.seat === j
-                            )
-                              ? 'text-warning'
-                              : ''
-                          }`}
-                          style={{
-                            color: 'white',
-                            border: 'none',
-                            transform: 'rotate(180deg)',
-                            padding: '0',
-                            width: '1.5rem',
-                            height: '1.5rem',
-                          }}
-                          onClick={() => handleSeatsClick(i, j)}
+                          className={`chair-button border-0 p-0 ${seat.isTaken && 'text-danger'} 
+                          ${selectedSeats.some(selectedSeat => selectedSeat.row === seat.rowNbr && selectedSeat.seat === seat.id) && 'text-warning'}`}
+                          onClick={() => handleSeatsClick(seat.id)}
+                          disabled={!isThereTickets || seat.isTaken}
                         >
-                          <FontAwesomeIcon icon={faCouch} style={{ fontSize: '1.25rem' }} />
+                          <FontAwesomeIcon icon={faCouch} className="couch-font" />
                         </Button>
                       </div>
                     ))}
@@ -123,7 +110,7 @@ function SeatsGrid() {
           </div>
         </Col>
       </Row>
-    </Container>
+    </Container >
   );
 }
 

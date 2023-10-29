@@ -1,38 +1,42 @@
-import React, { useState } from 'react';
-import { Container, Col, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Col } from 'react-bootstrap';
 import SeatsGrid from '../components/seatsGrid/SeatsGrid';
+import { get } from '@/Apiconnection.jsx';
+import { useParams } from 'react-router-dom';
 
 function BookingViewPage() {
-  const [isContinueEnabled, setIsContinueEnabled] = useState(false);
 
-  // Callback-funktion som aktiverar/inaktiverar "Fortsätt"-knappen baserat på valda platser
-  const handleSeatsSelected = (selectedSeats) => {
-    const isSeatsSelected = selectedSeats.length > 1;
-    setIsContinueEnabled(isSeatsSelected);
-    console.log("isContinueEnabled:", isContinueEnabled); // Lägg till en konsollogg här för att felsöka
+  const { screeningId } = useParams();
+  const [screening, setScreening] = useState(null);
+
+  const options = {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
   };
 
-  return (
+  useEffect(() => {
+    (async () => {
+      setScreening(await get('/screenings/' + screeningId));
+    })();
+  }, []);
+
+  return !screening ? null : (
     <Container>
-<Col>
-  <div className="d-flex justify-content-between">
-    <span>Transformers</span>
-    <span>Salong, Tid</span>
-  </div>
-  <hr />
-</Col>
-       <Col style={{paddingTop:'15%', }}>
-        <SeatsGrid onSeatsSelected={handleSeatsSelected} />
+      <Col className=' text-light'>
+        <div className="d-flex justify-content-between align-items-center">
+          <h3 className='m-0'>{screening.title}</h3>
+          <div>{screening.theater}, {new Date(screening.screeningDate).toLocaleString('sv-SE', options)}</div>
+        </div>
+        <hr />
       </Col>
-      <Col>
-        <Button
-          variant="outline-warning"
-          href="/ConfirmationPage"
-        >
-          Fortsätt
-        </Button>
+      <Col className='d-flex align-items-center justify-content-center pt-3' >
+        <SeatsGrid screening={screening} />
       </Col>
+
     </Container>
+
   );
 }
 

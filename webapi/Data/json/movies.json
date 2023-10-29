@@ -1,10 +1,47 @@
 [
     {
-        "id":1,
+        "id": 1,
         "title": "Oppenheimer",
-        "description": "Nuke",
+        "description": "Oppenheimer, skriven och regisserad av Christopher Nolan, är en episk thriller, inspelad med IMAX-kameror, i vilken publiken kastas in i den pulshöjande paradoxen med den gåtfulla mannen som måste riskera att förgöra världen för att kunna rädda den.",
+        "durationMinutes": 181,
         "agelimit": "R",
-        "imgUrl": "https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg",
+        "imgUrl": "oppenheimer.jpeg",
         "trailerUrl": "bK6ldnjE3Y0"
+    },
+    {
+        "id": 2,
+        "title": "Fritt Fall",
+        "description": "Regissören Justine Triet har åskådaren i ett fast grepp med en film som rör sig i gränslandet mellan Scener ur ett äktenskap och Hitchcock.",
+        "durationMinutes": 150,
+        "agelimit": "R",
+        "imgUrl": "fritt-fall.jpg",
+        "trailerUrl": "_OK8Tkii4xQ"
+    },
+    {
+        "id": 3,
+        "title": "Höstlöv Som Faller",
+        "description": "Två ensamma främlingar möts i natten på jakt efter livets första, största och enda kärlek. Men mycket står i vägen för lyckan. Vardagens alla vanliga små och stora hinder förstärks av sådant som alkoholism, borttappade telefonnummer och att inte ens veta varandras namn.",
+        "durationMinutes": 81,
+        "agelimit": "G",
+        "imgUrl": "hostlov-som-faller.jpg",
+        "trailerUrl": "QDT3fp6NYPQ"
+    },
+    {
+        "id": 4,
+        "title": "De Ostyriga",
+        "description": "Köpenhamn bubblar av förändringens vindar när jazzmusiken sveper genom mellankrigstidens Europa. Maren, äldsta dottern i ett fattigt hushåll, insuper det nya med stor entusiasm, men hennes ungdomliga trotsighet och livslust ses inte med blida ögon av omgivningen. Genom barnavårdsnämnden tvångsplaceras hon på ön Sprogø, där man samlat unga kvinnor som anklagats för lösdriveri eller sexuell omättlighet. Hon bildar snart ett oskiljaktigt band med Sørine, och tillsammans börjar de göra uppror- med långtgående konsekvenser. Ett storslaget drama om ett av de mörkaste avsnitten av vår samtidshistoria.",
+        "durationMinutes": 135,
+        "agelimit": "G",
+        "imgUrl": "de-ostyriga.jpg",
+        "trailerUrl": "_52vtiRg97E"
+    },
+    {
+        "id": 5,
+        "title": "Joyland",
+        "description": "Familjen Rana är lycklig men går i väntans tider. Med bägge fötter stadigt i traditionerna längtar man efter att sönerna ska bli framgångsrika och att deras fruar ska föda söner som säkrar släktens framtid. Men det är inte alla i familjen som vill samma sak. Yngste sonen Haider skaffar i hemlighet jobb på en burlesk dansteater. Där blir Haider upp över öronen förälskad i Bibi, en transkvinna som är showens fixstjärna. Deras omöjliga kärlekshistoria kastar sakta men säkert nytt ljus över hela familjen Ranas inre konflikter mellan traditioner och ett sexuellt uppror.",
+        "durationMinutes": 127,
+        "agelimit": "NC-17",
+        "imgUrl": "joyland.jpg",
+        "trailerUrl": "gy9bNgbZMJI"
     }
 ]

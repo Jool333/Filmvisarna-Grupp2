@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "bookingNbr": "ABC123",
+        "bookingTime": "2023-10-18T10:20",
+        "userId": 1,
+        "screeningId": 19
+    },
+    {
+        "id": 2,
+        "bookingNbr": "DEF456",
+        "bookingTime": "2023-10-26T14:17",
+        "userId": 1,
+        "screeningId": 2
+    }
+]

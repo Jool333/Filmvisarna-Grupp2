@@ -1,27 +1,38 @@
-import React from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
-const movie = {
-    embedUrl: "U1fu_sA7XhE",
-    imgUrl: "https://images.photowall.com/products/51078/movie-poster-jaws.jpg?h=699&q=85"
-};
+function TrailerPoster({ chosenMovie }) {
+    const [movie, setMovie] = useState('');
 
-function TrailerPoster() {
+    const fetchData = async () => {
+        try {
+            const movieData = await chosenMovie;
+            setMovie(movieData);
+        } catch (error) {
+            console.error('Error fetching movies: ', error);
+        }
+    };
+
+    useEffect(() => {
+        if (chosenMovie)
+            fetchData();
+    }, [chosenMovie]);
 
     return (
-        <Container>
-            <Row className='justify-content-md-center' >
-                <Col >
-                    <iframe className="embed-responsive-item"
-                        src={"https://www.youtube.com/embed/" + `${movie.embedUrl}`}
-                        height="100%"
-                        width="100%"
+        <Container className='w-100' >
+            <Row className='flex justify-content-center  h-100'>
+                <Col sm={12} md={8} lg={9} className=" d-flex justify-content-center align-items-center p-0">
+                    <iframe className=" trailer h-100 w-100"
+                        src={`https://www.youtube.com/embed/${movie.trailerUrl}?autoplay=1`}
+                        allow='autoplay; encrypted-media'
+                        allowFullScreen
                     />
                 </Col>
-                <Col md="auto"  className="d-flex justify-content-center align-items-center">
-                    <Image src={movie.imgUrl} 
-                    alt="imgNotFound"
-                    height="500rem" />
+                <Col xs={6} md={4} lg={3} className="d-flex justify-content-center align-items-center">
+                    <img className='detail-poster'
+                        src={movie.imgUrl}
+                        alt="imgNotFound"
+                    />
                 </Col>
             </Row>
         </Container>

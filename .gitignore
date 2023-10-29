@@ -364,3 +364,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+*.db-shm
+*.db-wal
+webapi/Functions/secret.json
+webapi/Filmvisarna.db
+webapi/Functions/mailsecrets.json

@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 using webapi.Entities;
-using webapi.ViewModel;
+using webapi.Functions;
+using webapi.ViewModel.Post;
 
 namespace webapi.Controllers
 {
@@ -19,11 +20,15 @@ namespace webapi.Controllers
             _imgBaseUrl = config.GetSection("apiImageUrl").Value;
         }
         [HttpGet()]
-        public async Task<IActionResult> ListAll(){
+        public async Task<IActionResult> ListAll()
+        {
             var result = await _context.Movies
-            .Select(m => new{
+            .Select(m => new
+            {
                 Id = m.Id,
                 Title = m.Title,
+                Duration = m.DurationMinutes,
+                AgeLimit = m.AgeLimit,
                 ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png"
             })
             .ToListAsync();
@@ -39,7 +44,9 @@ namespace webapi.Controllers
                 {
                     Id = m.Id,
                     Title = m.Title,
-                    Description = m.Description,
+                    Description = TruncateDescription.TruncDesc(m.Description),
+                    Duration = m.DurationMinutes,
+                    AgeLimit = m.AgeLimit,
                     ImgUrl = _imgBaseUrl + m.ImgUrl ?? "no-movie.png",
                     TrailerUrl = m.TrailerUrl
                 })
@@ -48,7 +55,7 @@ namespace webapi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("create")]
+        [HttpPost()]
         public async Task<IActionResult> Add(MoviePostViewModel movie)
         {
             if (!ModelState.IsValid)
@@ -58,13 +65,14 @@ namespace webapi.Controllers
 
             if (await _context.Movies.SingleOrDefaultAsync(c => c.Title == movie.Title) is not null)
             {
-                return BadRequest($"Arten {movie.Title} finns redan i systemet");
+                return Conflict($"Filmen {movie.Title} finns redan i systemet");
             }
 
             var movieToAdd = new Movie
             {
                 Title = movie.Title,
                 Description = movie.Description,
+                AgeLimit = movie.AgeLimit,
                 ImgUrl = movie.ImgUrl,
                 TrailerUrl = movie.TrailerUrl
             };
@@ -82,6 +90,7 @@ namespace webapi.Controllers
                         Id = movieToAdd.Id,
                         Title = movieToAdd.Title,
                         Description = movieToAdd.Description,
+                        AgeLimit = movieToAdd.AgeLimit,
                         ImgUrl = movieToAdd.ImgUrl,
                         TrailerUrl = movieToAdd.TrailerUrl
                     });
