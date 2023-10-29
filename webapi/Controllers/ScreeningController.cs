@@ -68,25 +68,5 @@ namespace webapi.Controllers
 
             return Ok(result);
         }
-        /*
-        [HttpGet("movie/{movieid}")]
-        public async Task<IActionResult> GetByMovieId(int movieid)
-        {
-            var result = await _context.Screenings
-            .Where(s => s.Movie.Id == movieid)
-            .OrderBy(s => s.ScreeningDate)
-            .Select(s => new
-            {
-                Id = s.Id,
-                ScreeningDate = new
-                {
-                    Date = s.ScreeningDate.Date,
-                    Times = new[] { s.ScreeningDate.TimeOfDay }
-                },
-            })
-            .ToListAsync();
-
-            return Ok(result);
-        }*/
     }
 }
