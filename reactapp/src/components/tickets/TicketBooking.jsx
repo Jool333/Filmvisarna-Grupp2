@@ -61,10 +61,14 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
   };
 
   async function postBooking() {
+    var email = "";
     if (!formData.email) {
       const userData = await get('users/' + user);
-      formData.email = userData.email;
+      email = userData.email;
+    } else {
+      email = formData.email;
     }
+
     const ticketIds = [];
 
     for (const ticketType in selectedTickets) {
@@ -86,9 +90,8 @@ function TicketBooking({ selectedSeats, selectedTickets, setSelectedTickets, set
     });
 
     const postData = {
-      userId: user,
       screeningId: +screeningId,
-      email: formData.email,
+      email: email.toLowerCase(),
       bookingXSeats: combinedList
     }
 

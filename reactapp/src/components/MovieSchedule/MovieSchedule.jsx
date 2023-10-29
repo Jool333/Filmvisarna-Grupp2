@@ -92,10 +92,10 @@ function MovieSchedule({ movies }) {
           <Col xs={12} lg={9}>
             <Row className="d-flex">
               <h3>{movie.title}</h3>
-              <h4>Speltid: {Math.floor(movie.duration / 60)}
-                {movie.durationMinutes <= 120 ? " timme " : " timmar "}
-                {Math.floor(movie.duration % 60)}
-                {movie.durationMinutes % 60 > 1 ? " minuter" : " minut"}</h4>
+              <h4>Speltid: {Math.floor(movie.duration / 60) + " "}
+                {movie.duration <= 120 ? "timme " : "timmar "}
+                {Math.floor(movie.duration % 60) + " "}
+                {movie.duration % 60 > 1 ? "minuter" : "minut"}</h4>
               <h5>Åldersgräns: {movie.ageLimit}</h5>
             </Row>
             <Row className="flex py-2 justify-content-between text-dark m-2">
