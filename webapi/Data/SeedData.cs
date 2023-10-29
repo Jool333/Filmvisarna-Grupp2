@@ -31,13 +31,23 @@ namespace webapi.Data
                 PropertyNameCaseInsensitive = true
             };
 
+
+#if false
+            // This line is preventing that changes to the json file be reflected in the database
             if (context.Category.Any()) return;
+
+            // The way to go with data seeding is by using the context initializer
+            // https://learn.microsoft.com/en-us/ef/core/modeling/data-seeding
+#endif
             var json = System.IO.File.ReadAllText("Data/json/category.json");
 
             var categories = JsonSerializer.Deserialize<List<Category>>(json, options);
 
             if (categories is not null && categories.Count > 0)
             {
+                // ensure all the previous categories, if any, is removed
+                context.Category.RemoveRange(context.Category.ToArray());
+
                 await context.Category.AddRangeAsync(categories);
                 await context.SaveChangesAsync();
             }

@@ -11,6 +11,8 @@ function MovieDetail({ chosenMovie }) {
   const [isVeryNarrow, setIsVeryNarrow] = useState(window.innerWidth <= 980);
   const [screenings, setScreenings] = useState([]);
 
+  const [categories, setCategories] = useState([]);
+
   const fetchData = async () => {
     try {
       const movieData = await chosenMovie;
@@ -28,6 +30,8 @@ function MovieDetail({ chosenMovie }) {
 
   async function fetchScreenings() {
     const screeningsForMovie = await get(`screenings/movie/${chosenMovie.id}`);
+    const category = await get(`category/movie/${chosenMovie.id}`);
+    setCategories(category)
     setScreenings(screeningsForMovie);
   }
 
@@ -74,7 +78,17 @@ function MovieDetail({ chosenMovie }) {
             {Math.floor(movie.duration % 60) + " "}
             {movie.duration % 60 > 1 ? "minuter" : "minut"}</h6>
           <h6 >Åldersgräns: {movie.ageLimit}</h6>
-          <h6 >Genre: Action</h6>
+          <div>
+
+            <span>Genre: </span>
+            {categories.map(( item, key ) => {
+              return (
+                <span key={key}>{ item.category} </span>
+              )
+            })}
+          </div>
+      
+        
         </Col>
         <Col md={12} lg={6} className='custom-background rounded my-2 mx-4 px-3'>
           <Row className="flex p-0 pb-3">
