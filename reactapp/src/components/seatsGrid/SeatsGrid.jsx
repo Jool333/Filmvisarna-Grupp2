@@ -21,24 +21,7 @@ function SeatsGrid({ screening }) {
     fetchData();
   }, []);
 
-  // Hämta datan för inbokade stolar från DB
-  const [bookedSeats, setBookedSeats] = useState([]);
-  useEffect(() => {
-    const fetchBookedSeats = async () => {
-      try {
-        const response = await fetch('/api/screenings/occupiedseats/' + screeningId);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setBookedSeats(data);
-      } catch (error) {
-        console.error('Error fetching booked seats:', error);
-      }
-    };
 
-    fetchBookedSeats();
-  }, [theaterId]);
 
 
   const [selectedSeats, setSelectedSeats] = useState([]);
